@@ -1,0 +1,81 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "build",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"run",
+				"build"
+			],
+			"group": "build",
+			"problemMatcher": [
+				"$tsc"
+			]
+		},
+		{
+			"label": "npm: dev",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"run",
+				"dev"
+			],
+			"group": "build",
+			"isBackground": true,
+			"problemMatcher": {
+				"owner": "typescript",
+				"source": "ts",
+				"applyTo": "closedDocuments",
+				"fileLocation": [
+					"relative",
+					"${workspaceRoot}"
+				],
+				"pattern": "$tsc",
+				"background": {
+					"activeOnStart": true,
+					"beginsPattern": {
+						"regexp": "(.*?)"
+					},
+					"endsPattern": {
+						"regexp": "Local:\\s+(https?://localhost:\\d+)"
+					}
+				}
+			}
+		},
+		{
+			"label": "wait-for-server",
+			"type": "shell",
+			"command": "bash",
+			"args": [
+				"-c",
+				"for port in 3000 3001 3002 3003; do if curl -s http://localhost:$port > /dev/null; then echo \"Server is ready on port $port!\"; exit 0; fi; done; echo 'Waiting for server...'; sleep 2; for i in {1..30}; do for port in 3000 3001 3002 3003; do if curl -s http://localhost:$port > /dev/null; then echo \"Server is ready on port $port!\"; exit 0; fi; done; echo \"Waiting for server... ($i/30)\"; sleep 2; done; echo 'Server timeout'"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			}
+		},
+		{
+			"label": "open-chrome",
+			"type": "shell",
+			"command": "bash",
+			"args": [
+				"-c",
+				"for port in 3000 3001 3002 3003; do if curl -s http://localhost:$port > /dev/null; then echo \"Opening Chrome for port $port\"; open -a \"Google Chrome\" http://localhost:$port; exit 0; fi; done; echo 'Could not find running server'"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			}
+		},
+		{
+			"label": "start-dev-and-open-chrome",
+			"dependsOrder": "sequence",
+			"dependsOn": [
+				"npm: dev",
+				"wait-for-server",
+				"open-chrome"
+			]
+		}
+	]
+}

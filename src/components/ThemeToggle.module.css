@@ -1,0 +1,49 @@
+.themeToggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 20px;
+  transition: background-color 0.2s ease;
+}
+
+.themeToggle:hover {
+  background-color: var(--color-bg-secondary);
+}
+
+.toggleTrack {
+  width: 50px;
+  height: 26px;
+  border-radius: 13px;
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.toggleThumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: var(--color-text);
+  position: absolute;
+  top: 2px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-bg);
+}
+
+.toggleThumb.light {
+  left: 2px;
+}
+
+.toggleThumb.dark {
+  left: 26px;
+}
+
+.toggleThumb svg {
+  width: 14px;
+  height: 14px;
+}

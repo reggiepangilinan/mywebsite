@@ -1,0 +1,58 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "🚀 Launch Next.js + Chrome",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/node_modules/.bin/concurrently",
+      "args": [
+        "--kill-others-on-fail",
+        "--prefix", "name",
+        "--names", "NextJS,Chrome",
+        "--colors", "bgBlue.bold,bgMagenta.bold",
+        "npm run dev",
+        "node scripts/open-browser.js"
+      ],
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "name": "Launch Next.js App Only",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/node_modules/.bin/next",
+      "args": ["dev"],
+      "console": "integratedTerminal",
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "runtimeExecutable": "node",
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "name": "Attach Chrome Debugger",
+      "type": "chrome",
+      "request": "attach",
+      "port": 9222,
+      "webRoot": "${workspaceFolder}/src",
+      "urlFilter": "http://localhost:*/*"
+    },
+    {
+      "name": "Launch Chrome Only",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}/src",
+      "userDataDir": "${workspaceFolder}/.vscode/chrome-debug-profile",
+      "runtimeArgs": [
+        "--remote-debugging-port=9222",
+        "--disable-web-security",
+        "--disable-features=VizDisplayCompositor"
+      ]
+    }
+  ]
+}

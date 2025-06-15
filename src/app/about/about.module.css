@@ -1,0 +1,97 @@
+.about {
+  padding: 60px 0;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 40px;
+  color: var(--color-text);
+  text-align: center;
+}
+
+.content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.intro {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  margin-bottom: 60px;
+  text-align: center;
+  color: var(--color-text-secondary);
+}
+
+.skillsSection {
+  margin-bottom: 60px;
+}
+
+.sectionTitle {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 32px;
+  color: var(--color-text);
+  text-align: center;
+}
+
+.skillsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+}
+
+.skillCategory {
+  background: var(--color-card-bg);
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px var(--color-card-shadow);
+  border: 1px solid var(--color-border);
+  transition: all 0.2s ease;
+}
+
+.categoryTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: var(--color-primary);
+}
+
+.skillList {
+  list-style: none;
+  padding: 0;
+}
+
+.skillList li {
+  padding: 8px 0;
+  color: var(--color-text-secondary);
+  border-bottom: 1px solid var(--color-border);
+  transition: color 0.2s ease;
+}
+
+.skillList li:last-child {
+  border-bottom: none;
+}
+
+.experienceSection {
+  text-align: center;
+}
+
+.experienceText {
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 2rem;
+  }
+  
+  .intro {
+    font-size: 1.1rem;
+  }
+  
+  .skillsGrid {
+    grid-template-columns: 1fr;
+  }
+}
