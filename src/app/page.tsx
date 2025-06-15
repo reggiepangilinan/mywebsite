@@ -17,7 +17,7 @@ export default function Home() {
                 className={styles.avatar}
               />
             </div>
-            <h1 className={styles.title}>Hi, I'm [Your Name]</h1>
+            <h1 className={styles.title}>Hi, I&apos;m [Your Name]</h1>
             <p className={styles.subtitle}>Full Stack Developer & Designer</p>
             <div className={styles.buttonGroup}>
               <Link

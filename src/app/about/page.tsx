@@ -8,7 +8,7 @@ export default function About() {
         
         <div className={styles.content}>
           <p className={styles.intro}>
-            I'm a passionate developer with experience in building modern web applications.
+            I&apos;m a passionate developer with experience in building modern web applications.
             I love creating digital experiences that make a difference.
           </p>
           
