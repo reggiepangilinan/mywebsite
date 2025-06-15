@@ -1,95 +1,67 @@
-import Image from "next/image";
 import styles from "./page.module.css";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+    <div className={styles.home}>
+      <section className={styles.hero}>
+        <div className="container">
+          <div className={styles.heroContent}>
+            <div className={styles.profileImage}>
+              <Image
+                src="/profile.jpg"
+                alt="Profile"
+                width={200}
+                height={200}
+                className={styles.avatar}
+              />
+            </div>
+            <h1 className={styles.title}>Hi, I'm [Your Name]</h1>
+            <p className={styles.subtitle}>Full Stack Developer & Designer</p>
+            <div className={styles.buttonGroup}>
+              <Link
+                href="/projects"
+                className={`${styles.button} ${styles.primary}`}
+              >
+                View My Work
+              </Link>
+              <Link
+                href="/about"
+                className={`${styles.button} ${styles.secondary}`}
+              >
+                Learn More
+              </Link>
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </section>
+
+      <section className={styles.features}>
+        <div className="container">
+          <div className={styles.featuresGrid}>
+            <div className={styles.feature}>
+              <h3 className={styles.featureTitle}>Development</h3>
+              <p className={styles.featureText}>
+                Building modern web applications with React, Next.js, and
+                TypeScript
+              </p>
+            </div>
+            <div className={styles.feature}>
+              <h3 className={styles.featureTitle}>Design</h3>
+              <p className={styles.featureText}>
+                Creating beautiful and intuitive user experiences
+              </p>
+            </div>
+            <div className={styles.feature}>
+              <h3 className={styles.featureTitle}>Problem Solving</h3>
+              <p className={styles.featureText}>
+                Turning complex challenges into elegant solutions
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
