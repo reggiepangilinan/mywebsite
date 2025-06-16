@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import styles from './about.module.css'
 import { skillsData, keySkillsData } from './skills-data'
 import { experienceData } from './experience-data'
@@ -69,9 +70,23 @@ export default function About() {
                   {experienceData.map((exp, index) => (
                     <div key={index} className={styles.experienceItem}>
                       <div className={styles.experienceHeader}>
-                        <div className={styles.experienceInfo}>
-                          <h3 className={styles.experienceTitle}>{exp.title}</h3>
-                          <h4 className={styles.experienceCompany}>{exp.company}</h4>
+                        <div className={styles.experienceMainInfo}>
+                          {exp.companyLogo && (
+                            <div className={styles.companyLogo}>
+                              <Image
+                                src={exp.companyLogo}
+                                alt={`${exp.company} logo`}
+                                width={48}
+                                height={48}
+                                className={styles.companyLogoImage}
+                                unoptimized
+                              />
+                            </div>
+                          )}
+                          <div className={styles.experienceInfo}>
+                            <h3 className={styles.experienceTitle}>{exp.title}</h3>
+                            <h4 className={styles.experienceCompany}>{exp.company}</h4>
+                          </div>
                         </div>
                         <div className={styles.experienceMeta}>
                           <span className={styles.experiencePeriod}>{exp.period}</span>

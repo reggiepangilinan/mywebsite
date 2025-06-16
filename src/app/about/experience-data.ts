@@ -1,6 +1,7 @@
 export interface Experience {
   title: string
   company: string
+  companyLogo?: string
   period: string
   location: string
   description: string
@@ -11,6 +12,7 @@ export const experienceData: Experience[] = [
   {
     title: 'Engineering Chapter Lead',
     company: 'Woolworths Group',
+    companyLogo: '/logos/woolworths.webp',
     period: 'Nov 2023 - Present',
     location: 'Sydney, Australia',
     description: 'Oversaw the product details web squad comprising engineers, business representatives, and designers to manage and enhance the Woolworths Supermarket website. Architected and executed upgrades for the main product details page and ratings and review sections, improving SEO and overall user experience.',
@@ -22,6 +24,7 @@ export const experienceData: Experience[] = [
   {
     title: 'Technical Lead',
     company: 'WooliesX',
+    companyLogo: '/logos/wooliesx.jpeg',
     period: 'Nov 2022 - Nov 2023',
     location: 'Sydney, Australia',
     description: 'Led a multidisciplinary squad to manage supermarket website features such as product tiles, tagging systems, and promotion services. Designed technical solutions and directed the execution of the product tile uplift in Angular.',
@@ -33,6 +36,7 @@ export const experienceData: Experience[] = [
   {
     title: 'Senior Software Engineer',
     company: 'WooliesX',
+    companyLogo: '/logos/wooliesx.jpeg',
     period: 'Sep 2021 - Nov 2022',
     location: 'Sydney, Australia',
     description: 'A senior member of the squad responsible for the Woolworths Supermarket website, focusing on product details and promotions. Developed and maintained features to enhance user experience and site performance.',
@@ -46,6 +50,7 @@ export const experienceData: Experience[] = [
   {
     title: 'Senior Software Engineer',
     company: 'Zip Co',
+    companyLogo: '/logos/zipco.jpeg',
     period: 'Oct 2020 - Sept 2021',
     location: 'Sydney, Australia',
     description: 'A senior member of the acquisition engineering team who looks after the customer acquisition experience journey for the ZipAU website. Main highlights are managing microservices to do credit check, identity validation and fraud detection.',
@@ -56,6 +61,7 @@ export const experienceData: Experience[] = [
   {
     title: '.Net Developer',
     company: 'InfoTrack',
+    companyLogo: '/logos/infotrack.jpeg',
     period: 'Jan 2019 - Oct 2020',
     location: 'Sydney, Australia',
     description: 'A senior member of the PlanIT engineering team who looks after the website to manage off the plan properties. Main highlights will be managing microservices to generate bulk property contracts for different projects.',
