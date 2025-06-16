@@ -113,14 +113,6 @@ export default function Header() {
               >
                 About
               </Link>
-              <Link 
-                href="/projects" 
-                className={`${styles.navLink} ${isActive('/projects') ? styles.active : ''}`}
-                onClick={handleNavClick}
-                suppressHydrationWarning
-              >
-                Projects
-              </Link>
             </div>
             <ThemeToggle />
           </div>
