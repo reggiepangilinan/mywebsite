@@ -24,7 +24,6 @@ export default function Header() {
   }
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen)
-  const closeMenu = () => setIsMenuOpen(false)
 
   return (
     <header className={styles.header}>

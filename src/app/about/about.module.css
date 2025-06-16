@@ -90,8 +90,122 @@
   border-bottom: none;
 }
 
+/* Key Skills Section */
+.keySkillsSection {
+  margin-bottom: 60px;
+}
+
+.keySkillsList {
+  list-style: disc;
+  padding-left: 20px;
+  margin: 0;
+}
+
+.keySkillItem {
+  padding: 8px 0;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.keySkillItem strong {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
 .experienceSection {
   text-align: left;
+}
+
+.experienceList {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.experienceItem {
+  background: var(--color-card-bg);
+  padding: 24px;
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  box-shadow: 0 2px 8px var(--color-card-shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.experienceItem:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px var(--color-card-shadow);
+}
+
+.experienceHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.experienceInfo {
+  flex: 1;
+}
+
+.experienceTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0 0 4px 0;
+}
+
+.experienceCompany {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-primary);
+  margin: 0;
+}
+
+.experienceMeta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+}
+
+.experiencePeriod {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.experienceLocation {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+}
+
+.experienceDescription {
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.achievementsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.achievementItem {
+  padding: 6px 0;
+  color: var(--color-text-secondary);
+  position: relative;
+  padding-left: 20px;
+}
+
+.achievementItem::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--color-primary);
+  font-weight: bold;
 }
 
 .experienceText {
@@ -110,5 +224,37 @@
   
   .skillsGrid {
     grid-template-columns: 1fr;
+  }
+
+  .keySkillsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .keySkillCard {
+    padding: 16px;
+  }
+
+  .keySkillHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .experienceHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .experienceMeta {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .experienceItem {
+    padding: 20px;
+  }
+
+  .experienceTitle {
+    font-size: 1.1rem;
   }
 }

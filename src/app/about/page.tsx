@@ -1,31 +1,6 @@
 import styles from './about.module.css'
-
-const skillsData = {
-  Frontend: [
-    'React & Next.js',
-    'TypeScript',
-    'CSS & Sass',
-    'HTML5',
-    'JavaScript',
-    'Tailwind CSS'
-  ],
-  Backend: [
-    'Node.js',
-    'Python',
-    'PostgreSQL',
-    'MongoDB',
-    'Express.js',
-    'REST APIs'
-  ],
-  Tools: [
-    'Git & GitHub',
-    'VS Code',
-    'Docker',
-    'AWS',
-    'Figma',
-    'Webpack'
-  ]
-}
+import { skillsData, keySkillsData } from './skills-data'
+import { experienceData } from './experience-data'
 
 export default function About() {
   return (
@@ -39,7 +14,7 @@ export default function About() {
           </p>
           
           <div className={styles.skillsSection}>
-            <h2 className={styles.sectionTitle}>⚡️ Skills</h2>
+            <h2 className={styles.sectionTitle}>⚡️ Tech Stack</h2>
             <div className={styles.skillsGrid}>
               {Object.entries(skillsData).map(([category, skills]) => (
                 <div key={category} className={styles.skillCategory}>
@@ -54,11 +29,41 @@ export default function About() {
             </div>
           </div>
 
+          <div className={styles.keySkillsSection}>
+            <h2 className={styles.sectionTitle}>🎯 Key Skills</h2>
+            <ul className={styles.keySkillsList}>
+              {keySkillsData.map((skill, index) => (
+                <li key={index} className={styles.keySkillItem}>
+                  <strong>{skill.title}</strong> - {skill.description}
+                </li>
+              ))}
+            </ul>
+          </div>
+
           <div className={styles.experienceSection}>
             <h2 className={styles.sectionTitle}>📋 Experience</h2>
-            <p className={styles.experienceText}>
-              Add your professional experience here...
-            </p>
+            <div className={styles.experienceList}>
+              {experienceData.map((exp, index) => (
+                <div key={index} className={styles.experienceItem}>
+                  <div className={styles.experienceHeader}>
+                    <div className={styles.experienceInfo}>
+                      <h3 className={styles.experienceTitle}>{exp.title}</h3>
+                      <h4 className={styles.experienceCompany}>{exp.company}</h4>
+                    </div>
+                    <div className={styles.experienceMeta}>
+                      <span className={styles.experiencePeriod}>{exp.period}</span>
+                      <span className={styles.experienceLocation}>{exp.location}</span>
+                    </div>
+                  </div>
+                  <p className={styles.experienceDescription}>{exp.description}</p>
+                  <ul className={styles.achievementsList}>
+                    {exp.achievements.map((achievement, idx) => (
+                      <li key={idx} className={styles.achievementItem}>{achievement}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
