@@ -8,29 +8,28 @@ export default function ThemeToggle() {
 
   useEffect(() => {
     setMounted(true)
-    // Get current theme from localStorage or default to dark
     const savedTheme = (localStorage.getItem('theme') as 'light' | 'dark') || 'dark'
     setTheme(savedTheme)
+    document.documentElement.setAttribute('data-theme', savedTheme)
   }, [])
 
   const toggleTheme = () => {
+    if (!mounted) return
+    
     const newTheme = theme === 'light' ? 'dark' : 'light'
     setTheme(newTheme)
     localStorage.setItem('theme', newTheme)
     document.documentElement.setAttribute('data-theme', newTheme)
   }
 
+  // Don't render anything until mounted to prevent hydration mismatch
   if (!mounted) {
     return (
-      <button className={styles.themeToggle} aria-label="Theme toggle">
+      <div className={styles.themeToggle} style={{ opacity: 0 }}>
         <div className={styles.toggleTrack}>
-          <div className={`${styles.toggleThumb} ${styles.dark}`}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z" />
-            </svg>
-          </div>
+          <div className={styles.toggleThumb} />
         </div>
-      </button>
+      </div>
     )
   }
 

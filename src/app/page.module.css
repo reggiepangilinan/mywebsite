@@ -9,6 +9,19 @@
   text-align: center;
 }
 
+/* Dark theme hero - lighter black background */
+:root .hero,
+[data-theme='dark'] .hero {
+  background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+  color: var(--color-text);
+}
+
+/* Light theme hero - keep the purple gradient */
+[data-theme='light'] .hero {
+  background: linear-gradient(135deg, var(--color-primary) 0%, #764ba2 100%);
+  color: white;
+}
+
 .heroContent {
   max-width: 600px;
   margin: 0 auto;
