@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="container">
         <div className={styles.footerContent}>
           <p className={styles.copyright}>
-            © 2025 Your Name. All rights reserved.
+            © 2025 reggiepangilinan.com All rights reserved.
           </p>
           <div className={styles.socialLinks}>
             <a href="https://github.com/yourusername" className={styles.socialLink}>

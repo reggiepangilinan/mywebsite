@@ -15,7 +15,7 @@ export default function Header() {
         <div className="container">
           <div className={styles.navContent}>
             <Link href="/" className={styles.logo}>
-              Your Name
+              Reggie Pangilinan
             </Link>
             
             <div className={styles.navRight}>

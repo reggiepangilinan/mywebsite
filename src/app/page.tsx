@@ -10,14 +10,16 @@ export default function Home() {
           <div className={styles.heroContent}>
             <div className={styles.profileImage}>
               <Image
-                src="/profile.jpg"
+                src="/profile.jpeg"
                 alt="Profile"
                 width={200}
                 height={200}
                 className={styles.avatar}
               />
             </div>
-            <h1 className={styles.title}>Hi, I&apos;m [Your Name]</h1>
+            <h1 className={styles.title}>
+              <span className={styles.titleText}>Hi, I&apos;m Reggie&nbsp;Pangilinan&nbsp;<span className={styles.wave}>👋</span></span>
+            </h1>
             <p className={styles.subtitle}>Full Stack Developer & Designer</p>
             <div className={styles.buttonGroup}>
               <Link

@@ -72,16 +72,16 @@
 
 @media (max-width: 768px) {
   .navContent {
-    flex-direction: column;
-    gap: 16px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
   }
   
   .navRight {
-    width: 100%;
-    justify-content: space-between;
+    justify-content: flex-end;
   }
   
   .navLinks {
-    gap: 24px;
+    gap: 20px;
   }
 }
