@@ -12,8 +12,8 @@
 /* Dark theme hero - lighter black background */
 :root .hero,
 [data-theme='dark'] .hero {
-  background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
-  color: var(--color-text);
+  background: #1a1a1a;
+  color: white;
 }
 
 /* Light theme hero - keep the purple gradient */
@@ -198,6 +198,11 @@
 .features {
   padding: 80px 0;
   background: var(--color-bg);
+}
+
+/* Dark theme features - same as hero background */
+[data-theme='dark'] .features {
+  background: #1a1a1a;
 }
 
 .featuresGrid {
