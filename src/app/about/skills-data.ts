@@ -33,6 +33,10 @@ export const keySkillsData: KeySkill[] = [
     description: 'Skilled in deploying and managing cloud-native solutions using Azure, with experience in GitHub Copilot and CI/CD practices.'
   },
   {
+    title: 'Performance and SEO Optimisation',
+    description: 'Deep understanding of performance tuning and SEO best practices to ensure responsive, discoverable web applications.'
+  },
+  {
     title: 'Software Architecture and Design',
     description: 'Capable of designing and implementing robust microservices and micro frontend architectures that support modular, scalable solutions.'
   },
@@ -44,10 +48,7 @@ export const keySkillsData: KeySkill[] = [
     title: 'Agile Software Delivery',
     description: 'Experienced in Agile methodologies, working within Scrum teams to iterate quickly, manage sprints, and deliver on tight deadlines.'
   },
-  {
-    title: 'Performance and SEO Optimisation',
-    description: 'Deep understanding of performance tuning and SEO best practices to ensure responsive, discoverable web applications.'
-  },
+
   {
     title: 'Lifelong Learning and Team Culture',
     description: 'Actively embraces new technologies and methodologies, contributing to a collaborative and innovation-driven team environment.'

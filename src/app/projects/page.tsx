@@ -1,5 +1,8 @@
+'use client'
+
 import styles from './projects.module.css'
 import ProjectCard from '@/components/ProjectCard'
+import AnimatedSection from '@/components/AnimatedSection'
 
 export default function Projects() {
   const projects = [
@@ -26,13 +29,19 @@ export default function Projects() {
   return (
     <div className={styles.projects}>
       <div className="container">
-        <h1 className={styles.title}>My Projects</h1>
+        <AnimatedSection delay={0}>
+          <h1 className={styles.title}>My Projects</h1>
+        </AnimatedSection>
         
-        <div className={styles.projectsGrid}>
-          {projects.map((project) => (
-            <ProjectCard key={project.id} project={project} />
-          ))}
-        </div>
+        <AnimatedSection delay={200}>
+          <div className={styles.projectsGrid}>
+            {projects.map((project, index) => (
+              <AnimatedSection key={project.id} delay={400 + (index * 200)}>
+                <ProjectCard project={project} />
+              </AnimatedSection>
+            ))}
+          </div>
+        </AnimatedSection>
       </div>
     </div>
   )

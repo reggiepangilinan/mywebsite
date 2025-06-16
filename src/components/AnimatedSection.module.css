@@ -1,0 +1,43 @@
+.animatedSection {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animatedSection.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Different animation styles for variety */
+.slideUp {
+  transform: translateY(50px);
+}
+
+.slideUp.visible {
+  transform: translateY(0);
+}
+
+.fadeIn {
+  transform: translateY(20px);
+}
+
+.fadeIn.visible {
+  transform: translateY(0);
+}
+
+.slideLeft {
+  transform: translateX(-30px);
+}
+
+.slideLeft.visible {
+  transform: translateX(0);
+}
+
+.slideRight {
+  transform: translateX(30px);
+}
+
+.slideRight.visible {
+  transform: translateX(0);
+}
