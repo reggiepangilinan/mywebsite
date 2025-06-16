@@ -31,7 +31,7 @@ export default function Header() {
       <nav className={styles.nav}>
         <div className="container">
           <div className={styles.navContent}>
-            <Link href="/" className={styles.logo} onClick={closeMenu}>
+            <Link href="/" className={styles.logo} onClick={() => handleLinkClick('/')}>
               Reggie Pangilinan
             </Link>
             

@@ -1,8 +1,32 @@
+'use client'
+import { useEffect } from "react";
 import styles from "./page.module.css";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
+  useEffect(() => {
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add(styles.featureVisible);
+          }, index * 200);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    });
+
+    const featureCards = document.querySelectorAll(`.${styles.feature}`);
+    featureCards.forEach(card => observer.observe(card));
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className={styles.home}>
       <section className={styles.hero}>
