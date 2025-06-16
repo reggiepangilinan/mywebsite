@@ -50,7 +50,7 @@ export default function Home() {
               </h1>
             </AnimatedSection>
             <AnimatedSection delay={400}>
-              <p className={styles.subtitle}>Full Stack Developer & Designer</p>
+              <p className={styles.subtitle}>Engineering Leadership & Full Stack Development. I build scalable solutions for the web.</p>
             </AnimatedSection>
             <AnimatedSection delay={600}>
               <div className={styles.buttonGroup}>
@@ -76,22 +76,22 @@ export default function Home() {
         <div className="container">
           <div className={styles.featuresGrid}>
             <div className={styles.feature}>
-              <h3 className={styles.featureTitle}>Development</h3>
+              <h3 className={styles.featureTitle}>Hands-on</h3>
               <p className={styles.featureText}>
-                Building modern web applications with React, Next.js, and
-                TypeScript
+                Building modern web applications with .NET Stack, React, Next.js,
+                Azure and AI
               </p>
             </div>
             <div className={styles.feature}>
-              <h3 className={styles.featureTitle}>Design</h3>
+              <h3 className={styles.featureTitle}>Technical Leadership</h3>
               <p className={styles.featureText}>
-                Creating beautiful and intuitive user experiences
+                Leading teams to deliver high-quality, scalable software solutions
               </p>
             </div>
             <div className={styles.feature}>
               <h3 className={styles.featureTitle}>Problem Solving</h3>
               <p className={styles.featureText}>
-                Turning complex challenges into elegant solutions
+                Strategize and implement solutions to help businesses achieve their goals
               </p>
             </div>
           </div>

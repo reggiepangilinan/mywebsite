@@ -22,9 +22,13 @@
 }
 
 .socialLink {
-  color: var(--color-text-secondary);
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: all 0.2s ease;
+  font-weight: var(--font-weight-medium);
 }
 
 .socialLink:hover {
@@ -32,7 +36,10 @@
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: gradientShift 2s ease infinite;
   text-decoration: none;
+  transform: scale(1.05);
 }
 
 @media (max-width: 768px) {

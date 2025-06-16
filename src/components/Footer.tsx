@@ -9,14 +9,21 @@ export default function Footer() {
             © 2025 reggiepangilinan.com All rights reserved.
           </p>
           <div className={styles.socialLinks}>
-            <a href="https://github.com/yourusername" className={styles.socialLink}>
+            <a 
+              href="https://github.com/reggiepangilinan" 
+              className={styles.socialLink}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               GitHub
             </a>
-            <a href="https://linkedin.com/in/yourusername" className={styles.socialLink}>
+            <a 
+              href="https://linkedin.com/in/reggiepangilinan" 
+              className={styles.socialLink}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               LinkedIn
-            </a>
-            <a href="mailto:your.email@example.com" className={styles.socialLink}>
-              Email
             </a>
           </div>
         </div>

@@ -4,14 +4,29 @@ export const skillsData = {
     'Angular',
     'HTML5, CSS, JavaScript and TypeScript',
     'CMS (Contentful, AEM)',
+    'SEO (Search Engine Optimisation)',
+    'Responsive Design and Accessibility (WCAG 2.1)',
+    'Micro Frontends',
   ],
   'Backend + Cloud': [
     'C#, ASP.NET, .NET, .NET Core',
     'Azure',
-    'MSSQL, PostgreSQL',
-    'MongoDB',
-    'REST APIs and GraphQL',
-  ]
+    'Relational Database - MSSQL, PostgreSQL',
+    'NoSQL, MongoDB',
+    'Microservices Architecture',
+    'API Design and Development (REST, GraphQL)',
+    'Serverless Computing',
+  ],
+  Tools: [
+    'Unit Testing and Test Automation',
+    'Git, GitHub, GitLab',
+    'GitHub Copilot',
+    'AI-Driven Development',
+    'CI/CD (GitHub Actions, Azure DevOps)', 
+    'Docker, Kubernetes',
+    'Visual Studio, Visual Studio Code',
+    'Agile Methodologies (Scrum, Kanban)',
+  ]           
 }
 
 export interface KeySkill {
