@@ -23,15 +23,24 @@
   font-family: var(--font-family);
   font-size: 1.5rem;
   font-weight: var(--font-weight-bold);
-  color: var(--color-text);
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: all 0.2s ease;
   letter-spacing: -0.02em;
 }
 
 .logo:hover {
   text-decoration: none;
-  color: var(--color-primary);
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: gradientShift 2s ease infinite;
+  transform: scale(1.05);
 }
 
 .navRight {
@@ -57,12 +66,30 @@
 }
 
 .navLink:hover {
-  color: var(--color-primary);
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: gradientShift 2s ease infinite;
   text-decoration: none;
 }
 
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
 .navLink.active {
-  color: var(--color-primary);
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: var(--font-weight-bold);
 }
 
 .navLink.active::after {
@@ -72,7 +99,7 @@
   left: 0;
   right: 0;
   height: 2px;
-  background: var(--color-primary);
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
 }
 
 /* Hamburger Menu Styles */

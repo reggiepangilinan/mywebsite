@@ -28,7 +28,10 @@
 }
 
 .socialLink:hover {
-  color: var(--color-primary);
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   text-decoration: none;
 }
 

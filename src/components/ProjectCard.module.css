@@ -38,7 +38,10 @@
   font-size: 1.25rem;
   font-weight: 600;
   margin-bottom: 12px;
-  color: var(--color-text);
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .description {
@@ -78,6 +81,9 @@
 }
 
 .link:hover {
-  color: var(--color-primary-hover);
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   text-decoration: underline;
 }

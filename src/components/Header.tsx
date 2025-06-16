@@ -1,15 +1,27 @@
 'use client'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import styles from './Header.module.css'
 import ThemeToggle from './ThemeToggle'
 
 export default function Header() {
-  const pathname = usePathname()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [activeRoute, setActiveRoute] = useState('/')
 
-  const isActive = (path: string) => pathname === path
+  useEffect(() => {
+    // Set initial route based on current location
+    if (typeof window !== 'undefined') {
+      const currentPath = window.location.pathname
+      setActiveRoute(currentPath || '/')
+    }
+  }, [])
+
+  const isActive = (path: string) => activeRoute === path
+
+  const handleLinkClick = (path: string) => {
+    setActiveRoute(path)
+    setIsMenuOpen(false)
+  }
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen)
   const closeMenu = () => setIsMenuOpen(false)
@@ -39,21 +51,21 @@ export default function Header() {
                 <Link 
                   href="/" 
                   className={`${styles.navLink} ${isActive('/') ? styles.active : ''}`}
-                  onClick={closeMenu}
+                  onClick={() => handleLinkClick('/')}
                 >
                   Home
                 </Link>
                 <Link 
                   href="/about" 
                   className={`${styles.navLink} ${isActive('/about') ? styles.active : ''}`}
-                  onClick={closeMenu}
+                  onClick={() => handleLinkClick('/about')}
                 >
                   About
                 </Link>
                 <Link 
                   href="/projects" 
                   className={`${styles.navLink} ${isActive('/projects') ? styles.active : ''}`}
-                  onClick={closeMenu}
+                  onClick={() => handleLinkClick('/projects')}
                 >
                   Projects
                 </Link>
