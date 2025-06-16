@@ -18,7 +18,7 @@ export default function Home() {
               />
             </div>
             <h1 className={styles.title}>
-              <span className={styles.titleText}>Hi, I&apos;m Reggie&nbsp;Pangilinan&nbsp;<span className={styles.wave}>👋</span></span>
+              <span className={styles.titleText}>Hi, I&apos;m Reggie&nbsp;<span className={styles.wave}>👋</span></span>
             </h1>
             <p className={styles.subtitle}>Full Stack Developer & Designer</p>
             <div className={styles.buttonGroup}>
