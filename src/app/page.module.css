@@ -59,10 +59,6 @@
   line-height: 1;
 }
 
-.wave:hover {
-  animation: wave 0.5s ease-in-out infinite;
-}
-
 @keyframes wave {
   0%, 100% {
     transform: rotate(0deg);
@@ -87,6 +83,18 @@
   }
 }
 
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 .subtitle {
   font-family: var(--font-family);
   font-size: 1.25rem;
@@ -105,7 +113,7 @@
 
 .button {
   padding: 12px 24px;
-  border-radius: 8px;
+  border-radius: 30px;
   font-family: var(--font-family);
   font-weight: var(--font-weight-medium);
   font-size: 0.95rem;
@@ -118,6 +126,7 @@
 .primary {
   background: white;
   color: var(--color-primary);
+  display: none;
 }
 
 .primary:hover {
@@ -128,13 +137,53 @@
 .secondary {
   background: transparent;
   color: white;
-  border: 2px solid white;
+  border: 1px solid white;
+}
+
+/* Dark mode - override to have background for border visibility */
+[data-theme='dark'] .secondary {
+  background: var(--color-bg);
+  color: white;
+  border: 2px solid transparent;
 }
 
 .secondary:hover {
   background: white;
   color: var(--color-primary);
   transform: translateY(-2px);
+}
+
+/* Animated gradient for Learn More button text and border in dark mode only */
+[data-theme='dark'] .secondary {
+  background: transparent;
+  background: linear-gradient(45deg, #3b82f6, #8b5cf6, #06b6d4, #3b82f6);
+  background-size: 400% 400%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  border: 1px solid #3b82f6;
+  position: relative;
+  animation: borderGradientShift 8s ease-in-out infinite, gradientShift 8s ease-in-out infinite;
+}
+
+@keyframes borderGradientShift {
+  0% {
+    border-color: #3b82f6;
+  }
+  33% {
+    border-color: #8b5cf6;
+  }
+  66% {
+    border-color: #06b6d4;
+  }
+  100% {
+    border-color: #3b82f6;
+  }
+}
+
+[data-theme='dark'] .secondary:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
 }
 
 .about {
