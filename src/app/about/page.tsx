@@ -22,7 +22,10 @@ export default function About() {
           
           <AnimatedSection delay={400}>
             <div className={styles.skillsSection}>
-              <h2 className={styles.sectionTitle}>⚡️ Tech Stack</h2>
+              <h2 className={styles.sectionTitle}>
+                <span className={styles.emoji}>⚡️</span>
+                <span className={styles.titleText}>Tech Stack</span>
+              </h2>
               <div className={styles.skillsGrid}>
                 {Object.entries(skillsData).map(([category, skills]) => (
                   <div key={category} className={styles.skillCategory}>
@@ -40,7 +43,10 @@ export default function About() {
 
           <AnimatedSection delay={600}>
             <div className={styles.keySkillsSection}>
-              <h2 className={styles.sectionTitle}>🎯 Key Skills</h2>
+              <h2 className={styles.sectionTitle}>
+                <span className={styles.emoji}>🎯</span>
+                <span className={styles.titleText}>Key Skills</span>
+              </h2>
               <ul className={styles.keySkillsList}>
                 {keySkillsData.map((skill, index) => (
                   <li key={index} className={styles.keySkillItem}>
@@ -53,7 +59,10 @@ export default function About() {
 
           <AnimatedSection delay={800}>
             <div className={styles.experienceSection}>
-              <h2 className={styles.sectionTitle}>📋 Recent Experience</h2>
+              <h2 className={styles.sectionTitle}>
+                <span className={styles.emoji}>📋</span>
+                <span className={styles.titleText}>Recent Experience</span>
+              </h2>
               <div className={styles.experienceList}>
                 {experienceData.map((exp, index) => (
                   <div key={index} className={styles.experienceItem}>
