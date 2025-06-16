@@ -1,33 +1,16 @@
 
-> mywebsite@0.1.0 build
-> next build
+> mywebsite@0.1.0 dev
+> next dev --turbopack
 
-   ▲ Next.js 15.3.3
+ ⚠ Port 3000 is in use, using available port 3002 instead.
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:3002
+   - Network:      http://192.168.0.179:3002
 
-   Creating an optimized production build ...
- ✓ Compiled successfully in 0ms
-   Linting and checking validity of types ...
-   Collecting page data ...
-   Generating static pages (0/7) ...
-   Generating static pages (1/7) 
-   Generating static pages (3/7) 
-   Generating static pages (5/7) 
- ✓ Generating static pages (7/7)
-   Finalizing page optimization ...
-   Collecting build traces ...
-   Exporting (0/3) ...
- ✓ Exporting (3/3)
-
-Route (app)                                 Size  First Load JS
-┌ ○ /                                      581 B         110 kB
-├ ○ /_not-found                            978 B         102 kB
-├ ○ /about                                 385 B         102 kB
-└ ○ /projects                              419 B         110 kB
-+ First Load JS shared by all             101 kB
-  ├ chunks/4bd1b696-52a6696c08e3276c.js  53.2 kB
-  ├ chunks/684-d63fcb154ff3ff09.js       46.1 kB
-  └ other shared chunks (total)          1.93 kB
-
-
-○  (Static)  prerendered as static content
-
+ ✓ Starting...
+ ✓ Ready in 574ms
+ ○ Compiling / ...
+ ✓ Compiled / in 1208ms
+ GET /?id=0dc102c5-46f7-4db1-ad09-1ad24c207c53&vscodeBrowserReqId=1750057914128 200 in 1328ms
+ GET / 200 in 57ms
+[?25h

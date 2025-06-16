@@ -11,7 +11,7 @@ export default function Projects() {
       title: "E-commerce Platform",
       description: "A full-stack e-commerce solution built with Next.js and Stripe",
       technologies: ["Next.js", "TypeScript", "Stripe", "CSS Modules"],
-      image: "/project1.jpg",
+      image: "/next.svg",
       github: "https://github.com/yourusername/project1",
       demo: "https://project1-demo.com"
     },
@@ -20,7 +20,7 @@ export default function Projects() {
       title: "Task Management App",
       description: "A collaborative task management application with real-time updates",
       technologies: ["React", "Node.js", "Socket.io", "MongoDB"],
-      image: "/project2.jpg",
+      image: "/vercel.svg",
       github: "https://github.com/yourusername/project2",
       demo: "https://project2-demo.com"
     }
