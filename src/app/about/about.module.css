@@ -228,6 +228,39 @@
   line-height: 1.6;
 }
 
+/* Download Section */
+.downloadSection {
+  margin-top: 40px;
+  text-align: left;
+}
+
+.downloadLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.downloadLink:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+}
+
+.downloadIcon {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+}
+
 @media (max-width: 768px) {
   .title {
     font-size: 2rem;
