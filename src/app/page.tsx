@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import styles from "./page.module.css";
 import Image from "next/image";
 import Link from "next/link";
+import AnimatedSection from "@/components/AnimatedSection";
 
 export default function Home() {
   useEffect(() => {
@@ -32,33 +33,41 @@ export default function Home() {
       <section className={styles.hero}>
         <div className="container">
           <div className={styles.heroContent}>
-            <div className={styles.profileImage}>
-              <Image
-                src="/profile.jpeg"
-                alt="Profile"
-                width={200}
-                height={200}
-                className={styles.avatar}
-              />
-            </div>
-            <h1 className={styles.title}>
-              <span className={styles.titleText}>Hi, I&apos;m Reggie&nbsp;<span className={styles.wave}>👋</span></span>
-            </h1>
-            <p className={styles.subtitle}>Full Stack Developer & Designer</p>
-            <div className={styles.buttonGroup}>
-              <Link
-                href="/projects"
-                className={`${styles.button} ${styles.primary}`}
-              >
-                View My Work
-              </Link>
-              <Link
-                href="/about"
-                className={`${styles.button} ${styles.secondary}`}
-              >
-                Learn More
-              </Link>
-            </div>
+            <AnimatedSection delay={0}>
+              <div className={styles.profileImage}>
+                <Image
+                  src="/profile.jpeg"
+                  alt="Profile"
+                  width={200}
+                  height={200}
+                  className={styles.avatar}
+                />
+              </div>
+            </AnimatedSection>
+            <AnimatedSection delay={200}>
+              <h1 className={styles.title}>
+                <span className={styles.titleText}>Hi, I&apos;m Reggie&nbsp;<span className={styles.wave}>👋</span></span>
+              </h1>
+            </AnimatedSection>
+            <AnimatedSection delay={400}>
+              <p className={styles.subtitle}>Full Stack Developer & Designer</p>
+            </AnimatedSection>
+            <AnimatedSection delay={600}>
+              <div className={styles.buttonGroup}>
+                <Link
+                  href="/projects"
+                  className={`${styles.button} ${styles.primary}`}
+                >
+                  View My Work
+                </Link>
+                <Link
+                  href="/about"
+                  className={`${styles.button} ${styles.secondary}`}
+                >
+                  Learn More
+                </Link>
+              </div>
+            </AnimatedSection>
           </div>
         </div>
       </section>
