@@ -53,7 +53,7 @@ export default function About() {
 
           <AnimatedSection delay={800}>
             <div className={styles.experienceSection}>
-              <h2 className={styles.sectionTitle}>📋 Experience</h2>
+              <h2 className={styles.sectionTitle}>📋 Recent Experience</h2>
               <div className={styles.experienceList}>
                 {experienceData.map((exp, index) => (
                   <div key={index} className={styles.experienceItem}>

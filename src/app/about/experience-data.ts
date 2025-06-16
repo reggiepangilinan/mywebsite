@@ -9,39 +9,58 @@ export interface Experience {
 
 export const experienceData: Experience[] = [
   {
-    title: 'Senior Full Stack Developer',
-    company: 'Tech Innovation Corp',
-    period: '2022 - Present',
-    location: 'Remote',
-    description: 'Lead development of scalable web applications using React, Next.js, and Node.js. Architect cloud infrastructure and mentor junior developers.',
+    title: 'Engineering Chapter Lead',
+    company: 'Woolworths Group',
+    period: 'Nov 2023 - Present',
+    location: 'Sydney, Australia',
+    description: 'Oversaw the product details web squad comprising engineers, business representatives, and designers to manage and enhance the Woolworths Supermarket website. Architected and executed upgrades for the main product details page and ratings and review sections, improving SEO and overall user experience.',
     achievements: [
-      'Improved application performance by 40% through code optimization',
-      'Led migration to microservices architecture',
-      'Mentored 5+ junior developers'
+      'Planned and delivered a redesign for the product tile component using React, aligning with modern performance and accessibility standards.',
+      'Delivered measurable improvements to page speed and Lighthouse performance through architectural enhancements and micro frontend deployment.',
     ]
   },
   {
-    title: 'Frontend Developer',
-    company: 'Digital Solutions Ltd',
-    period: '2020 - 2022',
-    location: 'San Francisco, CA',
-    description: 'Developed responsive web applications and collaborated with design teams to create intuitive user experiences.',
+    title: 'Technical Lead',
+    company: 'WooliesX',
+    period: 'Nov 2022 - Nov 2023',
+    location: 'Sydney, Australia',
+    description: 'Led a multidisciplinary squad to manage supermarket website features such as product tiles, tagging systems, and promotion services. Designed technical solutions and directed the execution of the product tile uplift in Angular.',
     achievements: [
-      'Built 10+ responsive web applications',
-      'Reduced bundle size by 30% through optimization',
-      'Implemented accessibility standards (WCAG 2.1)'
+      'Updated the tagging service to enhance the reliability and performance of promotional content delivery',
+      'Strengthened collaboration with design and analytics teams to align engineering delivery with business objectives.',
     ]
   },
   {
-    title: 'Junior Developer',
-    company: 'StartupXYZ',
-    period: '2019 - 2020',
-    location: 'New York, NY',
-    description: 'Contributed to full-stack development projects and gained experience in modern web technologies.',
+    title: 'Senior Software Engineer',
+    company: 'WooliesX',
+    period: 'Sep 2021 - Nov 2022',
+    location: 'Sydney, Australia',
+    description: 'A senior member of the squad responsible for the Woolworths Supermarket website, focusing on product details and promotions. Developed and maintained features to enhance user experience and site performance.',
     achievements: [
-      'Developed key features for MVP launch',
-      'Participated in agile development process',
-      'Learned React, Node.js, and database management'
+      'Implemented complex pricing mechanics and promotional configurations across the website, including Member Price and Buy More Save More functionalities.',
+      'Maintained and supported the tagging service for pre-purchase promotions.',
+      'Ensured accurate and dynamic promotional displays across diverse user journeys.',
+      'Contributed to service modularisation and improved code maintainability across components',
+    ]
+  },
+  {
+    title: 'Senior Software Engineer',
+    company: 'Zip Co',
+    period: 'Oct 2020 - Sept 2021',
+    location: 'Sydney, Australia',
+    description: 'A senior member of the acquisition engineering team who looks after the customer acquisition experience journey for the ZipAU website. Main highlights are managing microservices to do credit check, identity validation and fraud detection.',
+    achievements: [
+      'Implemented new ZipAU branding for the acquisition pages.',
+    ]
+  },
+  {
+    title: '.Net Developer',
+    company: 'InfoTrack',
+    period: 'Jan 2019 - Oct 2020',
+    location: 'Sydney, Australia',
+    description: 'A senior member of the PlanIT engineering team who looks after the website to manage off the plan properties. Main highlights will be managing microservices to generate bulk property contracts for different projects.',
+    achievements: [
+      'Implemented a new design system for the then emerging react internal component library',
     ]
   }
 ]
