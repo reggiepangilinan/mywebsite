@@ -20,11 +20,13 @@
 }
 
 .logo {
+  font-family: var(--font-family);
   font-size: 1.5rem;
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   color: var(--color-text);
   text-decoration: none;
   transition: color 0.2s ease;
+  letter-spacing: -0.02em;
 }
 
 .logo:hover {
@@ -44,11 +46,14 @@
 }
 
 .navLink {
+  font-family: var(--font-family);
   color: var(--color-text-secondary);
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
+  font-size: 0.95rem;
   text-decoration: none;
   transition: color 0.2s ease;
   position: relative;
+  letter-spacing: 0.01em;
 }
 
 .navLink:hover {
@@ -70,18 +75,93 @@
   background: var(--color-primary);
 }
 
+/* Hamburger Menu Styles */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1001;
+}
+
+.hamburgerLine {
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-text);
+  margin: 3px 0;
+  transition: 0.3s;
+  transform-origin: center;
+}
+
+.hamburgerLine.hamburgerOpen:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+
+.hamburgerLine.hamburgerOpen:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburgerLine.hamburgerOpen:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
 @media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+  }
+
   .navContent {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    position: relative;
   }
   
   .navRight {
-    justify-content: flex-end;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--color-card-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    margin-top: 16px;
+    padding: 16px;
+    flex-direction: column;
+    gap: 16px;
+    box-shadow: 0 4px 16px var(--color-card-shadow);
+    transform: translateY(-10px);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+  }
+
+  .navRight.navRightOpen {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
   }
   
   .navLinks {
-    gap: 20px;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    width: 100%;
+  }
+
+  .navLink {
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+  }
+
+  .navLink:hover {
+    background-color: var(--color-bg-secondary);
   }
 }

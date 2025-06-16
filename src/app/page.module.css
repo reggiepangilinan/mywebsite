@@ -24,10 +24,12 @@
 }
 
 .title {
+  font-family: var(--font-family);
   font-size: 3rem;
-  font-weight: 700;
+  font-weight: var(--font-weight-black);
   margin-bottom: 16px;
-  line-height: 1.2;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
 }
 
 .titleText {
@@ -73,9 +75,12 @@
 }
 
 .subtitle {
+  font-family: var(--font-family);
   font-size: 1.25rem;
+  font-weight: var(--font-weight-regular);
   margin-bottom: 32px;
   opacity: 0.9;
+  letter-spacing: 0.01em;
 }
 
 .buttonGroup {
@@ -88,10 +93,13 @@
 .button {
   padding: 12px 24px;
   border-radius: 8px;
-  font-weight: 600;
+  font-family: var(--font-family);
+  font-weight: var(--font-weight-medium);
+  font-size: 0.95rem;
   text-decoration: none;
   transition: all 0.2s ease;
   display: inline-block;
+  letter-spacing: 0.02em;
 }
 
 .primary {
@@ -203,20 +211,31 @@
 }
 
 .featureTitle {
+  font-family: var(--font-family);
   font-size: 1.5rem;
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   color: var(--color-text);
   margin-bottom: 16px;
+  letter-spacing: -0.01em;
 }
 
 .featureText {
+  font-family: var(--font-family);
+  font-weight: var(--font-weight-regular);
   color: var(--color-text-secondary);
   line-height: 1.6;
+  letter-spacing: 0.01em;
 }
 
 @media (max-width: 768px) {
   .title {
     font-size: 2rem;
+  }
+
+  .titleText {
+    white-space: normal;
+    display: block;
+    text-align: center;
   }
   
   .buttonGroup {
