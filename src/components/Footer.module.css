@@ -42,6 +42,15 @@
   transform: scale(1.05);
 }
 
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
 @media (max-width: 768px) {
   .socialLinks {
     gap: 16px;
