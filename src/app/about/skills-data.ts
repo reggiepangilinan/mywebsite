@@ -1,11 +1,11 @@
 export const skillsData = {
-  Frontend: [
+  'Web Frontend': [
     'React & Next.js',
     'Angular',
     'HTML5, CSS, JavaScript and TypeScript',
     'CMS (Contentful, AEM)',
   ],
-  Backend: [
+  'Backend + Cloud': [
     'C#, ASP.NET, .NET, .NET Core',
     'Azure',
     'MSSQL, PostgreSQL',
