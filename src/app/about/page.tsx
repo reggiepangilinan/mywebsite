@@ -21,6 +21,23 @@ export default function About() {
           </AnimatedSection>
           
           <AnimatedSection delay={400}>
+            <div className={styles.keySkillsSection}>
+              <h2 className={styles.sectionTitle}>
+                <span className={styles.emoji}>🎯</span>
+                <span className={styles.titleText}>Key Skills</span>
+              </h2>
+              <div className={styles.keySkillsGrid}>
+                {keySkillsData.map((skill, index) => (
+                  <div key={index} className={styles.keySkillCard}>
+                    <h3 className={styles.keySkillTitle}>{skill.title}</h3>
+                    <p className={styles.keySkillDescription}>{skill.description}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </AnimatedSection>
+
+          <AnimatedSection delay={600}>
             <div className={styles.skillsSection}>
               <h2 className={styles.sectionTitle}>
                 <span className={styles.emoji}>⚡️</span>
@@ -38,22 +55,6 @@ export default function About() {
                   </div>
                 ))}
               </div>
-            </div>
-          </AnimatedSection>
-
-          <AnimatedSection delay={600}>
-            <div className={styles.keySkillsSection}>
-              <h2 className={styles.sectionTitle}>
-                <span className={styles.emoji}>🎯</span>
-                <span className={styles.titleText}>Key Skills</span>
-              </h2>
-              <ul className={styles.keySkillsList}>
-                {keySkillsData.map((skill, index) => (
-                  <li key={index} className={styles.keySkillItem}>
-                    <strong>{skill.title}</strong> - {skill.description}
-                  </li>
-                ))}
-              </ul>
             </div>
           </AnimatedSection>
 
