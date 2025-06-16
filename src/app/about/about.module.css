@@ -147,6 +147,12 @@
   margin: 0;
 }
 
+.experienceWrapper {
+  display: block;
+  width: 100%;
+  margin-bottom: 60px;
+}
+
 .experienceSection {
   text-align: left;
 }
@@ -324,5 +330,81 @@
 
   .experienceTitle {
     font-size: 1.1rem;
+  }
+
+  .experienceSection {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  .experienceList {
+    display: flex !important;
+  }
+
+  .experienceItem {
+    display: block !important;
+  }
+}
+
+/* Additional mobile fixes for very small screens */
+@media (max-width: 480px) {
+  .about {
+    padding: 40px 0;
+  }
+
+  .content {
+    max-width: 100%;
+  }
+
+  /* Ensure AnimatedSection works on mobile */
+  .experienceWrapper {
+    display: block !important;
+    width: 100% !important;
+    position: relative !important;
+  }
+
+  /* Make sure the section is visible even during animation */
+  .experienceSection {
+    display: block !important;
+    margin-bottom: 40px !important;
+    min-height: auto !important;
+  }
+
+  .experienceList {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+  }
+
+  .experienceItem {
+    display: block !important;
+    padding: 16px !important;
+    margin-bottom: 16px !important;
+    min-height: auto !important;
+  }
+
+  .experienceTitle {
+    font-size: 1rem !important;
+  }
+
+  .experienceCompany {
+    font-size: 0.9rem !important;
+  }
+
+  .downloadSection {
+    display: block !important;
+    margin-top: 24px !important;
+  }
+
+  .downloadLink {
+    display: inline-flex !important;
+    padding: 10px 20px !important;
+    font-size: 0.9rem !important;
+  }
+
+  /* Ensure animations are more mobile-friendly - using :global() for external class */
+  :global(.animatedSection) {
+    transition-duration: 0.4s !important;
   }
 }
