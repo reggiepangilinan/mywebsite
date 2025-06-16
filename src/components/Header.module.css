@@ -4,7 +4,7 @@
   border-bottom: 1px solid var(--color-border);
   position: sticky;
   top: 0;
-  z-index: 1000;
+  z-index: 1002;
   width: 100%;
   height: 68px;
   contain: layout style;
@@ -136,7 +136,8 @@
   border: none;
   cursor: pointer;
   padding: 0;
-  z-index: 1001;
+  z-index: 1003; /* Higher than mobile menu overlay */
+  position: relative;
 }
 
 .hamburgerLine {
@@ -173,46 +174,66 @@
   }
   
   .navRight {
-    position: absolute;
-    top: 100%;
+    position: fixed;
+    top: 0;
     left: 0;
     right: 0;
-    background: var(--color-card-bg);
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    margin-top: 8px;
-    padding: 16px;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh; /* Dynamic viewport height for mobile */
+    background: var(--color-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding-top: calc(68px + 32px); /* Header height + padding */
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 32px;
     flex-direction: column;
-    gap: 16px;
-    box-shadow: 0 4px 16px var(--color-card-shadow);
-    transform: translateY(-10px);
+    gap: 24px;
+    transform: translateX(100%);
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
-    z-index: 1000;
+    z-index: 1001;
+    overflow-y: auto;
+    box-sizing: border-box;
+    /* Ensure it covers scrollable content */
+    overscroll-behavior: contain;
+    /* Prevent any content from showing through */
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
   }
 
   .navRight.navRightOpen {
-    transform: translateY(0);
+    transform: translateX(0);
     opacity: 1;
     visibility: visible;
   }
   
   .navLinks {
     flex-direction: column;
-    gap: 16px;
-    align-items: center;
+    gap: 0;
+    align-items: stretch;
     width: 100%;
   }
 
   .navLink {
-    padding: 8px 16px;
-    border-radius: 6px;
-    transition: background-color 0.2s ease;
+    padding: 16px 0;
+    border-radius: 0;
+    transition: all 0.2s ease;
+    font-size: 1.1rem;
+    font-weight: var(--font-weight-medium);
+    width: 100%;
+    text-align: left;
+    border-bottom: 1px solid var(--color-border);
+    display: block;
+    color: var(--color-text);
   }
 
   .navLink:hover {
     background-color: var(--color-bg-secondary);
+    color: var(--color-text);
   }
 
   .navLink.active {
@@ -221,9 +242,21 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-weight: var(--font-weight-bold);
+    border-bottom-color: var(--color-primary);
   }
 
   .navLink.active::after {
     display: none; /* Remove underline on mobile */
+  }
+
+  /* Mobile theme toggle spacing */
+  .navRight > * {
+    width: 100%;
+  }
+  
+  .navRight .themeToggle {
+    margin-top: auto;
+    align-self: flex-start;
+    width: auto;
   }
 }

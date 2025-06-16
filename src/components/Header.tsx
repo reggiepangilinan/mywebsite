@@ -37,6 +37,46 @@ export default function Header() {
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen)
 
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      // Store current scroll position
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop
+      
+      // Prevent scrolling on the body
+      document.body.style.overflow = 'hidden'
+      document.body.style.position = 'fixed'
+      document.body.style.top = `-${scrollTop}px`
+      document.body.style.width = '100%'
+      // Also prevent scrolling on html element
+      document.documentElement.style.overflow = 'hidden'
+    } else {
+      // Get the stored scroll position
+      const scrollTop = document.body.style.top
+      
+      // Restore scrolling
+      document.body.style.overflow = ''
+      document.body.style.position = ''
+      document.body.style.top = ''
+      document.body.style.width = ''
+      document.documentElement.style.overflow = ''
+      
+      // Restore scroll position
+      if (scrollTop) {
+        window.scrollTo(0, parseInt(scrollTop || '0') * -1)
+      }
+    }
+    
+    // Cleanup function to restore scroll when component unmounts
+    return () => {
+      document.body.style.overflow = ''
+      document.body.style.position = ''
+      document.body.style.top = ''
+      document.body.style.width = ''
+      document.documentElement.style.overflow = ''
+    }
+  }, [isMenuOpen])
+
   return (
     <header className={styles.header}>
       <nav className={styles.nav}>
