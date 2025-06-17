@@ -74,6 +74,13 @@ export default function Home() {
 
       <section className={styles.features}>
         <div className="container">
+          <AnimatedSection delay={800}>
+            <h2 className={styles.featuresHeading}>
+
+              <span className={styles.text}>What I Do</span>
+                            <span className={styles.emoji}>🤝</span>
+            </h2>
+          </AnimatedSection>
           <div className={styles.featuresGrid}>
             <div className={styles.feature}>
               <h3 className={styles.featureTitle}>Hands-on</h3>

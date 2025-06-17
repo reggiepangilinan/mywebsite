@@ -266,6 +266,29 @@
   background: #1a1a1a;
 }
 
+.featuresHeading {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  margin-bottom: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.featuresHeading .emoji {
+  font-size: 2.5rem;
+}
+
+.featuresHeading .text {
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 .featuresGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
