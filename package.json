@@ -3,13 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "NODE_OPTIONS=\"--no-deprecation\" next dev --turbopack",
     "dev:chrome": "concurrently \"npm run dev\" \"node scripts/open-browser.js\"",
-    "build": "next build",
+    "build": "NODE_OPTIONS=\"--no-deprecation\" next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "@contentful/rich-text-react-renderer": "^16.0.2",
+    "@contentful/rich-text-types": "^17.0.1",
     "contentful": "^11.7.2",
     "next": "15.3.3",
     "react": "^19.0.0",

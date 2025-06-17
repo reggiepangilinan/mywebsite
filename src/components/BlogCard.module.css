@@ -75,10 +75,11 @@
   line-height: 1.4;
   margin: 0 0 12px 0;
   color: var(--color-text);
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  /* Temporarily remove gradient to ensure visibility */
+  /* background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   background-clip: text;
+  -webkit-text-fill-color: transparent; */
 }
 
 .subtitle {

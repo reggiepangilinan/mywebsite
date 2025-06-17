@@ -1,6 +1,15 @@
 # Blog Implementation - Contentful + ISR
 
-This document outlines the blog implementation using Contentful CMS with Incremental Static Regeneration (ISR).
+This document outlines the blog implementation using Contentful CMS with Incremental Static ### **Supported Content Types:**
+- **Headings**: H2-H6 with responsive sizing and proper hierarchy (H1 reserved for page title)
+- **Paragraphs**: Optimized line-height and spacing
+- **Text Formatting**: Bold, italic, underline support
+- **Lists**: Unordered and ordered lists with proper nesting
+- **Links**: External links with hover effects and accessibility
+- **Blockquotes**: Styled quote blocks with left border
+- **Inline Code**: Syntax-highlighted code snippets
+- **Images**: Embedded images with responsive sizing and hover effects
+- **Horizontal Rules**: Visual content separatorson (ISR).
 
 ## ✅ **Features Implemented**
 
@@ -78,7 +87,14 @@ CONTENTFUL_ACCESS_TOKEN=your_delivery_api_token_here
 4. **Publish**: Content appears on site within 1 hour (or instantly with manual revalidation)
 
 ### **Content Features:**
-- **Rich Text**: Full formatting support
+- **Rich Text**: Full formatting support with custom renderer
+  - **Headings**: H1-H6 with responsive typography
+  - **Text Formatting**: Bold, italic, underline, inline code
+  - **Lists**: Ordered and unordered lists with nesting
+  - **Links**: External links with hover effects
+  - **Images**: Embedded images with responsive sizing
+  - **Blockquotes**: Styled quote blocks
+  - **Horizontal Rules**: Visual content separators
 - **Code Blocks**: Syntax highlighting ready
 - **Images**: Responsive image handling
 - **SEO**: Automatic meta tag generation
@@ -122,6 +138,27 @@ CONTENTFUL_ACCESS_TOKEN=your_delivery_api_token_here
 - **Touch-friendly**: Proper tap targets
 - **Fast loading**: Optimized images and CSS
 - **Readable typography**: Proper font sizes and spacing
+
+## 🎨 **Rich Text Renderer**
+
+### **Supported Content Types:**
+- **Headings**: H1 content rendered as H2 (preserves page semantics), H2-H6 with responsive sizing and proper hierarchy
+- **Paragraphs**: Optimized line-height and spacing
+- **Text Formatting**: Bold, italic, underline support
+- **Lists**: Unordered and ordered lists with proper nesting
+- **Links**: External links with hover effects and accessibility
+- **Blockquotes**: Styled quote blocks with left border
+- **Inline Code**: Syntax-highlighted code snippets
+- **Images**: Embedded images with responsive sizing and hover effects
+- **Horizontal Rules**: Visual content separators
+
+### **Styling Features:**
+- **Semantic HTML**: H1 is reserved for page titles, rich text H1 content is rendered as H2
+- **Responsive Typography**: Scales properly on mobile devices
+- **Dark/Light Mode**: Inherits theme colors automatically
+- **Consistent Spacing**: Proper margins and padding throughout
+- **Accessibility**: Screen reader friendly with semantic HTML
+- **Performance**: Optimized rendering for large content
 
 ## 🛠 **Development**
 

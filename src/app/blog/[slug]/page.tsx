@@ -4,6 +4,7 @@ import { Metadata } from 'next'
 import Image from 'next/image'
 import { getBlogPost, getAllBlogSlugs } from '@/lib/contentful'
 import AnimatedSection from '@/components/AnimatedSection'
+import RichTextRenderer from '@/components/RichTextRenderer'
 import styles from './blog-post.module.css'
 
 // Enable ISR with revalidation every hour
@@ -109,57 +110,52 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   return (
     <main className={styles.main}>
-      <div className={styles.container}>
+      <div className="container">
         <AnimatedSection>
-          <article className={styles.article}>
-            {imageUrl && (
-              <div className={styles.featuredImage}>
-                <Image
-                  src={imageUrl}
-                  alt={imageAlt}
-                  width={1200}
-                  height={600}
-                  className={styles.image}
-                  unoptimized
-                  priority
-                />
+          {imageUrl && (
+            <div className={styles.featuredImage}>
+              <Image
+                src={imageUrl}
+                alt={imageAlt}
+                width={1200}
+                height={600}
+                className={styles.image}
+                unoptimized
+                priority
+              />
+            </div>
+          )}
+          
+          <header className={styles.header}>
+            <h1 className={styles.title} data-title={title}>{title}</h1>
+            
+            {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
+            
+            <div className={styles.meta}>
+              <time dateTime={publishDate} className={styles.date}>
+                {formatDate(publishDate)}
+              </time>
+              {author && <span className={styles.author}>by {author}</span>}
+            </div>
+            
+            {tags && tags.length > 0 && (
+              <div className={styles.tags}>
+                {tags.map((tag: string) => (
+                  <span key={tag} className={styles.tag}>
+                    {tag}
+                  </span>
+                ))}
               </div>
             )}
-            
-            <header className={styles.header}>
-              <div className={styles.meta}>
-                <time dateTime={publishDate} className={styles.date}>
-                  {formatDate(publishDate)}
-                </time>
-                {author && <span className={styles.author}>by {author}</span>}
-              </div>
-              
-              <h1 className={styles.title}>{title}</h1>
-              
-              {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
-              
-              {tags && tags.length > 0 && (
-                <div className={styles.tags}>
-                  {tags.map((tag: string) => (
-                    <span key={tag} className={styles.tag}>
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              )}
-            </header>
-            
-            <div className={styles.content}>
-              {typeof content === 'string' ? (
-                <div dangerouslySetInnerHTML={{ __html: content }} />
-              ) : (
-                <div>
-                  <p>Rich text content from Contentful needs additional processing.</p>
-                  <p>Please ensure your content field in Contentful is set to &ldquo;Long text&rdquo; rather than &ldquo;Rich text&rdquo; for HTML content, or implement a rich text renderer.</p>
-                </div>
-              )}
-            </div>
-          </article>
+          </header>
+          
+          <div className={styles.content}>
+            {typeof content === 'string' ? (
+              <div dangerouslySetInnerHTML={{ __html: content }} />
+            ) : (
+              <RichTextRenderer content={content} />
+            )}
+          </div>
         </AnimatedSection>
       </div>
     </main>

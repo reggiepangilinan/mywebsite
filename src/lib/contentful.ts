@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createClient, Entry, EntrySkeletonType, Asset } from 'contentful'
+import { Document } from '@contentful/rich-text-types'
 
 // Check if environment variables are available
 const spaceId = process.env.CONTENTFUL_SPACE_ID
@@ -15,7 +16,7 @@ export interface BlogPostFields {
   subtitle?: string
   slug: string
   excerpt: string
-  content: string
+  content: string | Document
   featuredImage?: Asset
   publishDate: string
   tags?: string[]
