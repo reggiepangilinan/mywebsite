@@ -5,6 +5,8 @@
   padding: 4px;
   border-radius: 20px;
   transition: background-color 0.2s ease;
+  width: auto !important; /* Prevent width inheritance on mobile */
+  max-width: fit-content;
 }
 
 .themeToggle:hover {
