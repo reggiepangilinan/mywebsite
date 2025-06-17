@@ -4,6 +4,8 @@
 - [x] Next.js configured for static export (`output: 'export'`)
 - [x] Images set to `unoptimized: true`
 - [x] netlify.toml configuration file created
+- [x] robots.txt file added for SEO
+- [x] sitemap.xml file added for search engine discovery
 - [x] Build script working (`npm run build`)
 - [x] Static files generated in `out/` directory
 - [x] CSS errors resolved
@@ -32,6 +34,9 @@
 - [ ] Test dark/light mode toggle
 - [ ] Verify images load properly
 - [ ] Test download link functionality
+- [ ] Verify robots.txt is accessible at yoursite.com/robots.txt
+- [ ] Verify sitemap.xml is accessible at yoursite.com/sitemap.xml
+- [ ] Submit sitemap to Google Search Console (optional)
 - [ ] Set up custom domain (optional)
 
 ## Automatic Deployment

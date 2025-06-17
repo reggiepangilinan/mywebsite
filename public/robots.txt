@@ -1,0 +1,21 @@
+User-agent: *
+Allow: /
+
+# Allow all search engines to crawl the entire site
+Disallow:
+
+# Sitemap location
+Sitemap: https://reggiepangilinan.com/sitemap.xml
+
+# Common directories to exclude (if they exist)
+# Disallow: /admin/
+# Disallow: /private/
+# Disallow: /_next/
+
+# Allow specific important pages
+Allow: /
+Allow: /about
+Allow: /projects
+
+# Crawl delay (optional - be respectful to servers)
+# Crawl-delay: 1
