@@ -430,9 +430,4 @@
     padding: 10px 20px !important;
     font-size: 0.9rem !important;
   }
-
-  /* Ensure animations are more mobile-friendly - using :global() for external class */
-  :global(.animatedSection) {
-    transition-duration: 0.4s !important;
-  }
 }

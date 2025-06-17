@@ -113,6 +113,49 @@ This site is configured for static export and can be deployed to:
 - GitHub Pages
 - Any static hosting service
 
+### Netlify Deployment
+
+This project is configured for easy deployment to Netlify with static site generation.
+
+#### Option 1: Connect Git Repository (Recommended)
+
+1. **Push to Git**: Make sure your code is pushed to a Git repository (GitHub, GitLab, etc.)
+
+2. **Connect to Netlify**:
+   - Go to [Netlify](https://netlify.com)
+   - Click "New site from Git"
+   - Connect your Git provider and select your repository
+
+3. **Build Settings** (Auto-configured via `netlify.toml`):
+   - **Build command**: `npm run build`
+   - **Publish directory**: `out`
+   - **Node version**: `18`
+
+4. **Deploy**: Click "Deploy site" - Netlify will automatically build and deploy your site
+
+#### Option 2: Manual Deploy
+
+1. **Build locally**:
+   ```bash
+   npm run build
+   ```
+
+2. **Deploy the `out` folder**:
+   - Go to [Netlify](https://netlify.com)
+   - Drag and drop the `out` folder to the deploy area
+
+#### Features Included:
+
+- ✅ **Static Export**: Optimized for CDN delivery
+- ✅ **Security Headers**: XSS protection, frame options, etc.
+- ✅ **Cache Optimization**: Long-term caching for static assets
+- ✅ **Redirect Handling**: Clean URLs and trailing slash management
+- ✅ **Performance**: Pre-built static files for fast loading
+
+#### Custom Domain
+
+After deployment, you can add a custom domain in your Netlify site settings.
+
 ## Troubleshooting
 
 ### Chrome Not Opening Automatically

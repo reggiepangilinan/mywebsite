@@ -1,0 +1,7 @@
+# Netlify redirects file
+# Handle trailing slashes
+/about/  /about  301
+/projects/  /projects  301
+
+# Fallback for SPA routing (if needed in future)
+/*  /index.html  200
