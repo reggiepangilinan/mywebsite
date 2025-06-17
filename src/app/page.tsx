@@ -86,7 +86,7 @@ export default function Home() {
               <h3 className={styles.featureTitle}>Hands-on</h3>
               <p className={styles.featureText}>
                 Building modern web applications with .NET Stack, React, Next.js,
-                Azure and AI
+                Azure and AI Tools
               </p>
             </div>
             <div className={styles.feature}>

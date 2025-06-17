@@ -1,11 +1,22 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Roboto } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ 
+  subsets: ["latin"],
+  display: 'swap',
+  variable: '--font-inter'
+});
+
+const roboto = Roboto({ 
+  weight: ['300', '400', '500', '700', '900'],
+  subsets: ["latin"],
+  display: 'swap',
+  variable: '--font-roboto'
+});
 
 export const metadata: Metadata = {
   title: "Reggie Pangilinan - Welcome to my portfolio and blog",
@@ -20,26 +31,38 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Resource hints for better performance */}
+        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        
         <script
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
                 try {
                   const theme = localStorage.getItem('theme') || 'dark';
-                  document.documentElement.setAttribute('data-theme', theme);
-                  document.documentElement.style.colorScheme = theme;
-                  document.documentElement.style.visibility = 'visible';
+                  const html = document.documentElement;
+                  html.setAttribute('data-theme', theme);
+                  html.style.colorScheme = theme;
+                  html.style.visibility = 'visible';
+                  // Apply critical styles immediately
+                  html.style.backgroundColor = theme === 'dark' ? '#0a0a0a' : '#ffffff';
+                  html.style.color = theme === 'dark' ? '#ededed' : '#333333';
                 } catch (e) {
-                  document.documentElement.setAttribute('data-theme', 'dark');
-                  document.documentElement.style.colorScheme = 'dark';
-                  document.documentElement.style.visibility = 'visible';
+                  const html = document.documentElement;
+                  html.setAttribute('data-theme', 'dark');
+                  html.style.colorScheme = 'dark';
+                  html.style.visibility = 'visible';
+                  html.style.backgroundColor = '#0a0a0a';
+                  html.style.color = '#ededed';
                 }
               })();
             `,
           }}
         />
       </head>
-      <body className={inter.className} suppressHydrationWarning>
+      <body className={`${inter.className} ${roboto.variable}`} suppressHydrationWarning>
         <ThemeProvider>
           <div className="page-wrapper">
             <Header />
