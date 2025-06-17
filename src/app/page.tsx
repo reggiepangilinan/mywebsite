@@ -36,7 +36,7 @@ export default function Home() {
             <AnimatedSection delay={0}>
               <div className={styles.profileImage}>
                 <Image
-                  src="/profile.jpeg"
+                  src="/profile.webp"
                   alt="Profile"
                   width={200}
                   height={200}
