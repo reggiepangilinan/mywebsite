@@ -58,13 +58,13 @@ export default function Home() {
                   href="/projects"
                   className={`${styles.button} ${styles.primary}`}
                 >
-                  View My Work
+                  View My Projects
                 </Link>
                 <Link
                   href="/about"
                   className={`${styles.button} ${styles.secondary}`}
                 >
-                  Learn More
+                  About Me
                 </Link>
               </div>
             </AnimatedSection>
