@@ -80,6 +80,24 @@ export const metadata: Metadata = {
     // yandex: "your-yandex-verification-code",
     // yahoo: "your-yahoo-verification-code",
   },
+
+  // Icons and favicon
+  icons: {
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.ico', sizes: '32x32' }
+    ],
+    apple: [
+      { url: '/icon-192.svg', sizes: '192x192', type: 'image/svg+xml' }
+    ],
+    other: [
+      {
+        rel: 'mask-icon',
+        url: '/favicon.svg',
+        color: '#3b82f6'
+      }
+    ]
+  },
 };
 
 export default function RootLayout({
@@ -94,6 +112,15 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        
+        {/* Favicon and icons */}
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/icon-192.svg" />
+        <link rel="mask-icon" href="/favicon.svg" color="#3b82f6" />
+        
+        {/* Web App Manifest */}
+        <link rel="manifest" href="/manifest.json" />
         
         <script
           dangerouslySetInnerHTML={{
