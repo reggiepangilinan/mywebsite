@@ -105,6 +105,16 @@ export default function Header() {
               >
                 Home
               </Link>
+              {process.env.NODE_ENV === 'development' && (
+                <Link 
+                  href="/blog" 
+                  className={`${styles.navLink} ${isActive('/blog') ? styles.active : ''}`}
+                  onClick={handleNavClick}
+                  suppressHydrationWarning
+                >
+                  Blog
+                </Link>
+              )}
               <Link 
                 href="/about" 
                 className={`${styles.navLink} ${isActive('/about') ? styles.active : ''}`}
