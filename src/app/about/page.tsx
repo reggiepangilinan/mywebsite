@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect } from 'react'
 import Image from 'next/image'
 import styles from './about.module.css'
 import { skillsData, keySkillsData } from './skills-data'
@@ -7,6 +8,29 @@ import { experienceData } from './experience-data'
 import AnimatedSection from '@/components/AnimatedSection'
 
 export default function About() {
+  useEffect(() => {
+    // Force visibility on ultra-small screens
+    const forceVisibilityOnSmallScreens = () => {
+      if (window.innerWidth <= 375) {
+        const experienceElements = document.querySelectorAll('[class*="experienceWrapper"], [class*="experienceSection"], [class*="experienceList"], [class*="experienceItem"]')
+        experienceElements.forEach(element => {
+          const htmlElement = element as HTMLElement
+          htmlElement.style.opacity = '1'
+          htmlElement.style.transform = 'none'
+          htmlElement.style.visibility = 'visible'
+          htmlElement.style.display = 'block'
+        })
+      }
+    }
+    
+    forceVisibilityOnSmallScreens()
+    window.addEventListener('resize', forceVisibilityOnSmallScreens)
+    
+    // Also force after a short delay to ensure DOM is ready
+    setTimeout(forceVisibilityOnSmallScreens, 100)
+    
+    return () => window.removeEventListener('resize', forceVisibilityOnSmallScreens)
+  }, [])
   return (
     <div className={styles.about}>
       <div className="container">

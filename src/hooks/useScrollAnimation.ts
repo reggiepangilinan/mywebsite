@@ -9,6 +9,15 @@ export function useScrollAnimation(threshold = 0.1, rootMargin = '0px') {
   useEffect(() => {
     const currentRef = ref.current
     
+    // Check if we're on a small mobile device and should skip animations
+    const isSmallMobile = typeof window !== 'undefined' && window.innerWidth <= 375
+    
+    if (isSmallMobile) {
+      // On very small screens, just show content immediately
+      setIsVisible(true)
+      return
+    }
+    
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -20,8 +29,8 @@ export function useScrollAnimation(threshold = 0.1, rootMargin = '0px') {
         }
       },
       {
-        threshold,
-        rootMargin,
+        threshold: typeof window !== 'undefined' && window.innerWidth <= 768 ? 0.05 : threshold,
+        rootMargin: typeof window !== 'undefined' && window.innerWidth <= 768 ? '-50px' : rootMargin,
       }
     )
 

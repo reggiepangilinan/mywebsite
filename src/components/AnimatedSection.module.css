@@ -10,6 +10,47 @@
   transform: translateY(0);
 }
 
+/* Mobile-first approach - ensure content is visible on smaller screens */
+@media (max-width: 768px) {
+  .animatedSection {
+    /* Reduce animation intensity on mobile for better performance */
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+  }
+  
+  .animatedSection.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fallback for very small screens or slow devices */
+@media (max-width: 480px) {
+  .animatedSection {
+    /* Minimal animation for best performance */
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Ultra-small screens like iPhone SE, Galaxy Fold, etc. */
+@media (max-width: 375px) {
+  .animatedSection {
+    /* Force immediate visibility - no animations at all */
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+  
+  .animatedSection.visible {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
 /* Different animation styles for variety */
 .slideUp {
   transform: translateY(50px);
