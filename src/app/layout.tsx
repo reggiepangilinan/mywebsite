@@ -21,6 +21,65 @@ const roboto = Roboto({
 export const metadata: Metadata = {
   title: "Reggie Pangilinan - Welcome to my portfolio and blog",
   description: "Engineering Leadership & Full Stack Development. I build scalable solutions for the web.",
+  keywords: ["Reggie Pangilinan", "Engineering Leader", "Full Stack Developer", "React", "Next.js", "TypeScript", "Azure", "Software Architecture"],
+  authors: [{ name: "Reggie Pangilinan" }],
+  creator: "Reggie Pangilinan",
+  publisher: "Reggie Pangilinan",
+  
+  // Open Graph metadata for social sharing
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://reggiepangilinan.com",
+    siteName: "Reggie Pangilinan - Portfolio",
+    title: "Reggie Pangilinan - Engineering Leader & Full Stack Developer",
+    description: "Engineering Leadership & Full Stack Development. I build scalable solutions for the web using React, Next.js, TypeScript, and Azure.",
+    images: [
+      {
+        url: "https://reggiepangilinan.com/profile.webp",
+        width: 400,
+        height: 400,
+        alt: "Reggie Pangilinan - Engineering Leader & Full Stack Developer",
+        type: "image/webp",
+      },
+    ],
+  },
+
+  // Twitter Card metadata
+  twitter: {
+    card: "summary",
+    site: "@reggiepangilinan",
+    creator: "@reggiepangilinan",
+    title: "Reggie Pangilinan - Engineering Leader & Full Stack Developer",
+    description: "Engineering Leadership & Full Stack Development. I build scalable solutions for the web using React, Next.js, TypeScript, and Azure.",
+    images: ["https://reggiepangilinan.com/profile.webp"],
+  },
+
+  // Additional metadata
+  metadataBase: new URL("https://reggiepangilinan.com"),
+  alternates: {
+    canonical: "https://reggiepangilinan.com",
+  },
+  
+  // Robots and indexing
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+
+  // Verification (add your verification codes if you have them)
+  verification: {
+    google: "your-google-verification-code", // Replace with actual code
+    // yandex: "your-yandex-verification-code",
+    // yahoo: "your-yahoo-verification-code",
+  },
 };
 
 export default function RootLayout({
