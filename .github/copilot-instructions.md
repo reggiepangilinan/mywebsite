@@ -17,11 +17,26 @@ This is a Next.js personal website project with the following specifications:
 4. **Images**: Use Next.js Image component with `unoptimized: true` for static export
 5. **Responsive Design**: Implement mobile-first responsive design using CSS Grid and Flexbox
 6. **SEO**: Include proper metadata in layout.tsx and page components
+7. **Component Structure**: Each component should have its own folder with TSX, CSS module, and index.tsx files
+
+## Component Convention
+Each component must have its own folder structure:
+```
+src/components/ComponentName/
+├── ComponentName.tsx          # Main component file
+├── ComponentName.module.css   # CSS modules for styling
+└── index.tsx                  # Re-export for clean imports
+```
+
+This enables clean imports: `import ComponentName from '@/components/ComponentName'`
 
 ## File Structure
 - `/app` - App Router pages and layouts
-- `/components` - Reusable React components
+- `/components` - Reusable React components (each in its own folder)
+- `/config` - Centralized configuration files
+- `/lib` - Utilities and services
+- `/hooks` - Custom React hooks
 - `/public` - Static assets
-- `/styles` - Global CSS and CSS modules
+- `/docs` - All project documentation
 
 When generating code, follow these patterns and maintain consistency with the existing codebase.

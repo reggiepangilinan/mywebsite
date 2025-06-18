@@ -76,13 +76,46 @@ src/
 │   ├── dev-info/          # Development dashboard
 │   ├── api/               # API routes
 │   └── robots.txt/        # Dynamic SEO routes
-├── components/            # React components
+├── components/            # React components (see conventions below)
 ├── config/               # Configuration files
 ├── lib/                  # Utilities and services
 └── hooks/                # Custom React hooks
 docs/                     # All documentation
 public/                   # Static assets
 ```
+
+## 📋 Development Conventions
+
+### Component Structure
+Each component has its own folder containing:
+- `ComponentName.tsx` - Main component file
+- `ComponentName.module.css` - CSS modules for styling
+- `index.tsx` - Re-export for clean imports
+
+Example structure:
+```
+src/components/
+├── Header/
+│   ├── Header.tsx
+│   ├── Header.module.css
+│   └── index.tsx
+├── Footer/
+│   ├── Footer.tsx
+│   ├── Footer.module.css
+│   └── index.tsx
+```
+
+This allows importing components cleanly:
+```typescript
+import Header from '@/components/Header'
+```
+
+### Documentation Organization
+All documentation is organized under the `docs/` folder:
+- `setup/` - Initial setup guides
+- `guides/` - Feature and development guides  
+- `configuration/` - Configuration and optimization
+- `deployment/` - Deployment instructions
 
 ## 🔧 Key Technologies
 
