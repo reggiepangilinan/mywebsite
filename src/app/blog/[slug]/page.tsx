@@ -2,7 +2,7 @@
 import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
 import Image from 'next/image'
-import { getBlogPost, getBlogPostWithRevalidation, getAllBlogSlugs } from '@/lib/contentful'
+import { getBlogPost, getBlogPostForISR, getAllBlogSlugs } from '@/lib/contentful'
 import AnimatedSection from '@/components/AnimatedSection'
 import RichTextRenderer from '@/components/RichTextRenderer'
 import { blogConfig } from '@/config/blog'
@@ -13,6 +13,9 @@ export const revalidate = 300 // 5 minutes
 
 // Allow new blog posts to be generated dynamically
 export const dynamicParams = true
+
+// Ensure this page uses ISR, not static generation
+export const dynamic = 'force-static'
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -86,8 +89,8 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params
   
-  // Use the revalidation wrapper for better ISR support
-  const post = await getBlogPostWithRevalidation(slug)
+  // Use ISR-specific function with fetch and Next.js cache control
+  const post = await getBlogPostForISR(slug)
 
   if (!post) {
     notFound()

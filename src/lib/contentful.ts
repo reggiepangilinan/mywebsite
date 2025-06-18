@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createClient, Entry, EntrySkeletonType, Asset } from 'contentful'
 import { Document } from '@contentful/rich-text-types'
-import { unstable_cache } from 'next/cache'
 
 // Check if environment variables are available
 const spaceId = process.env.CONTENTFUL_SPACE_ID
@@ -11,18 +10,6 @@ const client = spaceId && accessToken ? createClient({
   space: spaceId,
   accessToken: accessToken,
 }) : null
-
-// Wrapper for getBlogPost with Next.js cache control
-export const getBlogPostWithRevalidation = unstable_cache(
-  async (slug: string): Promise<BlogPost | null> => {
-    return getBlogPost(slug)
-  },
-  ['blog-post'],
-  {
-    revalidate: 300, // 5 minutes
-    tags: ['blog-post']
-  }
-)
 
 export interface BlogPostFields {
   title: string
@@ -99,6 +86,49 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
   } catch (error) {
     console.error('Error fetching blog post:', error)
     return null
+  }
+}
+
+// Alternative version that uses fetch with Next.js cache control
+export async function getBlogPostForISR(slug: string): Promise<BlogPost | null> {
+  if (!client) {
+    console.log('Contentful client not configured - returning null for blog post')
+    return null
+  }
+
+  try {
+    // Use Contentful's REST API directly with fetch for better ISR control
+    const spaceId = process.env.CONTENTFUL_SPACE_ID
+    const accessToken = process.env.CONTENTFUL_ACCESS_TOKEN
+    
+    if (!spaceId || !accessToken) {
+      return null
+    }
+
+    const url = `https://cdn.contentful.com/spaces/${spaceId}/entries?content_type=blogPost&fields.slug[match]=${slug}&limit=1&access_token=${accessToken}`
+    
+    const response = await fetch(url, {
+      next: { 
+        revalidate: 300,
+        tags: [`blog-post-${slug}`]
+      }
+    })
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch: ${response.status}`)
+    }
+
+    const data = await response.json()
+    
+    if (data.items.length === 0) {
+      return null
+    }
+
+    return data.items[0] as BlogPost
+  } catch (error) {
+    console.error('Error fetching blog post with ISR:', error)
+    // Fallback to regular client
+    return getBlogPost(slug)
   }
 }
 
