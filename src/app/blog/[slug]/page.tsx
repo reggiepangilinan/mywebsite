@@ -89,17 +89,17 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params
   
-  console.log(`[ISR] Individual blog post render started - slug: ${slug}, timestamp: ${new Date().toISOString()}`)
+  console.error(`[ISR] Individual blog post render started - slug: ${slug}, timestamp: ${new Date().toISOString()}`)
   
   // Use ISR-specific function with fetch and Next.js cache control
   const post = await getBlogPostForISR(slug)
 
   if (!post) {
-    console.log(`[ISR] Blog post not found, returning 404 - slug: ${slug}`)
+    console.error(`[ISR] Blog post not found, returning 404 - slug: ${slug}`)
     notFound()
   }
   
-  console.log(`[ISR] Individual blog post render completed - slug: ${slug}, title: ${post.fields.title}`)
+  console.error(`[ISR] Individual blog post render completed - slug: ${slug}, title: ${post.fields.title}`)
 
   const fields = post.fields as any
 
