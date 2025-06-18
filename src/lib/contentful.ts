@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createClient, Entry, EntrySkeletonType, Asset } from 'contentful'
 import { Document } from '@contentful/rich-text-types'
+import { unstable_cache } from 'next/cache'
 
 // Check if environment variables are available
 const spaceId = process.env.CONTENTFUL_SPACE_ID
@@ -10,6 +11,18 @@ const client = spaceId && accessToken ? createClient({
   space: spaceId,
   accessToken: accessToken,
 }) : null
+
+// Wrapper for getBlogPost with Next.js cache control
+export const getBlogPostWithRevalidation = unstable_cache(
+  async (slug: string): Promise<BlogPost | null> => {
+    return getBlogPost(slug)
+  },
+  ['blog-post'],
+  {
+    revalidate: 300, // 5 minutes
+    tags: ['blog-post']
+  }
+)
 
 export interface BlogPostFields {
   title: string

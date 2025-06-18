@@ -7,6 +7,10 @@
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
+  
+  [plugins.inputs]
+    # Force ISR for dynamic routes
+    revalidateAll = false
 
 # Redirect all routes to index.html for client-side routing (if needed)
 [[redirects]]

@@ -2,7 +2,7 @@
 import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
 import Image from 'next/image'
-import { getBlogPost, getAllBlogSlugs } from '@/lib/contentful'
+import { getBlogPost, getBlogPostWithRevalidation, getAllBlogSlugs } from '@/lib/contentful'
 import AnimatedSection from '@/components/AnimatedSection'
 import RichTextRenderer from '@/components/RichTextRenderer'
 import { blogConfig } from '@/config/blog'
@@ -10,6 +10,9 @@ import styles from './blog-post.module.css'
 
 // Enable ISR with configurable revalidation
 export const revalidate = 300 // 5 minutes
+
+// Allow new blog posts to be generated dynamically
+export const dynamicParams = true
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -21,9 +24,9 @@ export async function generateStaticParams() {
   try {
     const slugs = await getAllBlogSlugs()
     
-    // If no slugs, return a single placeholder to satisfy static export
+    // If no slugs, return empty array to allow dynamic generation
     if (slugs.length === 0) {
-      return [{ slug: 'placeholder' }]
+      return []
     }
     
     return slugs.map((slug) => ({
@@ -31,8 +34,8 @@ export async function generateStaticParams() {
     }))
   } catch (error) {
     console.error('Error generating static params:', error)
-    // Return placeholder for static export compatibility
-    return [{ slug: 'placeholder' }]
+    // Return empty array to allow dynamic generation
+    return []
   }
 }
 
@@ -82,7 +85,9 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params
-  const post = await getBlogPost(slug)
+  
+  // Use the revalidation wrapper for better ISR support
+  const post = await getBlogPostWithRevalidation(slug)
 
   if (!post) {
     notFound()
