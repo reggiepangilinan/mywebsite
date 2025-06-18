@@ -37,7 +37,7 @@ export const SITE_CONFIG = {
   robots: {
     userAgent: '*',
     allow: ['/'],
-    disallow: ['/debug-isr', '/api'],
+    disallow: ['/dev-info', '/api'],
     crawlDelay: undefined, // Optional crawl delay in seconds
   }
 } as const

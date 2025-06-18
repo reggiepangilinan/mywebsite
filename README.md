@@ -19,7 +19,7 @@ A modern personal portfolio website built with Next.js 15, TypeScript, and CSS M
 - **Static Pages**: Home, About, Projects (fast SSG)
 - **Dynamic Blog**: Contentful-powered with ISR revalidation
 - **Centralized ISR Config**: Easy timing management in `src/config/isr.ts`
-- **Debug Tools**: Built-in ISR monitoring at `/debug-isr`
+- **Debug Tools**: Built-in development dashboard at `/dev-info`
 
 ## Getting Started
 
@@ -152,7 +152,7 @@ CONTENTFUL_ACCESS_TOKEN=your_access_token
 
 ## Monitoring & Debugging
 
-- **ISR Debug Page**: Visit `/debug-isr` to monitor ISR behavior
+- **Development Dashboard**: Visit `/dev-info` to monitor ISR behavior, SEO tools, and debug information
 - **API Status**: Check `/api/status` for configuration verification
 - **Build Output**: Monitor revalidate timing in build logs
 
@@ -250,7 +250,7 @@ If Chrome doesn't open automatically, try these solutions:
 ### Common Issues
 
 - **Missing Contentful credentials**: Add environment variables for blog functionality
-- **ISR not working**: Check `/debug-isr` page and ensure environment variables are set
+- **ISR not working**: Check `/dev-info` page and ensure environment variables are set
 - **Build errors**: Run `npm run lint` to check for TypeScript/ESLint errors
 - **Port already in use**: The app will automatically use the next available port (3001, 3002, etc.)
 

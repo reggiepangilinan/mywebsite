@@ -3,12 +3,12 @@ import { getBlogPosts } from '@/lib/contentful'
 import { ISR_CONFIG } from '@/config/isr'
 
 // Add revalidate for ISR testing
-// NOTE: This value must match ISR_CONFIG.DEBUG_PAGE_REVALIDATE (currently 60)
-export const revalidate = 60 // 1 minute - update ISR_CONFIG.DEBUG_PAGE_REVALIDATE when changing
+// NOTE: This value must match ISR_CONFIG.DEV_INFO_PAGE_REVALIDATE (currently 60)
+export const revalidate = 60 // 1 minute - update ISR_CONFIG.DEV_INFO_PAGE_REVALIDATE when changing
 
-export default async function DebugPage() {
+export default async function DevInfoPage() {
   // Validate revalidate matches config
-  ISR_CONFIG.validatePageRevalidate('debug', revalidate)
+  ISR_CONFIG.validatePageRevalidate('dev-info', revalidate)
   
   const debugInfo = createDebugInfo()
   const startTime = Date.now()
@@ -17,7 +17,8 @@ export default async function DebugPage() {
   
   return (
     <div style={{ padding: '20px', fontFamily: 'monospace', maxWidth: '800px', color: 'var(--foreground)', backgroundColor: 'var(--background)' }}>
-      <h1>ISR Debug Information</h1>
+      <h1>🛠️ Development Info Dashboard</h1>
+      <p style={{ marginBottom: '30px', color: '#666' }}>ISR status, SEO tools, and development debugging information</p>
       
       <div style={{ marginBottom: '20px', padding: '15px', border: '1px solid #666', borderRadius: '5px' }}>
         <h2>🔍 Debug Status</h2>
@@ -29,7 +30,7 @@ export default async function DebugPage() {
       <div style={{ marginBottom: '20px', padding: '15px', border: '1px solid #666', borderRadius: '5px' }}>
         <h2>🚀 ISR Configuration</h2>
         <ul>
-          <li><strong>This page revalidates every:</strong> {ISR_CONFIG.formatDuration(ISR_CONFIG.DEBUG_PAGE_REVALIDATE)}</li>
+          <li><strong>This page revalidates every:</strong> {ISR_CONFIG.formatDuration(ISR_CONFIG.DEV_INFO_PAGE_REVALIDATE)}</li>
           <li><strong>Blog list revalidates every:</strong> {ISR_CONFIG.formatDuration(ISR_CONFIG.BLOG_LIST_REVALIDATE)}</li>
           <li><strong>Blog posts revalidate every:</strong> {ISR_CONFIG.formatDuration(ISR_CONFIG.BLOG_POST_REVALIDATE)}</li>
         </ul>
