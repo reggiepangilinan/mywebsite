@@ -1,10 +1,15 @@
 import { createDebugInfo } from '@/lib/isr-logger'
 import { getBlogPosts } from '@/lib/contentful'
+import { ISR_CONFIG } from '@/config/isr'
 
 // Add revalidate for ISR testing
-export const revalidate = 60
+// NOTE: This value must match ISR_CONFIG.DEBUG_PAGE_REVALIDATE (currently 60)
+export const revalidate = 60 // 1 minute - update ISR_CONFIG.DEBUG_PAGE_REVALIDATE when changing
 
 export default async function DebugPage() {
+  // Validate revalidate matches config
+  ISR_CONFIG.validatePageRevalidate('debug', revalidate)
+  
   const debugInfo = createDebugInfo()
   const startTime = Date.now()
   const { items: posts } = await getBlogPosts(5) // Get first 5 posts
@@ -24,10 +29,11 @@ export default async function DebugPage() {
       <div style={{ marginBottom: '20px', padding: '15px', border: '1px solid #666', borderRadius: '5px' }}>
         <h2>🚀 ISR Configuration</h2>
         <ul>
-          <li><strong>This page revalidates every:</strong> 60 seconds</li>
-          <li><strong>Blog list revalidates every:</strong> 300 seconds (5 minutes)</li>
-          <li><strong>Blog posts revalidate every:</strong> 300 seconds (5 minutes)</li>
+          <li><strong>This page revalidates every:</strong> {ISR_CONFIG.formatDuration(ISR_CONFIG.DEBUG_PAGE_REVALIDATE)}</li>
+          <li><strong>Blog list revalidates every:</strong> {ISR_CONFIG.formatDuration(ISR_CONFIG.BLOG_LIST_REVALIDATE)}</li>
+          <li><strong>Blog posts revalidate every:</strong> {ISR_CONFIG.formatDuration(ISR_CONFIG.BLOG_POST_REVALIDATE)}</li>
         </ul>
+        <p><small>💡 <strong>Configure timing in:</strong> <code>src/config/isr.ts</code></small></p>
       </div>
 
       <div style={{ marginBottom: '20px', padding: '15px', border: '1px solid #666', borderRadius: '5px' }}>
@@ -49,7 +55,7 @@ export default async function DebugPage() {
           <li><strong>Refresh this page multiple times</strong> - Load time should vary</li>
           <li><strong>Check browser Network tab</strong> - Look for Cache-Control headers</li>
           <li><strong>Visit /blog</strong> - Should show ISR behavior</li>
-          <li><strong>Update content in Contentful</strong> - Changes should appear within 5 minutes</li>
+          <li><strong>Update content in Contentful</strong> - Changes should appear within {ISR_CONFIG.formatDuration(ISR_CONFIG.BLOG_LIST_REVALIDATE)}</li>
         </ol>
       </div>
 

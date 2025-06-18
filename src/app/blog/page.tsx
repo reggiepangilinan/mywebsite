@@ -4,12 +4,17 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { blogConfig } from '@/config/blog'
 import { logISREvent } from '@/lib/isr-logger'
+import { ISR_CONFIG } from '@/config/isr'
 import styles from './blog.module.css'
 
 // Enable ISR with configurable revalidation
-export const revalidate = 300 // 5 minutes
+// NOTE: This value must match ISR_CONFIG.BLOG_LIST_REVALIDATE (currently 300)
+export const revalidate = 300 // 5 minutes - update ISR_CONFIG.BLOG_LIST_REVALIDATE when changing
 
 export default async function BlogPage() {
+  // Validate revalidate matches config
+  ISR_CONFIG.validatePageRevalidate('blog-list', revalidate)
+  
   await logISREvent('Blog list page render started')
   
   const { items: posts } = await getBlogPosts()

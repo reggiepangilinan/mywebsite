@@ -3,10 +3,16 @@
 ## ✅ What's Working
 
 ### ISR Configuration
-- **Blog List** (`/blog`): ISR enabled with 60-second revalidation
-- **Blog Posts** (`/blog/[slug]`): ISR enabled with 60-second revalidation  
-- **Debug Page** (`/debug-isr`): ISR enabled with 60-second revalidation
+- **Blog List** (`/blog`): ISR enabled with configurable revalidation (see `src/config/isr.ts`)
+- **Blog Posts** (`/blog/[slug]`): ISR enabled with configurable revalidation (see `src/config/isr.ts`)
+- **Debug Page** (`/debug-isr`): ISR enabled with configurable revalidation (see `src/config/isr.ts`)
 - **API Status** (`/api/status`): Real-time status endpoint (no caching)
+
+### Configuration File
+All ISR revalidation timing is centrally managed in `src/config/isr.ts`. To change timing:
+1. Edit the values in `ISR_CONFIG`
+2. Rebuild and redeploy
+3. Debug page will automatically show updated timing
 
 ### Build Output Confirmation
 ```

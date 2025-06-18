@@ -7,10 +7,12 @@ import AnimatedSection from '@/components/AnimatedSection'
 import RichTextRenderer from '@/components/RichTextRenderer'
 import { blogConfig } from '@/config/blog'
 import { logISREvent } from '@/lib/isr-logger'
+import { ISR_CONFIG } from '@/config/isr'
 import styles from './blog-post.module.css'
 
 // Enable ISR with configurable revalidation
-export const revalidate = 300 // 5 minutes
+// NOTE: This value must match ISR_CONFIG.BLOG_POST_REVALIDATE (currently 300)
+export const revalidate = 300 // 5 minutes - update ISR_CONFIG.BLOG_POST_REVALIDATE when changing
 
 // Allow new blog posts to be generated dynamically
 export const dynamicParams = true
@@ -89,6 +91,9 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params
+  
+  // Validate revalidate matches config
+  ISR_CONFIG.validatePageRevalidate('blog-post', revalidate)
   
   await logISREvent(`Individual blog post render started - slug: ${slug}`)
   
