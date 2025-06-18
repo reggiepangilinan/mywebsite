@@ -5,10 +5,11 @@ import Image from 'next/image'
 import { getBlogPost, getAllBlogSlugs } from '@/lib/contentful'
 import AnimatedSection from '@/components/AnimatedSection'
 import RichTextRenderer from '@/components/RichTextRenderer'
+import { blogConfig } from '@/config/blog'
 import styles from './blog-post.module.css'
 
-// Enable ISR with revalidation every hour
-export const revalidate = 3600
+// Enable ISR with configurable revalidation
+export const revalidate = blogConfig.revalidate
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -93,14 +94,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { title, subtitle, content, featuredImage, publishDate, tags, author } = fields
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: 'numeric',
-      minute: '2-digit',
-      hour12: true
-    })
+    return new Date(dateString).toLocaleDateString('en-US', blogConfig.dateFormat)
   }
 
   const getImageUrl = () => {

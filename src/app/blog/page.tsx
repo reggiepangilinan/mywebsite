@@ -2,23 +2,17 @@ import { getBlogPosts } from '@/lib/contentful'
 import AnimatedSection from '@/components/AnimatedSection'
 import Link from 'next/link'
 import Image from 'next/image'
+import { blogConfig } from '@/config/blog'
 import styles from './blog.module.css'
 
-// Enable ISR with revalidation every hour
-export const revalidate = 3600
+// Enable ISR with configurable revalidation
+export const revalidate = blogConfig.revalidate
 
 export default async function BlogPage() {
   const { items: posts } = await getBlogPosts()
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: 'numeric',
-      minute: '2-digit',
-      hour12: true
-    })
+    return new Date(dateString).toLocaleDateString('en-US', blogConfig.dateFormat)
   }
 
   const getImageUrl = (featuredImage: unknown) => {
@@ -96,10 +90,10 @@ export default async function BlogPage() {
                         </div>
                         
                         <p className={styles.postExcerpt}>
-                          {truncateText(excerpt, 250)}
+                          {truncateText(excerpt, blogConfig.excerptMaxLength)}
                         </p>
                         
-                        {excerpt.length > 250 && (
+                        {excerpt.length > blogConfig.excerptMaxLength && (
                           <Link href={`/blog/${slug}`} className={styles.readMore}>
                             Read more
                           </Link>
