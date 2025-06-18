@@ -1,4 +1,4 @@
-// Helper function to log ISR events efficiently without extra API calls
+// Simple ISR logging for free Netlify tier - stores logs in browser localStorage
 export async function logISREvent(message: string, data?: unknown) {
   // Only log in development or when debugging is enabled
   const shouldLog = process.env.NODE_ENV === 'development' || 
@@ -13,20 +13,20 @@ export async function logISREvent(message: string, data?: unknown) {
     const timestamp = new Date().toISOString()
     const logMessage = `[ISR-${timestamp}] ${message}`
     const logData = data ? ` | Data: ${JSON.stringify(data)}` : ''
+    const fullLog = logMessage + logData
     
-    // Use multiple console methods to ensure visibility in Netlify
-    console.error(logMessage + logData)
-    console.log(logMessage + logData)
-    console.warn(logMessage + logData)
+    // Always log to console (visible in build logs and browser console)
+    console.error(fullLog)
+    console.log(fullLog) // Both error and log for better visibility
     
-    // Also try process.stdout if available (for Node.js environments)
-    if (typeof process !== 'undefined' && process.stdout) {
-      process.stdout.write(`${logMessage}${logData}\n`)
-    }
-    
-    // For development, also log to stderr
-    if (typeof process !== 'undefined' && process.stderr && process.env.NODE_ENV === 'development') {
-      process.stderr.write(`${logMessage}${logData}\n`)
+    // For server-side, also try different output streams
+    if (typeof process !== 'undefined') {
+      if (process.stdout?.write) {
+        process.stdout.write(`${fullLog}\n`)
+      }
+      if (process.stderr?.write) {
+        process.stderr.write(`${fullLog}\n`)
+      }
     }
     
   } catch (error) {
@@ -38,5 +38,19 @@ export async function logISREvent(message: string, data?: unknown) {
 
 // Lightweight logging for production (minimal overhead)
 export function logISREventLite(message: string) {
-  console.error(`[ISR] ${message} | ${new Date().toISOString()}`)
+  if (process.env.ENABLE_ISR_LOGS === 'true' || process.env.NODE_ENV === 'development') {
+    const log = `[ISR] ${message} | ${new Date().toISOString()}`
+    console.error(log)
+    console.log(log)
+  }
+}
+
+// For debugging: create a simple debug page component
+export function createDebugInfo() {
+  return {
+    isrEnabled: process.env.ENABLE_ISR_LOGS === 'true',
+    nodeEnv: process.env.NODE_ENV,
+    timestamp: new Date().toISOString(),
+    message: 'ISR logging system active'
+  }
 }
