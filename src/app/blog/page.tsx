@@ -6,7 +6,7 @@ import { blogConfig } from '@/config/blog'
 import styles from './blog.module.css'
 
 // Enable ISR with configurable revalidation
-export const revalidate = blogConfig.revalidate
+export const revalidate = 300 // 5 minutes
 
 export default async function BlogPage() {
   const { items: posts } = await getBlogPosts()

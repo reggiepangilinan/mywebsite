@@ -9,7 +9,7 @@ import { blogConfig } from '@/config/blog'
 import styles from './blog-post.module.css'
 
 // Enable ISR with configurable revalidation
-export const revalidate = blogConfig.revalidate
+export const revalidate = 300 // 5 minutes
 
 interface BlogPostPageProps {
   params: Promise<{
