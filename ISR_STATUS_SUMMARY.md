@@ -5,14 +5,14 @@
 ### ISR Configuration
 - **Blog List** (`/blog`): ISR enabled with 300 seconds (5 minutes) revalidation
 - **Blog Posts** (`/blog/[slug]`): ISR enabled with 300 seconds (5 minutes) revalidation
-- **Debug Page** (`/debug-isr`): ISR enabled with 60 seconds (1 minute) revalidation
+- **Development Dashboard** (`/dev-info`): ISR enabled with 60 seconds (1 minute) revalidation
 - **API Status** (`/api/status`): Real-time status endpoint (no caching)
 
 ### Centralized Configuration
 All ISR revalidation timing is managed in `src/config/isr.ts`:
 - **Single source of truth** for timing values
 - **Automatic validation** ensures pages match configuration
-- **Dynamic display** in debug page shows current settings
+- **Dynamic display** in development dashboard shows current settings
 - **Easy updates**: Change values in one place
 
 📖 **See**: `ISR_CONFIGURATION_GUIDE.md` for detailed configuration instructions
@@ -22,7 +22,7 @@ All ISR revalidation timing is managed in `src/config/isr.ts`:
 Route (app)                                 Size  First Load JS  Revalidate  Expire
 ├ ○ /blog                                1.06 kB         111 kB          5m      1y
 ├ ● /blog/[slug]                         1.23 kB         108 kB          5m      1y
-├ ○ /debug-isr                             147 B         101 kB          1m      1y
+├ ○ /dev-info                             147 B         101 kB          1m      1y
 ├ ƒ /api/status                            147 B         101 kB
 ```
 
@@ -51,8 +51,8 @@ process.stderr.write()     // Error output stream
 
 ## 🛠 How to Verify ISR is Working
 
-### Method 1: Debug Page (Most Reliable)
-1. Visit `/debug-isr` on your live site
+### Method 1: Development Dashboard (Most Reliable)
+1. Visit `/dev-info` on your live site
 2. Note the "Page Generated" timestamp
 3. Refresh after 60+ seconds
 4. The timestamp should update (proving ISR revalidation)

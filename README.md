@@ -101,8 +101,7 @@ src/
 │   ├── about/         # About page with experience & skills
 │   ├── blog/          # Blog list page (ISR enabled)
 │   │   └── [slug]/    # Individual blog posts (ISR enabled)
-│   ├── debug-isr/     # ISR debugging tools
-│   ├── projects/      # Projects showcase
+│   ├── dev-info/      # Development dashboard & debugging tools
 │   ├── api/           # API routes
 │   │   └── status/    # ISR status endpoint
 │   ├── globals.css    # Global styles
@@ -130,7 +129,7 @@ src/
 ### ISR Timing
 All ISR revalidation timing is managed in `src/config/isr.ts`:
 - Blog pages: 300 seconds (5 minutes)
-- Debug page: 60 seconds (1 minute)
+- Development dashboard: 60 seconds (1 minute)
 
 📖 **See**: `ISR_CONFIGURATION_GUIDE.md` for detailed instructions
 

@@ -32,8 +32,8 @@ Our current setup logs to:
 3. Check Console tab for any client-side hydration logs
 4. Look for network requests to see if ISR is triggering
 
-### Method 2: Debug Page
-Visit `/debug-isr` to see:
+### Method 2: Development Dashboard
+Visit `/dev-info` to see:
 - Environment configuration
 - Recent blog posts (confirms Contentful connection)
 - ISR timing information

@@ -9,7 +9,7 @@ All ISR timing is managed in: **`src/config/isr.ts`**
 ## Current Settings
 - **Blog List** (`/blog`): 300 seconds (5 minutes)
 - **Blog Posts** (`/blog/[slug]`): 300 seconds (5 minutes)  
-- **Debug Page** (`/debug-isr`): 60 seconds (1 minute)
+- **Development Dashboard** (`/dev-info`): 60 seconds (1 minute)
 
 ## How to Change ISR Timing
 
@@ -19,7 +19,7 @@ Edit `src/config/isr.ts`:
 export const ISR_CONFIG = {
   BLOG_LIST_REVALIDATE: 600, // Change from 300 to 600 (10 minutes)
   BLOG_POST_REVALIDATE: 600, // Change from 300 to 600 (10 minutes)
-  DEBUG_PAGE_REVALIDATE: 120, // Change from 60 to 120 (2 minutes)
+  DEV_INFO_PAGE_REVALIDATE: 120, // Change from 60 to 120 (2 minutes)
   // ...
 }
 ```
@@ -37,9 +37,9 @@ export const revalidate = 600 // Update to match BLOG_LIST_REVALIDATE
 export const revalidate = 600 // Update to match BLOG_POST_REVALIDATE
 ```
 
-**`src/app/debug-isr/page.tsx`:**
+**`src/app/dev-info/page.tsx`:**
 ```typescript
-export const revalidate = 120 // Update to match DEBUG_PAGE_REVALIDATE
+export const revalidate = 120 // Update to match DEV_INFO_PAGE_REVALIDATE
 ```
 
 ### 3. Validation
@@ -50,7 +50,7 @@ The system includes automatic validation that warns in console if page values do
 Update the page export to match the config.
 
 ## Debug Information
-Visit `/debug-isr` to see current timing configuration and test ISR behavior. The page automatically displays values from the centralized config using the `formatDuration()` helper.
+Visit `/dev-info` to see current timing configuration and test ISR behavior. The page automatically displays values from the centralized config using the `formatDuration()` helper.
 
 ## Why This Approach?
 Next.js requires literal numbers for `revalidate` exports - dynamic imports don't work. This approach provides:

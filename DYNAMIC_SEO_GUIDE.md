@@ -46,7 +46,7 @@ export const SITE_CONFIG = {
   robots: {
     userAgent: '*',
     allow: ['/'],
-    disallow: ['/debug-isr', '/api'],
+    disallow: ['/dev-info', '/api'],
     crawlDelay: undefined,
   }
 }
@@ -100,7 +100,7 @@ curl http://localhost:3000/sitemap.xml
 ```
 
 ### Debug Information
-Visit `/debug-isr` to see:
+Visit `/dev-info` to see:
 - Links to generated robots.txt and sitemap.xml
 - Current configuration status
 - Blog post count and timing
@@ -133,7 +133,7 @@ Visit `/debug-isr` to see:
 ### Sitemap Missing Blog Posts
 1. Check Contentful connection and credentials
 2. Verify blog posts have `publishDate` and `slug` fields
-3. Check `/debug-isr` for error messages
+3. Check `/dev-info` for error messages
 
 ### Robots.txt Not Working
 1. Verify site URL in `src/config/site.ts`
