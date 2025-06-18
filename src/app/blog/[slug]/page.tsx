@@ -6,6 +6,7 @@ import { getBlogPost, getBlogPostForISR, getAllBlogSlugs } from '@/lib/contentfu
 import AnimatedSection from '@/components/AnimatedSection'
 import RichTextRenderer from '@/components/RichTextRenderer'
 import { blogConfig } from '@/config/blog'
+import { logISREvent } from '@/lib/isr-logger'
 import styles from './blog-post.module.css'
 
 // Enable ISR with configurable revalidation
@@ -89,17 +90,17 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params
   
-  console.error(`[ISR] Individual blog post render started - slug: ${slug}, timestamp: ${new Date().toISOString()}`)
+  await logISREvent(`Individual blog post render started - slug: ${slug}`)
   
   // Use ISR-specific function with fetch and Next.js cache control
   const post = await getBlogPostForISR(slug)
 
   if (!post) {
-    console.error(`[ISR] Blog post not found, returning 404 - slug: ${slug}`)
+    await logISREvent(`Blog post not found, returning 404 - slug: ${slug}`)
     notFound()
   }
   
-  console.error(`[ISR] Individual blog post render completed - slug: ${slug}, title: ${post.fields.title}`)
+  await logISREvent(`Individual blog post render completed - slug: ${slug}, title: ${post.fields.title}`)
 
   const fields = post.fields as any
 

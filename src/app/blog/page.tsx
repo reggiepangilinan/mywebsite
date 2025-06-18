@@ -3,17 +3,18 @@ import AnimatedSection from '@/components/AnimatedSection'
 import Link from 'next/link'
 import Image from 'next/image'
 import { blogConfig } from '@/config/blog'
+import { logISREvent } from '@/lib/isr-logger'
 import styles from './blog.module.css'
 
 // Enable ISR with configurable revalidation
 export const revalidate = 300 // 5 minutes
 
 export default async function BlogPage() {
-  console.error(`[ISR] Blog list page render started - timestamp: ${new Date().toISOString()}`)
+  await logISREvent('Blog list page render started')
   
   const { items: posts } = await getBlogPosts()
   
-  console.error(`[ISR] Blog list page data loaded - ${posts.length} posts found`)
+  await logISREvent(`Blog list page data loaded - ${posts.length} posts found`)
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', blogConfig.dateFormat)
