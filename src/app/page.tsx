@@ -55,10 +55,10 @@ export default function Home() {
             <AnimatedSection delay={600}>
               <div className={styles.buttonGroup}>
                 <Link
-                  href="/projects"
+                  href="/blog"
                   className={`${styles.button} ${styles.primary}`}
                 >
-                  View My Projects
+                  Read My Blog
                 </Link>
                 <Link
                   href="/about"

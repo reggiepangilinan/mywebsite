@@ -110,8 +110,7 @@ a:hover {
 }
 
 /* Gradient styling for content page titles */
-[class*="about"] .title,
-[class*="projects"] .title {
+[class*="about"] .title {
   background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%) !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;

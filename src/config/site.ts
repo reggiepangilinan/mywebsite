@@ -19,12 +19,6 @@ export const SITE_CONFIG = {
       lastmod: null,
     },
     {
-      path: '/projects',
-      changefreq: 'monthly' as const,
-      priority: 0.8,
-      lastmod: null,
-    },
-    {
       path: '/blog',
       changefreq: 'weekly' as const,
       priority: 0.9,

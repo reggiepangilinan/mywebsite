@@ -44,8 +44,8 @@ npm install
 
 4. Customize the content:
    - Update your name and details in components
-   - Modify the projects data in `/src/app/projects/page.tsx`
    - Add your experience in `/src/app/about/page.tsx`
+   - Modify blog content in Contentful CMS
 
 ### Development
 
@@ -113,7 +113,6 @@ src/
 │   ├── BlogCard.tsx         # Blog post cards
 │   ├── Header.tsx           # Navigation header
 │   ├── Footer.tsx           # Site footer
-│   ├── ProjectCard.tsx      # Project showcase cards
 │   ├── RichTextRenderer.tsx # Contentful rich text display
 │   └── ThemeToggle.tsx      # Dark/light mode toggle
 ├── config/            # Configuration files
