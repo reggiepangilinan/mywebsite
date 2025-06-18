@@ -1,20 +1,20 @@
 .about {
-  padding: 60px 0;
+  padding: var(--space-5xl) 0;
 }
 
 .about .container {
-  max-width: 1200px;
+  max-width: var(--container-max-width);
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 var(--space-xl);
 }
 
 .title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 40px;
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-3xl);
   margin-top: 0;
   text-align: left;
-  color: #3b82f6;
+  color: var(--color-primary);
   position: relative;
 }
 
@@ -23,7 +23,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  background: var(--gradient-text);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -35,33 +35,33 @@
 }
 
 .intro {
-  font-size: 1.25rem;
+  font-size: var(--font-size-xl);
   line-height: 1.6;
-  margin-bottom: 60px;
+  margin-bottom: var(--space-5xl);
   text-align: left;
   color: var(--color-text-secondary);
 }
 
 .skillsSection {
-  margin-bottom: 60px;
+  margin-bottom: var(--space-5xl);
 }
 
 .sectionTitle {
-  font-size: 2rem;
-  font-weight: 600;
-  margin-bottom: 32px;
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--space-2xl);
   text-align: left;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-sm);
 }
 
 .emoji {
-  font-size: 2rem;
+  font-size: var(--font-size-3xl);
 }
 
 .titleText {
-  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  background: var(--gradient-text);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -70,22 +70,22 @@
 .skillsGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
+  gap: var(--space-xl);
 }
 
 .skillCategory {
   background: var(--color-card-bg);
-  padding: 32px;
-  border-radius: 12px;
-  box-shadow: 0 4px 16px var(--color-card-shadow);
+  padding: var(--space-2xl);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
   border: 1px solid var(--color-border);
-  transition: all 0.2s ease;
+  transition: var(--transition-base);
 }
 
 .categoryTitle {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-bottom: 20px;
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--space-xl);
   color: var(--color-primary);
 }
 
@@ -95,7 +95,7 @@
 }
 
 .skillList li {
-  padding: 8px 0;
+  padding: var(--space-sm) 0;
   color: var(--color-text-secondary);
   border-bottom: 1px solid var(--color-border);
   transition: color 0.2s ease;

@@ -1,14 +1,14 @@
 .main {
-  padding: 60px 0;
+  padding: var(--space-5xl) 0;
 }
 
 .title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 5px;
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-xs);
   margin-top: 0;
   text-align: left;
-  color: #3b82f6;
+  color: var(--color-primary);
   position: relative;
 }
 
@@ -17,7 +17,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  background: var(--gradient-text);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -29,10 +29,10 @@
 }
 
 .intro {
-  font-size: 1.25rem;
+  font-size: var(--font-size-xl);
   line-height: 1.6;
   margin-top: 0;
-  margin-bottom: 60px;
+  margin-bottom: var(--space-5xl);
   text-align: left;
   color: var(--color-text-secondary);
 }
@@ -40,7 +40,7 @@
 .postsSection {
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: var(--space-3xl);
 }
 
 .postItem {

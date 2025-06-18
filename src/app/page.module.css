@@ -3,12 +3,12 @@
 }
 
 .hero {
-  min-height: calc(100vh - 68px);
+  min-height: calc(100vh - var(--header-height));
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 60px 0;
-  background: linear-gradient(135deg, var(--color-primary) 0%, #764ba2 100%);
+  padding: var(--space-5xl) 0;
+  background: var(--gradient-primary);
   color: white;
   text-align: center;
 }
@@ -32,19 +32,19 @@
 }
 
 .profileImage {
-  margin-bottom: 32px;
+  margin-bottom: var(--space-2xl);
 }
 
 .avatar {
-  border-radius: 50%;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-lg);
 }
 
 .title {
   font-family: var(--font-family);
-  font-size: 3rem;
+  font-size: var(--font-size-5xl);
   font-weight: var(--font-weight-black);
-  margin-bottom: 16px;
+  margin-bottom: var(--space-lg);
   line-height: 1.1;
   letter-spacing: -0.02em;
   background: none !important;
@@ -61,7 +61,7 @@
   display: inline-block;
   animation: wave 2s ease-in-out infinite;
   transform-origin: 70% 70%;
-  margin-left: 0.25rem;
+  margin-left: var(--space-xs);
   vertical-align: baseline;
   line-height: 1;
 }
@@ -90,23 +90,11 @@
   }
 }
 
-@keyframes gradientShift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
 .subtitle {
   font-family: var(--font-family);
-  font-size: 1.25rem;
+  font-size: var(--font-size-xl);
   font-weight: var(--font-weight-regular);
-  margin-bottom: 32px;
+  margin-bottom: var(--space-2xl);
   opacity: 0.9;
   letter-spacing: 0.01em;
 }
