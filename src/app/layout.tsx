@@ -6,10 +6,6 @@ import Footer from "@/components/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import SkipLink from "@/components/SkipLink";
-import { ScreenReaderProvider } from "@/contexts/ScreenReaderContext";
-import ScreenReaderAnnouncer from "@/components/ScreenReaderAnnouncer";
-import ScreenReaderNavClient from "@/components/ScreenReaderNavClient";
-import ScreenReaderShortcuts from "@/components/ScreenReaderShortcuts";
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -170,20 +166,15 @@ export default function RootLayout({
       <body className={`${inter.className} ${roboto.variable}`} suppressHydrationWarning>
         <SkipLink href="#main-content">Skip to main content</SkipLink>
         <ErrorBoundary>
-          <ScreenReaderProvider>
-            <ScreenReaderAnnouncer />
-            <ScreenReaderNavClient />
-            <ScreenReaderShortcuts />
-            <ThemeProvider>
-              <div className="page-wrapper">
-                <Header />
-                <main className="main-content" id="main-content">
-                  {children}
-                </main>
-                <Footer />
-              </div>
-            </ThemeProvider>
-          </ScreenReaderProvider>
+          <ThemeProvider>
+            <div className="page-wrapper">
+              <Header />
+              <main className="main-content" id="main-content">
+                {children}
+              </main>
+              <Footer />
+            </div>
+          </ThemeProvider>
         </ErrorBoundary>
       </body>
     </html>

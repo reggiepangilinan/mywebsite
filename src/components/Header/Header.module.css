@@ -201,13 +201,6 @@
   display: none;
 }
 
-.toggles {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
-  flex-shrink: 0;
-}
-
 @media (max-width: 768px) {
   .hamburger {
     display: flex;
@@ -382,15 +375,13 @@
     opacity: 1;
   }
 
-  /* Mobile toggles layout */
+  /* Mobile theme toggle spacing */
   .navRight > .navLinks,
   .navRight > .mobileSocialLinks {
     width: 100%;
   }
   
-  .toggles {
-    flex-direction: column;
-    gap: var(--spacing-xs);
+  .navRight .themeToggle {
     margin-top: auto;
     align-self: flex-start;
     width: auto !important;

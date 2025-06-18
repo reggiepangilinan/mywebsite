@@ -33,16 +33,12 @@ export default function BlogCard({ post }: BlogCardProps) {
 
   return (
     <article className={styles.card}>
-      <Link 
-        href={`/blog/${slug}`} 
-        className={styles.cardLink}
-        aria-label={`Read blog post: ${title}${subtitle ? ` - ${subtitle}` : ''}`}
-      >
+      <Link href={`/blog/${slug}`} className={styles.cardLink}>
         {imageUrl && (
           <div className={styles.imageContainer}>
             <Image
               src={imageUrl}
-              alt={imageAlt || `Featured image for blog post: ${title}`}
+              alt={imageAlt}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className={styles.image}
@@ -54,7 +50,7 @@ export default function BlogCard({ post }: BlogCardProps) {
         <div className={styles.content}>
           <div className={styles.meta}>
             <time dateTime={publishDate} className={styles.date}>
-              Published {formatDate(publishDate)}
+              {formatDate(publishDate)}
             </time>
             {author && <span className={styles.author}>by {author}</span>}
           </div>
@@ -66,16 +62,16 @@ export default function BlogCard({ post }: BlogCardProps) {
           <p className={styles.excerpt}>{excerpt}</p>
           
           {tags && tags.length > 0 && (
-            <div className={styles.tags} role="list" aria-label="Article tags">
+            <div className={styles.tags}>
               {tags.map((tag: string) => (
-                <span key={tag} className={styles.tag} role="listitem">
+                <span key={tag} className={styles.tag}>
                   {tag}
                 </span>
               ))}
             </div>
           )}
           
-          <div className={styles.readMore} aria-hidden="true">
+          <div className={styles.readMore}>
             Read more →
           </div>
         </div>

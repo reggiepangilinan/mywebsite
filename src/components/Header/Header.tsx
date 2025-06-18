@@ -4,7 +4,6 @@ import { useState, useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
 import styles from './Header.module.css'
 import ThemeToggle from '@/components/ThemeToggle'
-import ScreenReaderToggle from '@/components/ScreenReaderToggle'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -102,7 +101,7 @@ export default function Header() {
 
   return (
     <header className={styles.header}>
-      <nav className={styles.nav} onKeyDown={handleKeyDown} id="navigation">
+      <nav className={styles.nav} onKeyDown={handleKeyDown}>
         <div className={styles.navContent}>
           <Link href="/" className={styles.logo} onClick={handleNavClick}>
             Reggie Pangilinan
@@ -190,13 +189,8 @@ export default function Header() {
                 </svg>
               </a>
             </div>
-            <div className={styles.toggles}>
-              <div aria-label="Screen reader toggle">
-                <ScreenReaderToggle />
-              </div>
-              <div aria-label="Theme toggle">
-                <ThemeToggle />
-              </div>
+            <div aria-label="Theme toggle">
+              <ThemeToggle />
             </div>
           </div>
         </div>
