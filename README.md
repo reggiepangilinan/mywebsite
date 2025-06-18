@@ -2,187 +2,133 @@
 
 A modern personal portfolio website built with Next.js 15, TypeScript, and CSS Modules.
 
-## Features
+## ✨ Features
 
-- ✨ **Modern Design**: Clean and professional layout
 - 🚀 **Next.js 15**: Latest React framework with App Router
-- 📱 **Responsive**: Mobile-first design
+- 📱 **Responsive Design**: Mobile-first, modern layout
 - 🎨 **CSS Modules**: Scoped styling without conflicts
-- � **Dynamic Blog**: Contentful CMS integration with ISR
-- ⚡ **ISR (Incremental Static Regeneration)**: Fast, always-fresh content
-- 📊 **Hybrid Rendering**: SSG for static pages, ISR for dynamic content
+- 📝 **Dynamic Blog**: Contentful CMS integration with ISR
+- ⚡ **ISR**: Incremental Static Regeneration for optimal performance
+- 🔍 **Dynamic SEO**: Auto-generated robots.txt and sitemap.xml
+- �️ **Developer Tools**: Built-in API testing dashboard at `/dev-info`
 - 🔧 **TypeScript**: Type-safe development
-- 🔍 **SEO Optimized**: Meta tags, sitemap, and structured data
 
-## Architecture
+## 🏗️ Architecture
 
-- **Static Pages**: Home, About, Projects (fast SSG)
+- **Static Pages**: Home, About (fast SSG)
 - **Dynamic Blog**: Contentful-powered with ISR revalidation
-- **Centralized ISR Config**: Easy timing management in `src/config/isr.ts`
-- **Debug Tools**: Built-in development dashboard at `/dev-info`
+- **Centralized Configuration**: ISR and SEO settings in `/src/config/`
+- **Dynamic SEO**: Cost-effective robots.txt and sitemap.xml generation
 
-## Getting Started
+## 🚀 Quick Start
 
 ### Prerequisites
-
-- Node.js 18+ 
+- Node.js 18+
 - npm or yarn
 
 ### Installation
-
-1. Clone the repository
-2. Install dependencies:
-
 ```bash
+# Clone the repository
+git clone <repository-url>
+cd mywebsite
+
+# Install dependencies
 npm install
-```
 
-3. Add your images to the `public` folder:
-   - `profile.jpg` - Your profile picture
-   - `project1.jpg` - Project screenshot
-   - `project2.jpg` - Project screenshot
-
-4. Customize the content:
-   - Update your name and details in components
-   - Add your experience in `/src/app/about/page.tsx`
-   - Modify blog content in Contentful CMS
-
-### Development
-
-You have several options to run the development server:
-
-#### Option 1: Basic Development Server
-```bash
+# Start development server
 npm run dev
 ```
-Then manually open [http://localhost:3000](http://localhost:3000) in your browser.
 
-#### Option 2: Auto-Launch Chrome (Recommended)
-```bash
-npm run dev:chrome
-```
-This will automatically start the dev server and open Chrome to the correct URL, even if the server uses a different port.
-
-#### Option 3: VS Code Quick Launch (F5)
-1. Open the project in VS Code
-2. Press **F5** or go to Debug panel (Ctrl/Cmd + Shift + D)
-3. Select "🚀 Launch Next.js + Chrome" (should be default)
-4. Press F5 or click the green play button
-
-This will start the dev server and automatically open Chrome with the correct URL.
-
-#### Option 4: VS Code Debug Panel
-1. Open the Debug panel (Ctrl/Cmd + Shift + D)  
-2. Choose from available configurations:
-   - **🚀 Launch Next.js + Chrome** - Full auto-launch (recommended)
-   - **Launch Next.js App Only** - Server only, no browser
-   - **Attach Chrome Debugger** - Attach to running Chrome instance
-   - **Launch Chrome Only** - Open browser to existing server
-
-#### Port Handling
-The application will automatically use the next available port if 3000 is occupied (3001, 3002, etc.). The Chrome launcher scripts are smart enough to detect and open the correct port.
-
-### Building for Production
-
-```bash
-npm run build
-```
-
-This creates an optimized hybrid build with:
-- Static pages pre-rendered at build time
-- ISR-enabled blog pages for dynamic updates
-- Proper cache headers for performance
-
-## Project Structure
-
-```
-src/
-├── app/                # App Router pages
-│   ├── about/         # About page with experience & skills
-│   ├── blog/          # Blog list page (ISR enabled)
-│   │   └── [slug]/    # Individual blog posts (ISR enabled)
-│   ├── dev-info/      # Development dashboard & debugging tools
-│   ├── api/           # API routes
-│   │   └── status/    # ISR status endpoint
-│   ├── globals.css    # Global styles
-│   ├── layout.tsx     # Root layout with navigation
-│   └── page.tsx       # Home page
-├── components/        # Reusable components
-│   ├── AnimatedSection.tsx  # Scroll animations
-│   ├── BlogCard.tsx         # Blog post cards
-│   ├── Header.tsx           # Navigation header
-│   ├── Footer.tsx           # Site footer
-│   ├── RichTextRenderer.tsx # Contentful rich text display
-│   └── ThemeToggle.tsx      # Dark/light mode toggle
-├── config/            # Configuration files
-│   ├── blog.ts        # Blog display settings
-│   └── isr.ts         # ISR timing configuration
-├── hooks/             # Custom React hooks
-├── lib/               # Utility libraries
-│   ├── contentful.ts  # Contentful CMS integration
-│   └── isr-logger.ts  # ISR logging utilities
-└── public/           # Static assets
-```
-
-## Configuration
-
-### ISR Timing
-All ISR revalidation timing is managed in `src/config/isr.ts`:
-- Blog pages: 300 seconds (5 minutes)
-- Development dashboard: 60 seconds (1 minute)
-
-📖 **See**: `ISR_CONFIGURATION_GUIDE.md` for detailed instructions
-
-### Content Management
-Blog content is managed via Contentful CMS. Set environment variables:
+### Environment Setup
+Create `.env.local` with your Contentful credentials:
 ```bash
 CONTENTFUL_SPACE_ID=your_space_id
 CONTENTFUL_ACCESS_TOKEN=your_access_token
 ```
 
-## Customization
+## 📚 Documentation
 
-1. **Personal Information**: Update your name, bio, and contact links in the components
-2. **ISR Timing**: Modify revalidation intervals in `src/config/isr.ts`
-3. **Blog Content**: Manage posts through Contentful CMS
-4. **Styling**: Modify CSS modules in respective `.module.css` files
-5. **Content**: Add your projects, skills, and experience
-6. **Images**: Replace placeholder images with your own
+For detailed setup, configuration, and deployment instructions, see the [docs folder](./docs/):
 
-## Monitoring & Debugging
+- **[Setup Guides](./docs/setup/)** - Blog, favicon, and initial configuration
+- **[Feature Guides](./docs/guides/)** - SEO, social sharing, and advanced features  
+- **[Configuration](./docs/configuration/)** - ISR, performance, and cost optimization
+- **[Deployment](./docs/deployment/)** - Netlify setup and logging
 
-- **Development Dashboard**: Visit `/dev-info` to monitor ISR behavior, SEO tools, and debug information
-- **API Status**: Check `/api/status` for configuration verification
-- **Build Output**: Monitor revalidate timing in build logs
+## 🛠️ Available Scripts
 
-## Deployment
+```bash
+npm run dev          # Start development server
+npm run build        # Build for production
+npm run start        # Start production server
+npm run lint         # Run ESLint
+```
 
-This site uses **hybrid rendering**:
-- **Static pages** (Home, About, Projects): Traditional SSG
-- **Blog pages**: ISR-enabled for dynamic content updates
+Open [http://localhost:3000](http://localhost:3000) to view the site.
 
-### Supported Platforms
+## 📁 Project Structure
 
-- **Netlify** ✅ (Recommended - Full ISR support)
-- **Vercel** ✅ (Native ISR support)
-- Static hosts (Limited - ISR becomes SSG)
+```
+src/
+├── app/                    # Next.js App Router
+│   ├── about/             # About page
+│   ├── blog/              # Blog pages (ISR enabled)
+│   ├── dev-info/          # Development dashboard
+│   ├── api/               # API routes
+│   └── robots.txt/        # Dynamic SEO routes
+├── components/            # React components
+├── config/               # Configuration files
+├── lib/                  # Utilities and services
+└── hooks/                # Custom React hooks
+docs/                     # All documentation
+public/                   # Static assets
+```
 
-### Netlify Deployment
+## 🔧 Key Technologies
 
-This project is configured for Netlify with **ISR support** via `@netlify/plugin-nextjs`.
+- **Next.js 15** - React framework with App Router
+- **TypeScript** - Type safety
+- **CSS Modules** - Scoped styling
+- **Contentful** - Headless CMS for blog content
+- **ISR** - Incremental Static Regeneration for performance
 
-#### Option 1: Connect Git Repository (Recommended)
+## 📊 Performance Features
 
-1. **Push to Git**: Make sure your code is pushed to a Git repository (GitHub, GitLab, etc.)
+- **Hybrid Rendering**: Static pages + ISR for dynamic content
+- **Dynamic SEO**: Cost-effective robots.txt and sitemap.xml generation
+- **Optimized Caching**: Strategic cache headers for minimal costs
+- **Image Optimization**: Next.js Image component with WebP support
 
-2. **Connect to Netlify**:
-   - Go to [Netlify](https://netlify.com)
-   - Click "New site from Git"
-   - Connect your Git provider and select your repository
+## 🛠️ Development Tools
 
-3. **Build Settings** (Auto-configured via `netlify.toml`):
-   - **Build command**: `npm run build`
-   - **Publish directory**: `.next`
+- **Dev Dashboard**: Visit `/dev-info` for API testing and ISR monitoring
+- **API Endpoints**: `/api/status`, `/robots.txt`, `/sitemap.xml`
+- **Debug Logging**: Console-based logging with Netlify compatibility
+
+## 📚 Documentation
+
+See the [docs folder](./docs/) for comprehensive guides:
+
+- **Setup**: Blog configuration, favicon setup
+- **Guides**: SEO, social sharing, performance optimization  
+- **Configuration**: ISR settings, cost optimization
+- **Deployment**: Netlify setup and troubleshooting
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+---
+
+For detailed documentation, please visit the [docs folder](./docs/).
    - **Plugin**: `@netlify/plugin-nextjs` (enables ISR)
    - **Node version**: `18`
 
