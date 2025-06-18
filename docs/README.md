@@ -11,6 +11,7 @@ Initial project configuration and feature setup guides:
 
 ### 📖 [Guides](./guides/)  
 Feature implementation and best practice guides:
+- [Component Convention](./guides/COMPONENT_CONVENTION.md) - Component folder structure and organization
 - [Dynamic SEO Guide](./guides/DYNAMIC_SEO_GUIDE.md) - Dynamic robots.txt and sitemap.xml implementation
 - [Sitemap Guide](./guides/SITEMAP_GUIDE.md) - Sitemap generation and optimization
 - [Social Share Guide](./guides/SOCIAL_SHARE_GUIDE.md) - Open Graph and social media optimization
