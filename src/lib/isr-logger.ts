@@ -1,12 +1,20 @@
 // Simple ISR logging for free Netlify tier - stores logs in browser localStorage
 export async function logISREvent(message: string, data?: unknown) {
-  // Only log in development or when debugging is enabled
-  const shouldLog = process.env.NODE_ENV === 'development' || 
-                   process.env.ENABLE_ISR_LOGS === 'true' ||
-                   process.env.DEBUG === 'true'
+  // In development, only log ISR events if explicitly enabled
+  // This prevents noise in Next.js debugger
+  const isDev = process.env.NODE_ENV === 'development'
+  const isExplicitlyEnabled = process.env.ENABLE_ISR_LOGS === 'true' || process.env.DEBUG === 'true'
+  
+  // Skip noisy logging in development unless explicitly requested
+  if (isDev && !isExplicitlyEnabled) {
+    return
+  }
+  
+  // In production, always log (for Netlify build logs)
+  const shouldLog = !isDev || isExplicitlyEnabled
   
   if (!shouldLog) {
-    return // Skip logging in production unless explicitly enabled
+    return
   }
   
   try {
@@ -15,24 +23,40 @@ export async function logISREvent(message: string, data?: unknown) {
     const logData = data ? ` | Data: ${JSON.stringify(data)}` : ''
     const fullLog = logMessage + logData
     
-    // Always log to console (visible in build logs and browser console)
-    console.error(fullLog)
-    console.log(fullLog) // Both error and log for better visibility
-    
-    // For server-side, also try different output streams
-    if (typeof process !== 'undefined') {
-      if (process.stdout?.write) {
-        process.stdout.write(`${fullLog}\n`)
-      }
-      if (process.stderr?.write) {
-        process.stderr.write(`${fullLog}\n`)
+    // Use appropriate log level - console.log for info, not console.error
+    // This prevents showing as errors in Next.js debugger
+    if (isDev) {
+      // In development, use console.log to avoid error highlighting
+      console.log(fullLog)
+    } else {
+      // In production/build, use console.error for better visibility in logs
+      // Why console.error in production?
+      // 1. Higher priority in hosting platform log aggregation (Netlify, Vercel)
+      // 2. Better visibility in deployment and function logs
+      // 3. Less likely to be filtered out by log retention policies
+      // 4. ISR events are important for debugging, need reliable capture
+      // 5. Background ISR processes (serverless functions) often suppress console.log
+      // Note: These aren't actual errors - [ISR] prefix identifies them as informational
+      console.error(fullLog)
+      console.log(fullLog)
+      
+      // For server-side, also try different output streams
+      if (typeof process !== 'undefined') {
+        if (process.stdout?.write) {
+          process.stdout.write(`${fullLog}\n`)
+        }
+        if (process.stderr?.write) {
+          process.stderr.write(`${fullLog}\n`)
+        }
       }
     }
     
   } catch (error) {
-    // Fallback to basic console.error
-    console.error('[ISR] Logging error:', error)
-    console.error(`[ISR] Original message: ${message}`)
+    // Fallback - only in non-dev or when debugging
+    if (!isDev || isExplicitlyEnabled) {
+      console.warn('[ISR] Logging error:', error)
+      console.warn(`[ISR] Original message: ${message}`)
+    }
   }
 }
 
