@@ -1,11 +1,11 @@
 // Simple ISR logging for free Netlify tier - stores logs in browser localStorage
 export async function logISREvent(message: string, data?: unknown) {
-  // In development, only log ISR events if explicitly enabled
-  // This prevents noise in Next.js debugger
+  // COMPLETELY DISABLE logging in development to prevent Next.js debugger errors
+  // Only enable if explicitly requested via environment variables
   const isDev = process.env.NODE_ENV === 'development'
   const isExplicitlyEnabled = process.env.ENABLE_ISR_LOGS === 'true' || process.env.DEBUG === 'true'
   
-  // Skip noisy logging in development unless explicitly requested
+  // Skip ALL logging in development unless explicitly requested
   if (isDev && !isExplicitlyEnabled) {
     return
   }
@@ -62,8 +62,23 @@ export async function logISREvent(message: string, data?: unknown) {
 
 // Lightweight logging for production (minimal overhead)
 export function logISREventLite(message: string) {
-  if (process.env.ENABLE_ISR_LOGS === 'true' || process.env.NODE_ENV === 'development') {
-    const log = `[ISR] ${message} | ${new Date().toISOString()}`
+  // COMPLETELY DISABLE in development unless explicitly enabled
+  const isDev = process.env.NODE_ENV === 'development'
+  const isExplicitlyEnabled = process.env.ENABLE_ISR_LOGS === 'true' || process.env.DEBUG === 'true'
+  
+  // Skip ALL logging in development unless explicitly requested
+  if (isDev && !isExplicitlyEnabled) {
+    return
+  }
+  
+  // Only log in production or when explicitly enabled
+  const log = `[ISR] ${message} | ${new Date().toISOString()}`
+  
+  if (isDev && isExplicitlyEnabled) {
+    // In development with explicit enabling, use console.log
+    console.log(log)
+  } else if (!isDev) {
+    // In production, use console.error for visibility
     console.error(log)
     console.log(log)
   }

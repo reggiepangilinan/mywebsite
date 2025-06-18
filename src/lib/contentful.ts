@@ -77,7 +77,7 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
   }
 
   try {
-    console.error(`[ISR] Fetching blog post (regular) - slug: ${slug}, timestamp: ${new Date().toISOString()}`)
+    logISREvent(`Fetching blog post (regular) - slug: ${slug}`)
     
     const response = await client.getEntries<BlogPostSkeleton>({
       content_type: 'blogPost',
@@ -86,14 +86,14 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
     } as any)
 
     if (response.items.length === 0) {
-      console.error(`[ISR] Blog post not found - slug: ${slug}`)
+      logISREvent(`Blog post not found - slug: ${slug}`)
       return null
     }
 
-    console.error(`[ISR] Blog post fetched successfully - slug: ${slug}, title: ${response.items[0].fields.title}`)
+    logISREvent(`Blog post fetched successfully - slug: ${slug}, title: ${response.items[0].fields.title}`)
     return response.items[0]
   } catch (error) {
-    console.error(`[ISR] Error fetching blog post - slug: ${slug}:`, error)
+    logISREvent(`Error fetching blog post - slug: ${slug}`, error)
     return null
   }
 }
