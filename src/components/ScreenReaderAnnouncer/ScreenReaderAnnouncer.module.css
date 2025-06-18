@@ -1,0 +1,16 @@
+/* Screen reader announcer - visually hidden but accessible to screen readers */
+.announcer {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.announcement {
+  /* Ensure each announcement is read separately */
+  display: block;
+}

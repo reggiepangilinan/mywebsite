@@ -1,4 +1,14 @@
-# Personal Website
+# Pe## ✨ Features
+
+- 🚀 **Next.js 15**: Latest React framework with App Router
+- 📱 **Responsive Design**: Mobile-first, modern layout
+- 🎨 **CSS Modules**: Scoped styling without conflicts
+- 📝 **Dynamic Blog**: Contentful CMS integration with ISR
+- ⚡ **ISR**: Incremental Static Regeneration for optimal performance
+- 🔍 **Dynamic SEO**: Auto-generated robots.txt and sitemap.xml
+- ♿ **Accessibility**: Comprehensive screen reader mode with keyboard shortcuts
+- 🛠️ **Developer Tools**: Built-in API testing dashboard at `/dev-info`
+- 🔧 **TypeScript**: Type-safe developmentsite
 
 A modern personal portfolio website built with Next.js 15, TypeScript, and CSS Modules.
 
@@ -131,6 +141,18 @@ All documentation is organized under the `docs/` folder:
 - **Dynamic SEO**: Cost-effective robots.txt and sitemap.xml generation
 - **Optimized Caching**: Strategic cache headers for minimal costs
 - **Image Optimization**: Next.js Image component with WebP support
+
+## ♿ Accessibility Features
+
+- **Screen Reader Mode**: Toggle with button or `Alt+S` keyboard shortcut
+- **Smart Detection**: Auto-detects screen reader preferences and settings
+- **Quick Navigation**: Jump links to main sections (`Alt+H` for main content)
+- **Keyboard Shortcuts**: `Alt+K` for shortcuts panel, full keyboard accessibility
+- **Enhanced Focus**: High contrast focus indicators and reduced animations
+- **ARIA Support**: Comprehensive ARIA labels and semantic HTML structure
+- **Standards Compliance**: WCAG 2.1 AA accessibility guidelines
+
+For detailed accessibility implementation, see [Screen Reader Documentation](./docs/SCREEN_READER_IMPLEMENTATION.md).
 
 ## 🛠️ Development Tools
 

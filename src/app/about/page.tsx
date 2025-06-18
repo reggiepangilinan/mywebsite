@@ -6,8 +6,14 @@ import styles from './about.module.css'
 import { skillsData, keySkillsData } from './skills-data'
 import { experienceData } from './experience-data'
 import AnimatedSection from '@/components/AnimatedSection'
+import { usePageAnnouncements } from '@/hooks/usePageAnnouncements'
 
 export default function About() {
+  // Add page announcements for screen reader
+  usePageAnnouncements({
+    pageTitle: 'About Page',
+    pageDescription: 'Information about Reggie Pangilinan, including skills, experience, and background in engineering leadership and full stack development'
+  });
   useEffect(() => {
     // Force visibility on ultra-small screens
     const forceVisibilityOnSmallScreens = () => {
@@ -46,7 +52,7 @@ export default function About() {
           </AnimatedSection>
           
           <AnimatedSection delay={400}>
-            <div className={styles.keySkillsSection}>
+            <div className={styles.keySkillsSection} id="skills">
               <h2 className={styles.sectionTitle}>
                 <span className={styles.emoji}>🎯</span>
                 <span className={styles.titleText}>Key Skills</span>
@@ -84,7 +90,7 @@ export default function About() {
           </AnimatedSection>
 
           <AnimatedSection delay={100}>
-            <div className={styles.experienceWrapper}>
+            <div className={styles.experienceWrapper} id="experience">
               <div className={styles.experienceSection}>
                 <h2 className={styles.sectionTitle}>
                   <span className={styles.emoji}>📋</span>

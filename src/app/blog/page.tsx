@@ -1,5 +1,6 @@
 import { getBlogPosts } from '@/lib/contentful'
 import AnimatedSection from '@/components/AnimatedSection'
+import BlogPageClient from '@/components/BlogPageClient'
 import Link from 'next/link'
 import Image from 'next/image'
 import { blogConfig } from '@/config/blog'
@@ -37,17 +38,18 @@ export default async function BlogPage() {
   }
 
   return (
-    <main className={styles.main}>
-      <div className="container">
-        <AnimatedSection delay={0}>
-          <h1 className={styles.title}>Blog Posts</h1>
-        </AnimatedSection>
-        
-        <div className={styles.content}>
-          <AnimatedSection delay={200}>
-            <p className={styles.intro}>
-              Technical insights, tutorials, and thoughts on software engineering, leadership, and technology.
-            </p>
+    <BlogPageClient postCount={posts.length}>
+      <main className={styles.main} id="blog-posts">
+        <div className="container">
+          <AnimatedSection delay={0}>
+            <h1 className={styles.title}>Blog Posts</h1>
+          </AnimatedSection>
+          
+          <div className={styles.content}>
+            <AnimatedSection delay={200}>
+              <p className={styles.intro}>
+                Technical insights, tutorials, and thoughts on software engineering, leadership, and technology.
+              </p>
           </AnimatedSection>
 
           {posts.length > 0 ? (
@@ -135,5 +137,6 @@ export default async function BlogPage() {
         </div>
       </div>
     </main>
+    </BlogPageClient>
   )
 }
