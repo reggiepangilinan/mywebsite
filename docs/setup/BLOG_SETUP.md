@@ -1,12 +1,13 @@
-# Blog Implementation - Contentful + ISR
+# Blog Implementation - Contentful + Dynamic/ISR
 
-This document outlines the blog implementation using Contentful CMS with Incremental Static Regeneration (ISR).
+This document outlines the blog implementation using Contentful CMS with dynamic blog list and ISR for individual posts.
 
 ## ✅ **Features Implemented**
 
 ### **Blog System:**
 - **Contentful Integration**: CMS for blog post management
-- **ISR (Incremental Static Regeneration)**: Revalidation every 5 minutes (300s)
+- **Dynamic Blog List**: Shows new posts immediately (no ISR delay)
+- **ISR for Posts**: Individual posts revalidate every 1 hour (3600s) for cost optimization
 - **TypeScript Support**: Full type safety for blog posts
 - **Responsive Design**: Mobile-first approach with CSS Modules
 - **SEO Optimized**: Meta tags, Open Graph, Twitter Cards
@@ -89,8 +90,8 @@ CONTENTFUL_ACCESS_TOKEN=your_delivery_api_token_here
 ## 🚀 **ISR Configuration**
 
 ### **Revalidation Settings:**
-- **Blog List**: Revalidates every 5 minutes (300 seconds)
-- **Blog Posts**: Revalidates every 5 minutes (300 seconds)
+- **Blog List**: Dynamic (no ISR - shows new posts immediately)
+- **Blog Posts**: Revalidates every 1 hour (3600 seconds) for cost optimization
 - **Static Generation**: Pre-generates all blog post pages at build time
 - **Centralized Config**: Timing managed in `src/config/isr.ts`
 
@@ -106,7 +107,7 @@ CONTENTFUL_ACCESS_TOKEN=your_delivery_api_token_here
 1. **Write in Contentful**: Use the rich text editor
 2. **Add metadata**: Title, slug, excerpt, published date
 3. **Upload images**: Featured image and inline images
-4. **Publish**: Content appears on site within 5 minutes (or instantly with manual revalidation)
+4. **Publish**: New posts appear instantly on blog list, content appears on individual post pages within 1 hour (or instantly with manual revalidation)
 
 ### **Content Features:**
 - **Rich Text**: Full formatting support with custom renderer

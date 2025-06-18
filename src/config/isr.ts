@@ -2,17 +2,17 @@
 // 
 // IMPORTANT: Next.js requires literal values for revalidate exports
 // To change timing, update the values below and in the corresponding pages:
-// - src/app/blog/page.tsx
-// - src/app/blog/[slug]/page.tsx  
-// - src/app/dev-info/page.tsx
+// - src/app/blog/[slug]/page.tsx (ISR enabled)
+// - src/app/dev-info/page.tsx (ISR enabled)
+// 
+// Note: Blog list page (src/app/blog/page.tsx) is now dynamic for immediate post visibility
 
 export const ISR_CONFIG = {
   // Blog pages revalidation timing (in seconds)
-  BLOG_LIST_REVALIDATE: 300, // 5 minutes
-  BLOG_POST_REVALIDATE: 300, // 5 minutes
+  BLOG_POST_REVALIDATE: 3600, // 1 hour - Individual blog posts (cost-optimized)
   
-  // Dev info page revalidation timing
-  DEV_INFO_PAGE_REVALIDATE: 60, // 1 minute
+  // Dev info page revalidation timing  
+  DEV_INFO_PAGE_REVALIDATE: 1800, // 30 minutes - Dev info (cost-optimized)
   
   // Helper functions for display
   formatDuration: (seconds: number): string => {
@@ -25,9 +25,8 @@ export const ISR_CONFIG = {
   },
   
   // Validation helper to ensure pages match config
-  validatePageRevalidate: (pageType: 'blog-list' | 'blog-post' | 'dev-info', actualValue: number): boolean => {
+  validatePageRevalidate: (pageType: 'blog-post' | 'dev-info', actualValue: number): boolean => {
     const expected = {
-      'blog-list': ISR_CONFIG.BLOG_LIST_REVALIDATE,
       'blog-post': ISR_CONFIG.BLOG_POST_REVALIDATE,
       'dev-info': ISR_CONFIG.DEV_INFO_PAGE_REVALIDATE
     }[pageType]

@@ -3,24 +3,15 @@ import AnimatedSection from '@/components/AnimatedSection'
 import Link from 'next/link'
 import Image from 'next/image'
 import { blogConfig } from '@/config/blog'
-import { logISREvent } from '@/lib/isr-logger'
-import { ISR_CONFIG } from '@/config/isr'
 import { joinUrl } from '@/lib/url-utils'
 import styles from './blog.module.css'
 
-// Enable ISR with configurable revalidation
-// NOTE: This value must match ISR_CONFIG.BLOG_LIST_REVALIDATE (currently 300)
-export const revalidate = 300 // 5 minutes - update ISR_CONFIG.BLOG_LIST_REVALIDATE when changing
+// Make blog list dynamic to show new posts immediately
+// Individual blog posts still use ISR for performance
+export const dynamic = 'force-dynamic'
 
 export default async function BlogPage() {
-  // Validate revalidate matches config
-  ISR_CONFIG.validatePageRevalidate('blog-list', revalidate)
-  
-  await logISREvent('Blog list page render started')
-  
   const { items: posts } = await getBlogPosts()
-  
-  await logISREvent(`Blog list page data loaded - ${posts.length} posts found`)
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', blogConfig.dateFormat)

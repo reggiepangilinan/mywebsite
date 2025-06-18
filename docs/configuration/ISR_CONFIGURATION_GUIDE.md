@@ -7,9 +7,9 @@ This project uses centralized ISR (Incremental Static Regeneration) configuratio
 All ISR timing is managed in: **`src/config/isr.ts`**
 
 ## Current Settings
-- **Blog List** (`/blog`): 300 seconds (5 minutes)
-- **Blog Posts** (`/blog/[slug]`): 300 seconds (5 minutes)  
-- **Development Dashboard** (`/dev-info`): 60 seconds (1 minute)
+- **Blog List** (`/blog`): Dynamic (no ISR - shows new posts immediately)
+- **Blog Posts** (`/blog/[slug]`): 3600 seconds (1 hour)  
+- **Development Dashboard** (`/dev-info`): 1800 seconds (30 minutes)
 
 ## How to Change ISR Timing
 
@@ -17,9 +17,9 @@ All ISR timing is managed in: **`src/config/isr.ts`**
 Edit `src/config/isr.ts`:
 ```typescript
 export const ISR_CONFIG = {
-  BLOG_LIST_REVALIDATE: 600, // Change from 300 to 600 (10 minutes)
-  BLOG_POST_REVALIDATE: 600, // Change from 300 to 600 (10 minutes)
-  DEV_INFO_PAGE_REVALIDATE: 120, // Change from 60 to 120 (2 minutes)
+  BLOG_POST_REVALIDATE: 3600, // 1 hour - Individual blog posts (cost-optimized)
+  DEV_INFO_PAGE_REVALIDATE: 1800, // 30 minutes - Dev info (cost-optimized)
+  // Note: Blog list (/blog) is now dynamic for immediate post visibility
   // ...
 }
 ```
@@ -29,17 +29,17 @@ Due to Next.js limitations, you must also update the literal values in each page
 
 **`src/app/blog/page.tsx`:**
 ```typescript
-export const revalidate = 600 // Update to match BLOG_LIST_REVALIDATE
+export const dynamic = 'force-dynamic' // Blog list is now dynamic, not ISR
 ```
 
 **`src/app/blog/[slug]/page.tsx`:**
 ```typescript
-export const revalidate = 600 // Update to match BLOG_POST_REVALIDATE
+export const revalidate = 3600 // Update to match BLOG_POST_REVALIDATE (1 hour)
 ```
 
 **`src/app/dev-info/page.tsx`:**
 ```typescript
-export const revalidate = 120 // Update to match DEV_INFO_PAGE_REVALIDATE
+// Dev info page is client-side rendered, no ISR export needed
 ```
 
 ### 3. Validation

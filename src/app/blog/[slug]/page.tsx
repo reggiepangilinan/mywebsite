@@ -12,7 +12,7 @@ import styles from './blog-post.module.css'
 
 // Enable ISR with configurable revalidation
 // NOTE: This value must match ISR_CONFIG.BLOG_POST_REVALIDATE (currently 300)
-export const revalidate = 300 // 5 minutes - update ISR_CONFIG.BLOG_POST_REVALIDATE when changing
+export const revalidate = 3600 // 1 hour - update ISR_CONFIG.BLOG_POST_REVALIDATE when changing
 
 // Allow new blog posts to be generated dynamically
 export const dynamicParams = true

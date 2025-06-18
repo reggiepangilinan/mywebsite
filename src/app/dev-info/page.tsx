@@ -53,7 +53,7 @@ export default function DevInfoPage() {
         <h2>🚀 ISR Configuration</h2>
         <ul>
           <li><strong>This page:</strong> Client-side rendered (no ISR due to interactive features)</li>
-          <li><strong>Blog list revalidates every:</strong> {ISR_CONFIG.formatDuration(ISR_CONFIG.BLOG_LIST_REVALIDATE)}</li>
+          <li><strong>Blog list page:</strong> Dynamic (shows new posts immediately)</li>
           <li><strong>Blog posts revalidate every:</strong> {ISR_CONFIG.formatDuration(ISR_CONFIG.BLOG_POST_REVALIDATE)}</li>
         </ul>
         <p><small>💡 <strong>Configure timing in:</strong> <code>src/config/isr.ts</code></small></p>
@@ -80,8 +80,8 @@ export default function DevInfoPage() {
         <ol>
           <li><strong>Refresh this page multiple times</strong> - Load time should vary</li>
           <li><strong>Check browser Network tab</strong> - Look for Cache-Control headers</li>
-          <li><strong>Visit /blog</strong> - Should show ISR behavior</li>
-          <li><strong>Update content in Contentful</strong> - Changes should appear within {ISR_CONFIG.formatDuration(ISR_CONFIG.BLOG_LIST_REVALIDATE)}</li>
+          <li><strong>Visit /blog</strong> - Dynamic page (shows new posts immediately)</li>
+          <li><strong>Update content in Contentful</strong> - Blog list shows changes immediately, individual posts update within {ISR_CONFIG.formatDuration(ISR_CONFIG.BLOG_POST_REVALIDATE)}</li>
         </ol>
       </div>
 
