@@ -1,6 +1,6 @@
 'use client'
 import Link from 'next/link'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
 import styles from './Header.module.css'
 import ThemeToggle from '@/components/ThemeToggle'
@@ -9,6 +9,8 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
   const pathname = usePathname()
+  const menuButtonRef = useRef<HTMLButtonElement>(null)
+  const firstMenuItemRef = useRef<HTMLAnchorElement>(null)
 
   useEffect(() => {
     setMounted(true)
@@ -35,7 +37,27 @@ export default function Header() {
     setIsMenuOpen(false)
   }
 
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen)
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen)
+    // Focus management for accessibility
+    if (!isMenuOpen) {
+      // When opening menu, focus first item after a brief delay
+      setTimeout(() => {
+        firstMenuItemRef.current?.focus()
+      }, 100)
+    } else {
+      // When closing menu, return focus to menu button
+      menuButtonRef.current?.focus()
+    }
+  }
+
+  // Handle keyboard navigation
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === 'Escape' && isMenuOpen) {
+      setIsMenuOpen(false)
+      menuButtonRef.current?.focus()
+    }
+  }
 
   // Prevent body scroll when mobile menu is open
   useEffect(() => {
@@ -79,16 +101,19 @@ export default function Header() {
 
   return (
     <header className={styles.header}>
-      <nav className={styles.nav}>
+      <nav className={styles.nav} onKeyDown={handleKeyDown}>
         <div className={styles.navContent}>
           <Link href="/" className={styles.logo} onClick={handleNavClick}>
             Reggie Pangilinan
           </Link>
           
           <button 
+            ref={menuButtonRef}
             className={styles.hamburger}
             onClick={toggleMenu}
-            aria-label="Toggle menu"
+            aria-label="Toggle navigation menu"
+            aria-expanded={isMenuOpen}
+            aria-controls="navigation-menu"
           >
             <span className={`${styles.hamburgerLine} ${isMenuOpen ? styles.hamburgerOpen : ''}`}></span>
             <span className={`${styles.hamburgerLine} ${isMenuOpen ? styles.hamburgerOpen : ''}`}></span>
@@ -96,12 +121,20 @@ export default function Header() {
           </button>
             
           <div className={`${styles.navRight} ${isMenuOpen ? styles.navRightOpen : ''}`}>
-            <div className={styles.navLinks} suppressHydrationWarning>
+            <div 
+              className={styles.navLinks} 
+              suppressHydrationWarning
+              id="navigation-menu"
+              role="menu"
+              aria-label="Main navigation"
+            >
               <Link 
+                ref={firstMenuItemRef}
                 href="/" 
                 className={`${styles.navLink} ${isActive('/') ? styles.active : ''}`}
                 onClick={handleNavClick}
                 suppressHydrationWarning
+                role="menuitem"
               >
                 Home
               </Link>
@@ -111,6 +144,7 @@ export default function Header() {
                   className={`${styles.navLink} ${isActive('/blog') ? styles.active : ''}`}
                   onClick={handleNavClick}
                   suppressHydrationWarning
+                  role="menuitem"
                 >
                   Blog
                 </Link>
@@ -120,6 +154,7 @@ export default function Header() {
                 className={`${styles.navLink} ${isActive('/about') ? styles.active : ''}`}
                 onClick={handleNavClick}
                 suppressHydrationWarning
+                role="menuitem"
               >
                 About
               </Link>
@@ -132,9 +167,10 @@ export default function Header() {
                 rel="noopener noreferrer"
                 onClick={handleNavClick}
                 suppressHydrationWarning
+                aria-label="Visit Reggie's GitHub profile (opens in new tab)"
               >
                 GitHub
-                <svg className={styles.externalIcon} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <svg className={styles.externalIcon} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                 </svg>
               </a>
@@ -145,14 +181,17 @@ export default function Header() {
                 rel="noopener noreferrer"
                 onClick={handleNavClick}
                 suppressHydrationWarning
+                aria-label="Visit Reggie's LinkedIn profile (opens in new tab)"
               >
                 LinkedIn
-                <svg className={styles.externalIcon} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <svg className={styles.externalIcon} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                 </svg>
               </a>
             </div>
-            <ThemeToggle />
+            <div aria-label="Theme toggle">
+              <ThemeToggle />
+            </div>
           </div>
         </div>
       </nav>

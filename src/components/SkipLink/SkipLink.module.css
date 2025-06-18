@@ -1,0 +1,29 @@
+.skipLink {
+  position: absolute;
+  top: 0;
+  left: var(--spacing-sm);
+  background: var(--color-primary);
+  color: var(--color-primary-contrast);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  text-decoration: none;
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
+  z-index: 9999;
+  font-weight: 500;
+  font-size: var(--font-size-sm);
+  transform: translateY(-100%);
+  opacity: 0;
+  transition: all var(--transition-fast);
+  border: 2px solid var(--color-primary);
+}
+
+.skipLink:focus {
+  transform: translateY(0) !important;
+  opacity: 1 !important;
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.skipLink:hover {
+  background: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+}

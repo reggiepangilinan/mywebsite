@@ -4,6 +4,8 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
+import SkipLink from "@/components/SkipLink";
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -162,15 +164,18 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.className} ${roboto.variable}`} suppressHydrationWarning>
-        <ThemeProvider>
-          <div className="page-wrapper">
-            <Header />
-            <main className="main-content">
-              {children}
-            </main>
-            <Footer />
-          </div>
-        </ThemeProvider>
+        <SkipLink href="#main-content">Skip to main content</SkipLink>
+        <ErrorBoundary>
+          <ThemeProvider>
+            <div className="page-wrapper">
+              <Header />
+              <main className="main-content" id="main-content">
+                {children}
+              </main>
+              <Footer />
+            </div>
+          </ThemeProvider>
+        </ErrorBoundary>
       </body>
     </html>
   );

@@ -16,6 +16,9 @@ Feature implementation and best practice guides:
 - [Dynamic SEO Guide](./guides/DYNAMIC_SEO_GUIDE.md) - Dynamic robots.txt and sitemap.xml implementation
 - [Sitemap Guide](./guides/SITEMAP_GUIDE.md) - Sitemap generation and optimization
 - [Social Share Guide](./guides/SOCIAL_SHARE_GUIDE.md) - Open Graph and social media optimization
+- [Testing Strategy](./guides/TESTING_STRATEGY.md) - Testing implementation and setup
+- [Code Quality Roadmap](./guides/CODE_QUALITY_ROADMAP.md) - Code quality improvements checklist
+- [Monitoring & Analytics](./guides/MONITORING_ANALYTICS.md) - Performance monitoring setup
 
 ### ⚙️ [Configuration](./configuration/)
 System configuration and optimization documentation:
@@ -38,6 +41,33 @@ Deployment and hosting documentation:
 - **SEO Implementation**: Check [Dynamic SEO Guide](./guides/DYNAMIC_SEO_GUIDE.md)
 - **Performance Optimization**: Review [ISR Configuration](./configuration/ISR_CONFIGURATION_GUIDE.md)
 - **Deployment**: Follow [Netlify Deploy Guide](./deployment/NETLIFY_DEPLOY.md)
+
+## 🎯 **Implementation Plans** (New)
+Project roadmaps and development progress:
+- [Quick Start Guide](./QUICK_START.md) - 30-second resume development guide
+- [Resumable Roadmap](./RESUMABLE_ROADMAP.md) - Complete step-by-step implementation guide
+- [3-Day Implementation Plan](./3-DAY-IMPLEMENTATION-PLAN.md) - Performance & accessibility roadmap
+- [Day 1 Complete](./DAY-1-COMPLETE.md) - Completed accessibility improvements
+- [Progress Report](./PROGRESS_REPORT.md) - Current status and achievements
+
+## 📋 **Quality & Testing** (New)
+Code quality and testing documentation:
+- [Testing Strategy](./guides/TESTING_STRATEGY.md) - Testing implementation and setup
+- [Code Quality Roadmap](./guides/CODE_QUALITY_ROADMAP.md) - Code quality improvements checklist
+- [Monitoring & Analytics](./guides/MONITORING_ANALYTICS.md) - Performance monitoring setup
+
+---
+
+## 🚀 **Getting Started**
+
+### For Development Resume
+1. **[Quick Start Guide](./QUICK_START.md)** - If you're resuming development
+2. **[Resumable Roadmap](./RESUMABLE_ROADMAP.md)** - For detailed next steps
+
+### For New Features  
+1. Review the relevant guide in [Guides](./guides/)
+2. Check [Configuration](./configuration/) for system settings
+3. Follow [Setup](./setup/) instructions for new integrations
 
 ## 📝 Documentation Conventions
 

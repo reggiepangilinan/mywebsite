@@ -2,7 +2,9 @@
 export const SITE_CONFIG = {
   url: 'https://reggiepangilinan.com',
   name: 'Reggie Pangilinan',
+  author: 'Reggie Pangilinan',
   description: 'Personal portfolio and blog of Reggie Pangilinan - Software Developer',
+  keywords: ['Reggie Pangilinan', 'Engineering Leader', 'Full Stack Developer', 'React', 'Next.js', 'TypeScript', 'Azure', 'Software Architecture'],
   
   // Static pages configuration
   staticPages: [
