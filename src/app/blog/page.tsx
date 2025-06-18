@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { blogConfig } from '@/config/blog'
 import { logISREvent } from '@/lib/isr-logger'
 import { ISR_CONFIG } from '@/config/isr'
+import { joinUrl } from '@/lib/url-utils'
 import styles from './blog.module.css'
 
 // Enable ISR with configurable revalidation
@@ -72,7 +73,7 @@ export default async function BlogPage() {
                     <article className={styles.postItem}>
                       {imageUrl && (
                         <div className={styles.postImage}>
-                          <Link href={`/blog/${slug}`} className={styles.postImageLink}>
+                          <Link href={joinUrl('/blog', slug)} className={styles.postImageLink}>
                             <Image
                               src={imageUrl}
                               alt={imageAlt}
@@ -86,7 +87,7 @@ export default async function BlogPage() {
                       )}
                       
                       <div className={styles.postContent}>
-                        <Link href={`/blog/${slug}`} className={styles.titleLink}>
+                        <Link href={joinUrl('/blog', slug)} className={styles.titleLink}>
                           <h2 className={styles.postTitle}>{title}</h2>
                         </Link>
                         
@@ -104,7 +105,7 @@ export default async function BlogPage() {
                         </p>
                         
                         {excerpt.length > blogConfig.excerptMaxLength && (
-                          <Link href={`/blog/${slug}`} className={styles.readMore}>
+                          <Link href={joinUrl('/blog', slug)} className={styles.readMore}>
                             Read more
                           </Link>
                         )}

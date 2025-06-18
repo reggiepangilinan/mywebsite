@@ -89,3 +89,8 @@ All existing components have been migrated to this structure:
 - ✅ ThemeToggle
 
 All imports have been updated and tested successfully.
+
+## Related Development Guides
+
+- **[Double Slash Handling](./DOUBLE_SLASH_HANDLING.md)** - URL normalization utilities for routing components
+- **[CSS Variables](./CSS_VARIABLES.md)** - Design tokens and CSS custom properties system

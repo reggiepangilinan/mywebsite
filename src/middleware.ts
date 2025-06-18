@@ -1,8 +1,20 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { normalizeUrl } from '@/lib/url-utils';
 
 export function middleware(request: NextRequest) {
   const response = NextResponse.next();
+
+  // Handle double slash normalization for all routes
+  const pathname = request.nextUrl.pathname;
+  if (pathname.includes('//') && !pathname.startsWith('/api/')) {
+    const normalizedPath = normalizeUrl(pathname);
+    if (normalizedPath !== pathname) {
+      const url = request.nextUrl.clone();
+      url.pathname = normalizedPath;
+      return NextResponse.redirect(url, 301);
+    }
+  }
 
   // Security headers
   response.headers.set('X-Frame-Options', 'DENY');

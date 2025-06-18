@@ -13,6 +13,7 @@ Initial project configuration and feature setup guides:
 Feature implementation and best practice guides:
 - [Component Convention](./guides/COMPONENT_CONVENTION.md) - Component folder structure and organization
 - [CSS Variables](./guides/CSS_VARIABLES.md) - Design tokens and CSS custom properties system
+- [Double Slash Handling](./guides/DOUBLE_SLASH_HANDLING.md) - URL normalization and double slash prevention
 - [Dynamic SEO Guide](./guides/DYNAMIC_SEO_GUIDE.md) - Dynamic robots.txt and sitemap.xml implementation
 - [Sitemap Guide](./guides/SITEMAP_GUIDE.md) - Sitemap generation and optimization
 - [Social Share Guide](./guides/SOCIAL_SHARE_GUIDE.md) - Open Graph and social media optimization
@@ -92,4 +93,4 @@ docs/
 
 ---
 
-*Last updated: June 18, 2025*
+*Last updated: June 19, 2025*

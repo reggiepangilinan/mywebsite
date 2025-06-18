@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { SITE_CONFIG } from '@/config/site'
+import { joinUrl } from '@/lib/url-utils'
 
 export async function GET() {
   const { robots } = SITE_CONFIG
@@ -17,7 +18,7 @@ export async function GET() {
     // Crawl delay (if specified)
     ...(robots.crawlDelay ? [`Crawl-delay: ${robots.crawlDelay}`, ''] : []),
     // Sitemap location
-    `Sitemap: ${SITE_CONFIG.url}/sitemap.xml`,
+    `Sitemap: ${joinUrl(SITE_CONFIG.url, '/sitemap.xml')}`,
     '',
     '# This robots.txt is dynamically generated',
     `# Last updated: ${new Date().toISOString().split('T')[0]}`,

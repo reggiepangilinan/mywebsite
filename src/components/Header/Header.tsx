@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
 import styles from './Header.module.css'
 import ThemeToggle from '@/components/ThemeToggle'
+import { normalizePathname } from '@/lib/url-utils'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -18,8 +19,7 @@ export default function Header() {
 
   // Normalize paths to handle trailing slashes consistently
   const normalizePath = (path: string): string => {
-    if (path === '/') return '/'
-    return path.replace(/\/$/, '')
+    return normalizePathname(path)
   }
 
   // Check if a navigation link is active - always return false on server to prevent hydration mismatch

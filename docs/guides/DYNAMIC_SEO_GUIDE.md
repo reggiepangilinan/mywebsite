@@ -169,3 +169,8 @@ robots: {
 ```
 
 This system ensures your SEO files are always current and require no manual maintenance!
+
+## Related Documentation
+
+- **[Double Slash Handling](./DOUBLE_SLASH_HANDLING.md)** - URL normalization and clean URL generation for SEO files
+- **[Sitemap Guide](./SITEMAP_GUIDE.md)** - Additional sitemap configuration options

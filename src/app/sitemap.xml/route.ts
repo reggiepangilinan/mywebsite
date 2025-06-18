@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { SITE_CONFIG } from '@/config/site'
 import { getBlogPosts } from '@/lib/contentful'
+import { joinUrl } from '@/lib/url-utils'
 
 export async function GET() {
   try {
@@ -27,14 +28,14 @@ ${SITE_CONFIG.staticPages.map(page => {
     : formatDate(page.lastmod)
   
   return `  <url>
-    <loc>${SITE_CONFIG.url}${page.path}</loc>
+    <loc>${joinUrl(SITE_CONFIG.url, page.path)}</loc>
     <lastmod>${lastmod}</lastmod>
     <changefreq>${page.changefreq}</changefreq>
     <priority>${page.priority}</priority>
   </url>`
 }).join('\n')}
 ${blogPosts.map(post => `  <url>
-    <loc>${SITE_CONFIG.url}/blog/${post.fields.slug}</loc>
+    <loc>${joinUrl(SITE_CONFIG.url, `/blog/${post.fields.slug}`)}</loc>
     <lastmod>${formatDate(String(post.fields.publishDate || new Date().toISOString()))}</lastmod>
     <changefreq>${SITE_CONFIG.blog.changefreq}</changefreq>
     <priority>${SITE_CONFIG.blog.priority}</priority>
@@ -55,7 +56,7 @@ ${blogPosts.map(post => `  <url>
     const fallbackSitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${SITE_CONFIG.staticPages.map(page => `  <url>
-    <loc>${SITE_CONFIG.url}${page.path}</loc>
+    <loc>${joinUrl(SITE_CONFIG.url, page.path)}</loc>
     <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
     <changefreq>${page.changefreq}</changefreq>
     <priority>${page.priority}</priority>

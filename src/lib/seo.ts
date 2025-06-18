@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { SITE_CONFIG } from '@/config/site';
+import { joinUrl } from '@/lib/url-utils';
 
 interface GenerateMetadataProps {
   title?: string;
@@ -23,7 +24,7 @@ export function generatePageMetadata({
   type = 'website'
 }: GenerateMetadataProps = {}): Metadata {
   const baseUrl = SITE_CONFIG.url;
-  const defaultImage = `${baseUrl}/og-image.png`;
+  const defaultImage = joinUrl(baseUrl, '/og-image.png');
   
   const pageTitle = title 
     ? `${title} | ${SITE_CONFIG.name}`
