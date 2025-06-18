@@ -9,7 +9,11 @@ import styles from './blog.module.css'
 export const revalidate = 300 // 5 minutes
 
 export default async function BlogPage() {
+  console.log(`[ISR] Blog list page render started - timestamp: ${new Date().toISOString()}`)
+  
   const { items: posts } = await getBlogPosts()
+  
+  console.log(`[ISR] Blog list page data loaded - ${posts.length} posts found`)
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', blogConfig.dateFormat)
