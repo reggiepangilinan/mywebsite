@@ -59,6 +59,16 @@ export default async function DebugPage() {
         </ol>
       </div>
 
+      <div style={{ marginBottom: '20px', padding: '15px', border: '1px solid #666', borderRadius: '5px' }}>
+        <h2>🤖 Dynamic SEO Files</h2>
+        <p>The following files are dynamically generated:</p>
+        <ul>
+          <li><strong><a href="/robots.txt" target="_blank">/robots.txt</a></strong> - Auto-generated from site config</li>
+          <li><strong><a href="/sitemap.xml" target="_blank">/sitemap.xml</a></strong> - Includes all blog posts from Contentful</li>
+        </ul>
+        <p><small>💡 <strong>Configure in:</strong> <code>src/config/site.ts</code></small></p>
+      </div>
+
       <div style={{ padding: '15px', border: '1px solid #666', borderRadius: '5px' }}>
         <h2>📊 Logging Info</h2>
         <p>Logs are written to console.error() for better visibility on Netlify.</p>
