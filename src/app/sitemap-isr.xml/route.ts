@@ -1,6 +1,10 @@
 import { NextResponse } from 'next/server'
 import { SITE_CONFIG } from '@/config/site'
 import { getBlogPosts } from '@/lib/contentful'
+import { ISR_CONFIG } from '@/config/isr'
+
+// ISR configuration for cost efficiency
+export const revalidate = 21600 // 6 hours - much more cost effective
 
 export async function GET() {
   try {
@@ -39,13 +43,14 @@ ${blogPosts.map(post => `  <url>
     <changefreq>${SITE_CONFIG.blog.changefreq}</changefreq>
     <priority>${SITE_CONFIG.blog.priority}</priority>
   </url>`).join('\n')}
-</urlset>`
+</urlset>
+<!-- Generated with ISR every ${ISR_CONFIG.formatDuration(revalidate)} for cost efficiency -->`
 
     return new NextResponse(sitemap, {
       headers: {
         'Content-Type': 'application/xml',
-        // Longer cache for cost efficiency - sitemap doesn't need hourly updates
-        'Cache-Control': 'public, max-age=21600, s-maxage=21600', // Cache for 6 hours
+        // ISR handles caching, but add edge cache too
+        'Cache-Control': 'public, max-age=21600, s-maxage=21600, stale-while-revalidate=86400',
       },
     })
   } catch (error) {
@@ -60,7 +65,8 @@ ${SITE_CONFIG.staticPages.map(page => `  <url>
     <changefreq>${page.changefreq}</changefreq>
     <priority>${page.priority}</priority>
   </url>`).join('\n')}
-</urlset>`
+</urlset>
+<!-- Fallback sitemap - Contentful unavailable -->`
 
     return new NextResponse(fallbackSitemap, {
       headers: {
