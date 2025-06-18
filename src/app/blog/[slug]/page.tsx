@@ -109,7 +109,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   const fields = post.fields as any
 
-  console.log('Rendering blog post:', fields);    // Debugging line to check fields
   const { title, subtitle, content, featuredImage, publishDate, tags, author } = fields
 
   const formatDate = (dateString: string) => {

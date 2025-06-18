@@ -10,8 +10,6 @@ interface BlogCardProps {
 
 export default function BlogCard({ post }: BlogCardProps) {
   const fields = post.fields as any
-  console.log('BlogCard post:', post) 
-  console.log('BlogCard fields:', fields)   // Debugging line to check fields structure
   const { title, subtitle, slug, excerpt, featuredImage, publishDate, tags, author } = fields
 
   const formatDate = (dateString: string) => {
