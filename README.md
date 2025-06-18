@@ -8,8 +8,18 @@ A modern personal portfolio website built with Next.js 15, TypeScript, and CSS M
 - 🚀 **Next.js 15**: Latest React framework with App Router
 - 📱 **Responsive**: Mobile-first design
 - 🎨 **CSS Modules**: Scoped styling without conflicts
-- 📊 **Static Site Generation**: Fast loading and SEO-friendly
+- � **Dynamic Blog**: Contentful CMS integration with ISR
+- ⚡ **ISR (Incremental Static Regeneration)**: Fast, always-fresh content
+- 📊 **Hybrid Rendering**: SSG for static pages, ISR for dynamic content
 - 🔧 **TypeScript**: Type-safe development
+- 🔍 **SEO Optimized**: Meta tags, sitemap, and structured data
+
+## Architecture
+
+- **Static Pages**: Home, About, Projects (fast SSG)
+- **Dynamic Blog**: Contentful-powered with ISR revalidation
+- **Centralized ISR Config**: Easy timing management in `src/config/isr.ts`
+- **Debug Tools**: Built-in ISR monitoring at `/debug-isr`
 
 ## Getting Started
 
@@ -78,44 +88,90 @@ The application will automatically use the next available port if 3000 is occupi
 npm run build
 ```
 
-This creates an optimized static export in the `out` folder.
+This creates an optimized hybrid build with:
+- Static pages pre-rendered at build time
+- ISR-enabled blog pages for dynamic updates
+- Proper cache headers for performance
 
 ## Project Structure
 
 ```
 src/
 ├── app/                # App Router pages
-│   ├── about/         # About page
-│   ├── projects/      # Projects page
+│   ├── about/         # About page with experience & skills
+│   ├── blog/          # Blog list page (ISR enabled)
+│   │   └── [slug]/    # Individual blog posts (ISR enabled)
+│   ├── debug-isr/     # ISR debugging tools
+│   ├── projects/      # Projects showcase
+│   ├── api/           # API routes
+│   │   └── status/    # ISR status endpoint
 │   ├── globals.css    # Global styles
-│   ├── layout.tsx     # Root layout
+│   ├── layout.tsx     # Root layout with navigation
 │   └── page.tsx       # Home page
 ├── components/        # Reusable components
-│   ├── Header.tsx     # Navigation header
-│   ├── Footer.tsx     # Site footer
-│   └── ProjectCard.tsx # Project card component
+│   ├── AnimatedSection.tsx  # Scroll animations
+│   ├── BlogCard.tsx         # Blog post cards
+│   ├── Header.tsx           # Navigation header
+│   ├── Footer.tsx           # Site footer
+│   ├── ProjectCard.tsx      # Project showcase cards
+│   ├── RichTextRenderer.tsx # Contentful rich text display
+│   └── ThemeToggle.tsx      # Dark/light mode toggle
+├── config/            # Configuration files
+│   ├── blog.ts        # Blog display settings
+│   └── isr.ts         # ISR timing configuration
+├── hooks/             # Custom React hooks
+├── lib/               # Utility libraries
+│   ├── contentful.ts  # Contentful CMS integration
+│   └── isr-logger.ts  # ISR logging utilities
 └── public/           # Static assets
+```
+
+## Configuration
+
+### ISR Timing
+All ISR revalidation timing is managed in `src/config/isr.ts`:
+- Blog pages: 300 seconds (5 minutes)
+- Debug page: 60 seconds (1 minute)
+
+📖 **See**: `ISR_CONFIGURATION_GUIDE.md` for detailed instructions
+
+### Content Management
+Blog content is managed via Contentful CMS. Set environment variables:
+```bash
+CONTENTFUL_SPACE_ID=your_space_id
+CONTENTFUL_ACCESS_TOKEN=your_access_token
 ```
 
 ## Customization
 
 1. **Personal Information**: Update your name, bio, and contact links in the components
-2. **Styling**: Modify CSS modules in respective `.module.css` files
-3. **Content**: Add your projects, skills, and experience
-4. **Images**: Replace placeholder images with your own
+2. **ISR Timing**: Modify revalidation intervals in `src/config/isr.ts`
+3. **Blog Content**: Manage posts through Contentful CMS
+4. **Styling**: Modify CSS modules in respective `.module.css` files
+5. **Content**: Add your projects, skills, and experience
+6. **Images**: Replace placeholder images with your own
+
+## Monitoring & Debugging
+
+- **ISR Debug Page**: Visit `/debug-isr` to monitor ISR behavior
+- **API Status**: Check `/api/status` for configuration verification
+- **Build Output**: Monitor revalidate timing in build logs
 
 ## Deployment
 
-This site is configured for static export and can be deployed to:
+This site uses **hybrid rendering**:
+- **Static pages** (Home, About, Projects): Traditional SSG
+- **Blog pages**: ISR-enabled for dynamic content updates
 
-- Vercel
-- Netlify
-- GitHub Pages
-- Any static hosting service
+### Supported Platforms
+
+- **Netlify** ✅ (Recommended - Full ISR support)
+- **Vercel** ✅ (Native ISR support)
+- Static hosts (Limited - ISR becomes SSG)
 
 ### Netlify Deployment
 
-This project is configured for easy deployment to Netlify with static site generation.
+This project is configured for Netlify with **ISR support** via `@netlify/plugin-nextjs`.
 
 #### Option 1: Connect Git Repository (Recommended)
 
@@ -128,10 +184,18 @@ This project is configured for easy deployment to Netlify with static site gener
 
 3. **Build Settings** (Auto-configured via `netlify.toml`):
    - **Build command**: `npm run build`
-   - **Publish directory**: `out`
+   - **Publish directory**: `.next`
+   - **Plugin**: `@netlify/plugin-nextjs` (enables ISR)
    - **Node version**: `18`
 
-4. **Deploy**: Click "Deploy site" - Netlify will automatically build and deploy your site
+4. **Environment Variables**: Add your Contentful credentials:
+   ```
+   CONTENTFUL_SPACE_ID=your_space_id
+   CONTENTFUL_ACCESS_TOKEN=your_access_token
+   ENABLE_ISR_LOGS=true
+   ```
+
+5. **Deploy**: Click "Deploy site" - Netlify will automatically build and deploy with ISR support
 
 #### Option 2: Manual Deploy
 
@@ -186,9 +250,20 @@ If Chrome doesn't open automatically, try these solutions:
 
 ### Common Issues
 
-- **Missing images**: Add placeholder images to `/public/` folder (profile.jpg, project1.jpg, project2.jpg)
+- **Missing Contentful credentials**: Add environment variables for blog functionality
+- **ISR not working**: Check `/debug-isr` page and ensure environment variables are set
 - **Build errors**: Run `npm run lint` to check for TypeScript/ESLint errors
 - **Port already in use**: The app will automatically use the next available port (3001, 3002, etc.)
+
+## Documentation
+
+This project includes comprehensive documentation:
+
+- **`ISR_CONFIGURATION_GUIDE.md`** - How to configure ISR timing
+- **`ISR_STATUS_SUMMARY.md`** - Current ISR setup and verification
+- **`NETLIFY_LOGGING_GUIDE.md`** - Debugging ISR on Netlify
+- **`NETLIFY_DEPLOY.md`** - Deployment instructions
+- **`BLOG_SETUP.md`** - Blog and Contentful setup
 
 ## Development Tools
 

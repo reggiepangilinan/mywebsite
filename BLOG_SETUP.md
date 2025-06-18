@@ -1,6 +1,27 @@
 # Blog Implementation - Contentful + ISR
 
-This document outlines the blog implementation using Contentful CMS with Incremental Static ### **Supported Content Types:**
+This document outlines the blog implementation using Contentful CMS with Incremental Static Regeneration (ISR).
+
+## ✅ **Features Implemented**
+
+### **Blog System:**
+- **Contentful Integration**: CMS for blog post management
+- **ISR (Incremental Static Regeneration)**: Revalidation every 5 minutes (300s)
+- **TypeScript Support**: Full type safety for blog posts
+- **Responsive Design**: Mobile-first approach with CSS Modules
+- **SEO Optimized**: Meta tags, Open Graph, Twitter Cards
+- **Image Optimization**: Next.js Image component with proper sizing
+
+### **Pages Created:**
+- **`/blog`** - Blog listing page with ISR
+- **`/blog/[slug]`** - Individual blog post pages with ISR
+- **Blog navigation** - Added to main header
+
+### **Components:**
+- **`BlogCard`** - Blog post preview cards
+- **`RichTextRenderer`** - Contentful rich text rendering
+
+### **Supported Content Types:**
 - **Headings**: H2-H6 with responsive sizing and proper hierarchy (H1 reserved for page title)
 - **Paragraphs**: Optimized line-height and spacing
 - **Text Formatting**: Bold, italic, underline support
@@ -15,7 +36,7 @@ This document outlines the blog implementation using Contentful CMS with Increme
 
 ### **Blog System:**
 - **Contentful Integration**: CMS for blog post management
-- **ISR (Incremental Static Regeneration)**: Revalidation every hour (3600s)
+- **ISR (Incremental Static Regeneration)**: Revalidation every 5 minutes (300s)
 - **TypeScript Support**: Full type safety for blog posts
 - **Responsive Design**: Mobile-first approach with CSS Modules
 - **SEO Optimized**: Meta tags, Open Graph, Twitter Cards
@@ -68,9 +89,10 @@ CONTENTFUL_ACCESS_TOKEN=your_delivery_api_token_here
 ## 🚀 **ISR Configuration**
 
 ### **Revalidation Settings:**
-- **Blog List**: Revalidates every hour (3600 seconds)
-- **Blog Posts**: Revalidates every hour (3600 seconds)
+- **Blog List**: Revalidates every 5 minutes (300 seconds)
+- **Blog Posts**: Revalidates every 5 minutes (300 seconds)
 - **Static Generation**: Pre-generates all blog post pages at build time
+- **Centralized Config**: Timing managed in `src/config/isr.ts`
 
 ### **Benefits:**
 - **Fast Loading**: Static pages served from CDN
@@ -84,7 +106,7 @@ CONTENTFUL_ACCESS_TOKEN=your_delivery_api_token_here
 1. **Write in Contentful**: Use the rich text editor
 2. **Add metadata**: Title, slug, excerpt, published date
 3. **Upload images**: Featured image and inline images
-4. **Publish**: Content appears on site within 1 hour (or instantly with manual revalidation)
+4. **Publish**: Content appears on site within 5 minutes (or instantly with manual revalidation)
 
 ### **Content Features:**
 - **Rich Text**: Full formatting support with custom renderer
