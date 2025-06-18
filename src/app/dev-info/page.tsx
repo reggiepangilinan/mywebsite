@@ -104,7 +104,7 @@ export default function DevInfoPage() {
           <h3 style={{ margin: '15px 0 10px 0', fontSize: '18px', borderBottom: '2px solid #444', paddingBottom: '5px' }}>📊 Status & Monitoring APIs</h3>
           
           <div style={{ marginBottom: '15px', paddingLeft: '10px', borderLeft: '3px solid #3b82f6' }}>
-            <h4 style={{ margin: '5px 0', fontSize: '16px' }}>� /api/status</h4>
+            <h4 style={{ margin: '5px 0', fontSize: '16px' }}>🔍 /api/status</h4>
             <p style={{ margin: '5px 0', fontSize: '14px', color: '#888' }}>
               Real-time server status, ISR configuration, environment info, and Contentful connectivity
             </p>
@@ -270,7 +270,7 @@ export default function DevInfoPage() {
         </div>
 
         <div style={{ marginBottom: '20px' }}>
-          <h3 style={{ margin: '15px 0 10px 0', fontSize: '18px', borderBottom: '2px solid #444', paddingBottom: '5px' }}>�️ Developer Tools & cURL Commands</h3>
+          <h3 style={{ margin: '15px 0 10px 0', fontSize: '18px', borderBottom: '2px solid #444', paddingBottom: '5px' }}>🛠️ Developer Tools & cURL Commands</h3>
           
           <div style={{ background: '#1a1a1a', padding: '12px', borderRadius: '6px', fontSize: '11px', fontFamily: 'monospace' }}>
             <div style={{ marginBottom: '8px' }}>
