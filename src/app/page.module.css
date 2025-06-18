@@ -3,6 +3,10 @@
 }
 
 .hero {
+  min-height: calc(100vh - 68px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 60px 0;
   background: linear-gradient(135deg, var(--color-primary) 0%, #764ba2 100%);
   color: white;
@@ -348,6 +352,12 @@
 }
 
 @media (max-width: 768px) {
+  .hero {
+    min-height: calc(100vh - 68px);
+    min-height: calc(100dvh - 68px); /* Dynamic viewport height for mobile */
+    padding: 40px 0;
+  }
+
   .title {
     font-size: 2rem;
   }
