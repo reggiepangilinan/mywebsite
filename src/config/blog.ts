@@ -5,7 +5,7 @@ export const blogConfig = {
   revalidate: 300,
 
   // Pagination settings
-  postsPerPage: 25,
+  postsPerPage: 10,
 
   // Maximum length for blog post excerpts
   excerptMaxLength: 250,
