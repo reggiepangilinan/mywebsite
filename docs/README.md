@@ -1,9 +1,6 @@
 # 📚 Documentation
 
-Welcome to the doc### 📚 [Examples](./examples/)
-Code examples and alternative implementations:
-- [Client-Rendered Blog Example](./examples/client-rendered-blog-example.tsx) - Alternative client-side rendering approach for comparison
-- [Test Revalidation Script](../scripts/test-revalidation.js) - Testing utility for force revalidation APIntation for Reggie Pangilinan's personal website. This folder contains all project documentation organized by category.
+Welcome to the documentation for Reggie Pangilinan's personal website. This folder contains all project documentation organized by category.
 
 ## 📁 Documentation Structure
 
@@ -40,11 +37,17 @@ Deployment and hosting documentation:
 - [Netlify Deploy](./deployment/NETLIFY_DEPLOY.md) - Netlify deployment configuration
 - [Netlify Logging Guide](./deployment/NETLIFY_LOGGING_GUIDE.md) - Logging and debugging on Netlify
 
-### � [Examples](./examples/)
+### 📚 [Examples](./examples/)
 Code examples and alternative implementations:
 - [Client-Rendered Blog Example](./examples/client-rendered-blog-example.tsx) - Alternative client-side rendering approach for comparison
+- [Test Revalidation Script](../scripts/test-revalidation.js) - Testing utility for force revalidation API
 
-### �🔧 Miscellaneous
+### 🔧 [Scripts](../scripts/)
+Testing and utility scripts:
+- [Test Revalidation Script](../scripts/test-revalidation.js) - Automated testing for force revalidation endpoint
+- [Test Revalidation Shell Script](../scripts/test-revalidation.sh) - Shell wrapper for revalidation testing
+
+### 📋 Miscellaneous
 - [Deprecation Fix](./DEPRECATION_FIX.md) - Node.js deprecation warning fixes
 - [Navigation Test](./NAVIGATION_TEST.md) - Navigation testing procedures
 
