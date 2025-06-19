@@ -62,6 +62,7 @@ export async function getBlogPosts(
       limit,
       skip,
       order: '-fields.publishDate' as any,
+      include: 2, // Include linked assets (featured images)
     })
 
     await logISREvent(
@@ -98,6 +99,7 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
       content_type: 'blogPost',
       'fields.slug[match]': slug,
       limit: 1,
+      include: 2, // Include linked assets (featured images)
     } as any)
 
     if (response.items.length === 0) {
