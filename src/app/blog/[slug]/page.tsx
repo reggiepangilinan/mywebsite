@@ -174,7 +174,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   return (
     <main className={styles.main}>
       <div className="container">
-        <AnimatedSection>
+        <AnimatedSection className={styles.blogPostSection}>
           <header className={styles.header}>
             <h1 className={styles.title} data-title={title}>
               {title}

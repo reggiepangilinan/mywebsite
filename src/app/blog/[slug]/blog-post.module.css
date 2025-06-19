@@ -325,3 +325,30 @@
     margin: var(--space-xl) 0;
   }
 }
+
+/* Blog post specific animation adjustments */
+.blogPostSection {
+  /* Ensure blog content is always accessible */
+  min-height: auto;
+}
+
+/* Blog posts should have faster visibility when images are present */
+.blogPostSection:has(img) {
+  /* Browser support for :has() - faster appearance for image content */
+  animation: blogContentShow 0.1s ease-out 0.8s forwards;
+}
+
+/* Fallback for browsers without :has() support */
+.blogPostSection .content {
+  /* Ensure content area is stable and accessible */
+  opacity: 1;
+  min-height: 200px;
+  contain: layout style;
+}
+
+@keyframes blogContentShow {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
