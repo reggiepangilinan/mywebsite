@@ -37,6 +37,7 @@ export default function DebugImage({
       height={height}
       className={className}
       sizes={sizes}
+      unoptimized={!src.includes('ctfassets.net')} // Enable optimization only for Contentful images
       onError={(e) => {
         logToLocalStorage('richtext-image-error', {
           src,

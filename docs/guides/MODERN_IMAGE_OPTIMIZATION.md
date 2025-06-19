@@ -16,8 +16,8 @@ The website now supports modern image formats like WebP and AVIF, which provide:
 
 ```typescript
 images: {
-  unoptimized: false, // Enable Next.js image optimization
-  formats: ['image/webp', 'image/avif'], // Enable modern formats
+  unoptimized: true, // Keep static images unoptimized, enable for Contentful only
+  formats: ['image/webp', 'image/avif'], // Enable modern formats for external images
   domains: ['images.ctfassets.net'],
   remotePatterns: [
     {
@@ -32,8 +32,9 @@ images: {
 
 **Key Changes:**
 
-- `unoptimized: false` - Enables Next.js automatic image optimization
-- `formats: ['image/webp', 'image/avif']` - Prioritizes modern formats
+- `unoptimized: true` - Disables Next.js optimization globally for static images
+- `formats: ['image/webp', 'image/avif']` - Prioritizes modern formats for external images
+- Individual components override this setting with `unoptimized: false` for Contentful images
 - Maintained Contentful domain configuration for remote images
 
 ### 2. Contentful Image Optimizer (`src/lib/contentful-image-optimizer.ts`)
@@ -353,6 +354,71 @@ Based on typical Contentful images:
 - Increase quality setting (try 90-95% for critical images)
 - Check source image resolution vs display size
 - Verify `fit` parameter is appropriate for use case
+
+## Troubleshooting
+
+### Static Images Not Loading
+
+**Problem**: Hero avatar, company logos, or other static images appear broken after enabling image optimization.
+
+**Root Cause**: Next.js image optimization conflicts with static assets when `unoptimized: false` is set globally.
+
+**Solution**:
+
+1. Set `unoptimized: true` globally in `next.config.ts` for static images
+2. Override with `unoptimized: false` specifically for Contentful images
+3. Example implementation:
+
+```tsx
+// For Contentful images (enable optimization)
+<Image
+  src={contentfulImageUrl}
+  alt="Blog post image"
+  unoptimized={false} // Enable Next.js optimization
+  width={800}
+  height={600}
+/>
+
+// For static images (use global setting - unoptimized: true)
+<Image
+  src="/profile.webp"
+  alt="Profile picture"
+  width={200}
+  height={200}
+  // No unoptimized prop - uses global setting
+/>
+```
+
+### Contentful Images Not Optimizing
+
+**Problem**: Contentful images still loading in original format instead of WebP/AVIF.
+
+**Solution**:
+
+1. Ensure `unoptimized: false` is set on Contentful Image components
+2. Verify Contentful domains are configured in `next.config.ts`
+3. Check that the image URL contains `ctfassets.net`
+
+### Build Failures with Image Optimization
+
+**Problem**: Build fails with image optimization errors.
+
+**Solution**:
+
+1. Ensure all required image domains are added to `next.config.ts`
+2. For static export (`output: 'export'`), consider disabling optimization globally
+3. Use `unoptimized: true` for images that don't need optimization
+
+### Performance Issues
+
+**Problem**: Images loading slowly despite optimization.
+
+**Solutions**:
+
+1. Implement proper `sizes` attribute for responsive images
+2. Use `priority` prop for above-the-fold images
+3. Enable lazy loading for below-the-fold images
+4. Monitor Lighthouse scores and Core Web Vitals
 
 ### Best Practices
 

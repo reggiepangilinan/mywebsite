@@ -60,6 +60,7 @@ export default function BlogCard({ post }: BlogCardProps) {
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className={styles.image}
+              unoptimized={false} // Enable optimization for Contentful images
             />
           </div>
         )}

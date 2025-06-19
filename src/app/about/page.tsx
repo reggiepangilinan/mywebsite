@@ -12,8 +12,10 @@ export default function About() {
     // Force visibility on ultra-small screens
     const forceVisibilityOnSmallScreens = () => {
       if (window.innerWidth <= 375) {
-        const experienceElements = document.querySelectorAll('[class*="experienceWrapper"], [class*="experienceSection"], [class*="experienceList"], [class*="experienceItem"]')
-        experienceElements.forEach(element => {
+        const experienceElements = document.querySelectorAll(
+          '[class*="experienceWrapper"], [class*="experienceSection"], [class*="experienceList"], [class*="experienceItem"]'
+        )
+        experienceElements.forEach((element) => {
           const htmlElement = element as HTMLElement
           htmlElement.style.opacity = '1'
           htmlElement.style.transform = 'none'
@@ -22,14 +24,15 @@ export default function About() {
         })
       }
     }
-    
+
     forceVisibilityOnSmallScreens()
     window.addEventListener('resize', forceVisibilityOnSmallScreens)
-    
+
     // Also force after a short delay to ensure DOM is ready
     setTimeout(forceVisibilityOnSmallScreens, 100)
-    
-    return () => window.removeEventListener('resize', forceVisibilityOnSmallScreens)
+
+    return () =>
+      window.removeEventListener('resize', forceVisibilityOnSmallScreens)
   }, [])
   return (
     <div className={styles.about}>
@@ -37,14 +40,21 @@ export default function About() {
         <AnimatedSection delay={0}>
           <h1 className={styles.title}>About Me</h1>
         </AnimatedSection>
-        
+
         <div className={styles.content}>
           <AnimatedSection delay={200}>
             <p className={styles.intro}>
-              A seasoned engineering leader delivering performant, scalable, and user-centric digital platforms across enterprise environments. Drives architecture design and modernisation for high-traffic web ecosystems with a strong focus on SEO, accessibility, and modular design. Collaborates cross-functionally with business, product, and design teams to ensure alignment between technology execution and strategic goals. Trusted for mentoring engineering teams and uplifting code quality across diverse tech stacks.
+              A seasoned engineering leader delivering performant, scalable, and
+              user-centric digital platforms across enterprise environments.
+              Drives architecture design and modernisation for high-traffic web
+              ecosystems with a strong focus on SEO, accessibility, and modular
+              design. Collaborates cross-functionally with business, product,
+              and design teams to ensure alignment between technology execution
+              and strategic goals. Trusted for mentoring engineering teams and
+              uplifting code quality across diverse tech stacks.
             </p>
           </AnimatedSection>
-          
+
           <AnimatedSection delay={400}>
             <div className={styles.keySkillsSection}>
               <h2 className={styles.sectionTitle}>
@@ -55,7 +65,9 @@ export default function About() {
                 {keySkillsData.map((skill, index) => (
                   <div key={index} className={styles.keySkillCard}>
                     <h3 className={styles.keySkillTitle}>{skill.title}</h3>
-                    <p className={styles.keySkillDescription}>{skill.description}</p>
+                    <p className={styles.keySkillDescription}>
+                      {skill.description}
+                    </p>
                   </div>
                 ))}
               </div>
@@ -103,40 +115,62 @@ export default function About() {
                                 width={48}
                                 height={48}
                                 className={styles.companyLogoImage}
-                                unoptimized
                               />
                             </div>
                           )}
                           <div className={styles.experienceInfo}>
-                            <h3 className={styles.experienceTitle}>{exp.title}</h3>
-                            <h4 className={styles.experienceCompany}>{exp.company}</h4>
+                            <h3 className={styles.experienceTitle}>
+                              {exp.title}
+                            </h3>
+                            <h4 className={styles.experienceCompany}>
+                              {exp.company}
+                            </h4>
                           </div>
                         </div>
                         <div className={styles.experienceMeta}>
-                          <span className={styles.experiencePeriod}>{exp.period}</span>
-                          <span className={styles.experienceLocation}>{exp.location}</span>
+                          <span className={styles.experiencePeriod}>
+                            {exp.period}
+                          </span>
+                          <span className={styles.experienceLocation}>
+                            {exp.location}
+                          </span>
                         </div>
                       </div>
-                      <p className={styles.experienceDescription}>{exp.description}</p>
+                      <p className={styles.experienceDescription}>
+                        {exp.description}
+                      </p>
                       <ul className={styles.achievementsList}>
                         {exp.achievements.map((achievement, idx) => (
-                          <li key={idx} className={styles.achievementItem}>{achievement}</li>
+                          <li key={idx} className={styles.achievementItem}>
+                            {achievement}
+                          </li>
                         ))}
                       </ul>
                     </div>
                   ))}
                 </div>
                 <div className={styles.downloadSection}>
-                  <a 
-                    href="/CV - REGGIE PANGILINAN 2025.pdf" 
+                  <a
+                    href="/CV - REGGIE PANGILINAN 2025.pdf"
                     className={styles.downloadLink}
                     download="Reggie_Pangilinan_Resume.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     Download Full Resume
-                    <svg className={styles.downloadIcon} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    <svg
+                      className={styles.downloadIcon}
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                      />
                     </svg>
                   </a>
                 </div>

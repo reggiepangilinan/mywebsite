@@ -70,7 +70,7 @@ export default function BlogPostImage({
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
         placeholder={!disableOptimization ? 'blur' : 'empty'}
         blurDataURL={disableOptimization ? undefined : STATIC_BLUR_DATA_URL}
-        unoptimized={disableOptimization}
+        unoptimized={!src.includes('ctfassets.net') || disableOptimization}
         priority
         onLoad={() => setIsLoaded(true)}
         onError={() => {
