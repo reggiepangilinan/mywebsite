@@ -88,17 +88,17 @@
   transform: translateX(0);
 }
 
-/* Blog post specific enhancements - more elegant timing */
+/* Blog post specific enhancements - very elegant and subtle */
 .animatedSection:has(img),
 .animatedSection:has([class*='image']) {
-  /* Elegant fallback for content with images - slower and smoother */
-  animation: elegantContentShow 0.3s ease-out 2s forwards;
+  /* Very subtle fallback for content with images - barely noticeable */
+  animation: gentleContentShow 0.4s ease-out 1.2s forwards;
 }
 
-@keyframes elegantContentShow {
+@keyframes gentleContentShow {
   from {
     opacity: 0;
-    transform: translateY(var(--space-lg));
+    transform: translateY(var(--space-sm)); /* Much smaller movement */
   }
   to {
     opacity: 1;

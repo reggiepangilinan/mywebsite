@@ -332,10 +332,10 @@
   min-height: auto;
 }
 
-/* Blog posts should have elegant visibility when images are present */
+/* Blog posts should have very gentle visibility when images are present */
 .blogPostSection:has(img) {
-  /* Browser support for :has() - elegant appearance for image content */
-  animation: blogContentShow 0.4s ease-out 1.8s forwards;
+  /* Browser support for :has() - very subtle and natural appearance */
+  animation: blogContentGentle 0.5s ease-out 1s forwards;
 }
 
 /* Fallback for browsers without :has() support */
@@ -346,10 +346,10 @@
   contain: layout style;
 }
 
-@keyframes blogContentShow {
+@keyframes blogContentGentle {
   from {
     opacity: 0;
-    transform: translateY(var(--space-md));
+    transform: translateY(var(--space-xs)); /* Very minimal movement */
   }
   to {
     opacity: 1;
