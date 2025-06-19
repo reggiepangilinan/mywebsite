@@ -48,19 +48,6 @@ export default async function BlogPage() {
             </p>
           </AnimatedSection>
 
-          {/* Pagination Controls - Top */}
-          {totalPages > 1 && (
-            <AnimatedSection delay={300}>
-              <PaginationControls
-                currentPage={1}
-                totalPages={totalPages}
-                totalPosts={total}
-                postsPerPage={blogConfig.postsPerPage}
-                basePath="/blog"
-              />
-            </AnimatedSection>
-          )}
-
           {posts.length > 0 ? (
             <div className={styles.postsSection}>
               {posts.map((post, index) => {
@@ -172,17 +159,15 @@ export default async function BlogPage() {
           )}
 
           {/* Pagination Controls - Bottom */}
-          {totalPages > 1 && (
-            <AnimatedSection delay={500}>
-              <PaginationControls
-                currentPage={1}
-                totalPages={totalPages}
-                totalPosts={total}
-                postsPerPage={blogConfig.postsPerPage}
-                basePath="/blog"
-              />
-            </AnimatedSection>
-          )}
+          <AnimatedSection delay={500}>
+            <PaginationControls
+              currentPage={1}
+              totalPages={totalPages}
+              totalPosts={total}
+              postsPerPage={blogConfig.postsPerPage}
+              basePath="/blog"
+            />
+          </AnimatedSection>
         </div>
       </div>
     </main>

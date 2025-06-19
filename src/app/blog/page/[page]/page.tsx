@@ -68,17 +68,6 @@ export default async function BlogPagePaginated({
             </p>
           </AnimatedSection>
 
-          {/* Pagination Controls - Top */}
-          <AnimatedSection delay={300}>
-            <PaginationControls
-              currentPage={pageNumber}
-              totalPages={totalPages}
-              totalPosts={total}
-              postsPerPage={POSTS_PER_PAGE}
-              basePath="/blog"
-            />
-          </AnimatedSection>
-
           {posts.length > 0 ? (
             <div className={styles.postsSection}>
               {posts.map((post, index) => {

@@ -17,7 +17,7 @@ export default function PaginationControls({
   totalPages,
   basePath = '/blog',
 }: PaginationControlsProps) {
-  if (totalPages <= 1) return null
+  // Always show pagination, even for single page
 
   const getPageUrl = (page: number) => {
     if (page === 1) {
