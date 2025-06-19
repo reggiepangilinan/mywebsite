@@ -467,7 +467,7 @@ export default function DevInfoPage() {
           <div style={{ marginBottom: '10px' }}>
             <strong>1. Test endpoint status:</strong>
             <pre style={{ backgroundColor: '#f5f5f5', padding: '8px', borderRadius: '4px', fontSize: '12px', overflow: 'auto' }}>
-curl "{window.location.origin}/api/revalidate?secret=your-secret"
+{`curl "${typeof window !== 'undefined' ? window.location.origin : 'https://yourdomain.com'}/api/revalidate?secret=your-secret"`}
             </pre>
           </div>
           
@@ -507,7 +507,7 @@ REVALIDATION_SECRET=your-secret node scripts/test-revalidation.js`}
           </div>
           
           <p style={{ fontSize: '12px', color: '#666' }}>
-            <strong>📝 Note:</strong> Replace "your-secret" with your actual REVALIDATION_SECRET value.
+            <strong>📝 Note:</strong> Replace &quot;your-secret&quot; with your actual REVALIDATION_SECRET value.
             <br />
             <strong>🔗 Documentation:</strong> See <code>/docs/guides/FORCE_REVALIDATION_API.md</code> for complete API reference.
           </p>
