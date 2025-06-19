@@ -11,6 +11,7 @@ Initial project configuration and feature setup guides:
 
 ### 📖 [Guides](./guides/)  
 Feature implementation and best practice guides:
+- [Application Logging System](./guides/APPLICATION_LOGGING_SYSTEM.md) - Comprehensive operational logging for ISR, Contentful, and error tracking
 - [Component Convention](./guides/COMPONENT_CONVENTION.md) - Component folder structure and organization
 - [CSS Variables](./guides/CSS_VARIABLES.md) - Design tokens and CSS custom properties system
 - [Double Slash Handling](./guides/DOUBLE_SLASH_HANDLING.md) - URL normalization and double slash prevention

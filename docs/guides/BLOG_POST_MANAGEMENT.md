@@ -194,7 +194,7 @@ Management Token: [your-management-token]
 
 - **Development Only**: Feature only available in dev-info dashboard
 - **Manual Process**: No automated or scheduled deletions
-- **Audit Trail**: All operations logged via ISR logging system
+- **Audit Trail**: All operations logged via application logging system (`logISREvent`)
 
 ### Risk Mitigation
 
@@ -276,7 +276,7 @@ After deletion, verify success by:
 ## Related Documentation
 
 - **Contentful Management API**: [Official Documentation](https://www.contentful.com/developers/docs/references/content-management-api/)
-- **ISR Logging**: `/docs/configuration/ISR_STATUS_SUMMARY.md`
+- **Application Logging**: `/docs/configuration/ISR_STATUS_SUMMARY.md`
 - **Blog Setup**: `/docs/setup/BLOG_SETUP.md`
 - **Development Dashboard**: `/docs/QUICK_START.md`
 
@@ -284,7 +284,7 @@ After deletion, verify success by:
 
 For issues with this functionality:
 
-1. **Check Logs**: Review ISR logs in dev-info dashboard
+1. **Check Logs**: Review application logs in dev-info dashboard or Netlify function logs
 2. **Verify Credentials**: Ensure management token is valid and has permissions
 3. **Contentful Status**: Check [Contentful Status Page](https://status.contentful.com/)
 4. **Documentation**: Review Contentful Management API documentation
@@ -293,4 +293,4 @@ For issues with this functionality:
 
 - **v1.0.0**: Initial implementation with triple confirmation system
 - **v1.0.0**: Added comprehensive error handling and logging
-- **v1.0.0**: Integrated with ISR logging system for audit trail
+- **v1.0.0**: Integrated with application logging system for comprehensive audit trail
