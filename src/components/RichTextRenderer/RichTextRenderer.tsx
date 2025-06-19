@@ -1,19 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
-import { Document, BLOCKS, MARKS, INLINES } from '@contentful/rich-text-types';
-import { ReactNode } from 'react';
-import Image from 'next/image';
-import styles from './RichTextRenderer.module.css';
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
+import { Document, BLOCKS, MARKS, INLINES } from '@contentful/rich-text-types'
+import { ReactNode } from 'react'
+import Image from 'next/image'
+import styles from './RichTextRenderer.module.css'
 
 interface RichTextRendererProps {
-  content: Document;
+  content: Document
 }
 
 // Custom rendering options for rich text content
 const renderOptions = {
   renderNode: {
     [BLOCKS.PARAGRAPH]: (node: any, children: ReactNode) => (
-      <p className={styles.paragraph} style={{ marginTop: 0 }}>{children}</p>
+      <p className={styles.paragraph} style={{ marginTop: 0 }}>
+        {children}
+      </p>
     ),
     // Ignore H1 elements - blog post already has an H1 title
     [BLOCKS.HEADING_1]: () => null,
@@ -51,29 +53,46 @@ const renderOptions = {
     ),
     [BLOCKS.HR]: () => <hr className={styles.horizontalRule} />,
     [BLOCKS.EMBEDDED_ASSET]: (node: any) => {
-      const asset = node.data.target;
+      const asset = node.data.target
       if (asset?.fields?.file) {
-        const { url, fileName, contentType } = asset.fields.file;
-        const imageUrl = url.startsWith('//') ? `https:${url}` : url;
-        
+        const { url, fileName, contentType } = asset.fields.file
+        const imageUrl = url.startsWith('//') ? `https:${url}` : url
+
         if (contentType?.startsWith('image/')) {
+          const dimensions = asset.fields.file.details?.image || {}
+          const width = dimensions.width || 800
+          const height = dimensions.height || 400
+          const alt =
+            asset.fields.title ||
+            asset.fields.description ||
+            fileName ||
+            'Embedded image'
+
           return (
-            <Image
-              src={imageUrl}
-              alt={asset.fields.title || fileName || 'Image'}
-              className={styles.embeddedImage}
-              width={800}
-              height={400}
-              unoptimized
-            />
-          );
+            <figure className={styles.embeddedImageContainer}>
+              <Image
+                src={imageUrl}
+                alt={alt}
+                width={width}
+                height={height}
+                className={styles.embeddedImage}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 800px"
+                unoptimized
+              />
+              {asset.fields.description && (
+                <figcaption className={styles.embeddedImageCaption}>
+                  {asset.fields.description}
+                </figcaption>
+              )}
+            </figure>
+          )
         }
       }
-      return null;
+      return null
     },
     [INLINES.HYPERLINK]: (node: any, children: ReactNode) => (
-      <a 
-        href={node.data.uri} 
+      <a
+        href={node.data.uri}
         className={styles.link}
         target="_blank"
         rel="noopener noreferrer"
@@ -83,21 +102,29 @@ const renderOptions = {
     ),
   },
   renderMark: {
-    [MARKS.BOLD]: (text: ReactNode) => <strong className={styles.bold}>{text}</strong>,
-    [MARKS.ITALIC]: (text: ReactNode) => <em className={styles.italic}>{text}</em>,
-    [MARKS.UNDERLINE]: (text: ReactNode) => <u className={styles.underline}>{text}</u>,
-    [MARKS.CODE]: (text: ReactNode) => <code className={styles.inlineCode}>{text}</code>,
+    [MARKS.BOLD]: (text: ReactNode) => (
+      <strong className={styles.bold}>{text}</strong>
+    ),
+    [MARKS.ITALIC]: (text: ReactNode) => (
+      <em className={styles.italic}>{text}</em>
+    ),
+    [MARKS.UNDERLINE]: (text: ReactNode) => (
+      <u className={styles.underline}>{text}</u>
+    ),
+    [MARKS.CODE]: (text: ReactNode) => (
+      <code className={styles.inlineCode}>{text}</code>
+    ),
   },
-};
+}
 
 export default function RichTextRenderer({ content }: RichTextRendererProps) {
   if (!content) {
-    return <p>No content available.</p>;
+    return <p>No content available.</p>
   }
 
   return (
     <div className={styles.richTextContent}>
       {documentToReactComponents(content, renderOptions)}
     </div>
-  );
+  )
 }

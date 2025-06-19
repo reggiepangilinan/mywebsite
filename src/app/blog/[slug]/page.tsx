@@ -2,7 +2,11 @@
 import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
 import Image from 'next/image'
-import { getBlogPost, getBlogPostForISR, getAllBlogSlugs } from '@/lib/contentful'
+import {
+  getBlogPost,
+  getBlogPostForISR,
+  getAllBlogSlugs,
+} from '@/lib/contentful'
 import AnimatedSection from '@/components/AnimatedSection'
 import RichTextRenderer from '@/components/RichTextRenderer'
 import { blogConfig } from '@/config/blog'
@@ -29,12 +33,12 @@ interface BlogPostPageProps {
 export async function generateStaticParams() {
   try {
     const slugs = await getAllBlogSlugs()
-    
+
     // If no slugs, return empty array to allow dynamic generation
     if (slugs.length === 0) {
       return []
     }
-    
+
     return slugs.map((slug) => ({
       slug,
     }))
@@ -45,10 +49,12 @@ export async function generateStaticParams() {
   }
 }
 
-export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: BlogPostPageProps): Promise<Metadata> {
   const { slug } = await params
   const post = await getBlogPost(slug)
-  
+
   if (!post) {
     return {
       title: 'Post Not Found - Reggie Pangilinan',
@@ -57,13 +63,26 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
   }
 
   const fields = post.fields as any
-  const { title, subtitle, excerpt, featuredImage } = fields
+  const { title, subtitle, excerpt, featuredImage, publishDate, tags, author } =
+    fields
 
   const description = subtitle ? `${subtitle} - ${excerpt}` : excerpt
 
-  const imageUrl = featuredImage?.fields?.file?.url 
-    ? `https:${featuredImage.fields.file.url}`
-    : '/og-image.png'
+  const getMetaImageUrl = () => {
+    if (!featuredImage?.fields?.file?.url) return '/og-image.png'
+    const url = featuredImage.fields.file.url
+    return url.startsWith('//') ? `https:${url}` : url
+  }
+
+  const imageUrl = getMetaImageUrl()
+  const imageAlt =
+    featuredImage?.fields?.title || featuredImage?.fields?.description || title
+
+  // Get image dimensions for better Open Graph tags
+  const imageDimensions = featuredImage?.fields?.file?.details?.image || {
+    width: 1200,
+    height: 630,
+  }
 
   return {
     title: `${title} - Reggie Pangilinan`,
@@ -71,12 +90,17 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     openGraph: {
       title: `${title} - Reggie Pangilinan`,
       description: excerpt,
+      type: 'article',
+      publishedTime: publishDate,
+      authors: author ? [author] : undefined,
+      tags: tags,
       images: [
         {
           url: imageUrl,
-          width: 1200,
-          height: 630,
-          alt: title,
+          width: imageDimensions.width,
+          height: imageDimensions.height,
+          alt: imageAlt,
+          type: featuredImage?.fields?.file?.contentType,
         },
       ],
     },
@@ -91,12 +115,12 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params
-  
+
   // Validate revalidate matches config
   ISR_CONFIG.validatePageRevalidate('blog-post', revalidate)
-  
+
   await logISREvent(`Individual blog post render started - slug: ${slug}`)
-  
+
   // Use ISR-specific function with fetch and Next.js cache control
   const post = await getBlogPostForISR(slug)
 
@@ -104,55 +128,89 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     await logISREvent(`Blog post not found, returning 404 - slug: ${slug}`)
     notFound()
   }
-  
-  await logISREvent(`Individual blog post render completed - slug: ${slug}, title: ${post.fields.title}`)
+
+  await logISREvent(
+    `Individual blog post render completed - slug: ${slug}, title: ${post.fields.title}`
+  )
 
   const fields = post.fields as any
 
-  const { title, subtitle, content, featuredImage, publishDate, tags, author } = fields
+  const { title, subtitle, content, featuredImage, publishDate, tags, author } =
+    fields
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', blogConfig.dateFormat)
+    return new Date(dateString).toLocaleDateString(
+      'en-US',
+      blogConfig.dateFormat
+    )
   }
 
   const getImageUrl = () => {
     if (!featuredImage?.fields?.file?.url) return null
-    return `https:${featuredImage.fields.file.url}`
+    const url = featuredImage.fields.file.url
+    return url.startsWith('//') ? `https:${url}` : url
+  }
+
+  const getImageDimensions = () => {
+    const file = featuredImage?.fields?.file
+    return {
+      width: file?.details?.image?.width || 1200,
+      height: file?.details?.image?.height || 600,
+    }
   }
 
   const imageUrl = getImageUrl()
-  const imageAlt = featuredImage?.fields?.title || title
+  const hasFeaturedImage = !!imageUrl
+  const imageAlt =
+    featuredImage?.fields?.title || featuredImage?.fields?.description || title
+  const imageCaption = featuredImage?.fields?.description
+  const { width, height } = getImageDimensions()
 
   return (
     <main className={styles.main}>
       <div className="container">
         <AnimatedSection>
-          {imageUrl && (
-            <div className={styles.featuredImage}>
+          {hasFeaturedImage ? (
+            <div className={styles.featuredImageContainer}>
               <Image
                 src={imageUrl}
                 alt={imageAlt}
-                width={1200}
-                height={600}
-                className={styles.image}
+                width={width}
+                height={height}
+                className={styles.featuredImage}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
                 unoptimized
                 priority
               />
+              {imageCaption && (
+                <figcaption className={styles.imageCaption}>
+                  {imageCaption}
+                </figcaption>
+              )}
+            </div>
+          ) : (
+            <div className={styles.featuredImagePlaceholder}>
+              <div className={styles.placeholderContent}>
+                <div className={styles.placeholderIcon}>📝</div>
+                <span className={styles.placeholderText}>Blog Post</span>
+              </div>
             </div>
           )}
-          
+
           <header className={styles.header}>
-            <h1 className={styles.title} data-title={title}>{title}</h1>
-            
+            <h1 className={styles.title} data-title={title}>
+              {title}
+            </h1>
+
             {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
-            
+
             <div className={styles.meta}>
               <time dateTime={publishDate} className={styles.date}>
                 {formatDate(publishDate)}
               </time>
               {author && <span className={styles.author}>by {author}</span>}
             </div>
-            
+
             {tags && tags.length > 0 && (
               <div className={styles.tags}>
                 {tags.map((tag: string) => (
@@ -163,7 +221,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               </div>
             )}
           </header>
-          
+
           <div className={styles.content}>
             {typeof content === 'string' ? (
               <div dangerouslySetInnerHTML={{ __html: content }} />
