@@ -189,3 +189,17 @@ The cost is identical, but server-rendering provides significantly better:
 - **Accessibility**
 
 **Keep the current implementation!** 🚀
+
+---
+
+## 📚 Related Documentation
+
+- [Cost Optimization Summary](./COST_OPTIMIZATION_SUMMARY.md) - Complete cost analysis results
+- [ISR Configuration Guide](./ISR_CONFIGURATION_GUIDE.md) - Current ISR setup and timing
+- [Blog Setup Guide](../setup/BLOG_SETUP.md) - Complete blog implementation overview
+- [Client-Rendered Example](../examples/client-rendered-blog-example.tsx) - Code example of alternative approach
+
+---
+
+*Last updated: June 19, 2025*
+*Analysis based on Next.js 15.3.3 and Vercel hosting*

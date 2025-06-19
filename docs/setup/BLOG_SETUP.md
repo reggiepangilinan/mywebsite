@@ -209,6 +209,24 @@ npm run dev
 - **Build process** will pre-generate all blog pages
 - **ISR** will handle updates after deployment
 
+## 📚 Related Documentation
+
+### Configuration & Optimization
+- [ISR Configuration Guide](../configuration/ISR_CONFIGURATION_GUIDE.md) - Current ISR timing and configuration
+- [Cost Optimization Summary](../configuration/COST_OPTIMIZATION_SUMMARY.md) - Complete cost analysis results
+- [Server vs Client Analysis](../configuration/SERVER_VS_CLIENT_ANALYSIS.md) - Why server-rendering is optimal
+
+### SEO & Performance
+- [Dynamic SEO Guide](../guides/DYNAMIC_SEO_GUIDE.md) - Dynamic robots.txt and sitemap implementation
+- [SEO Cost Optimization](../configuration/SEO_COST_OPTIMIZATION.md) - SEO cost optimization strategies
+
+### Code Examples
+- [Client-Rendered Example](../examples/client-rendered-blog-example.tsx) - Alternative client-side approach (for comparison)
+
+---
+
+*Last updated: June 19, 2025*
+
 ## ✅ **Current Status**
 
 ### **Implemented:**

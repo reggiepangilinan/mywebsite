@@ -81,6 +81,17 @@ For your personal website with infrequent blog updates:
 # Add ISR revalidate export
 ```
 
+## 📚 Related Documentation
+
+- [Cost Optimization Summary](./COST_OPTIMIZATION_SUMMARY.md) - Complete cost analysis including blog optimization
+- [Server vs Client Analysis](./SERVER_VS_CLIENT_ANALYSIS.md) - Rendering strategy comparison and costs
+- [ISR Configuration Guide](./ISR_CONFIGURATION_GUIDE.md) - Current ISR timing configuration
+- [Blog Setup Guide](../setup/BLOG_SETUP.md) - Complete blog implementation overview
+
+---
+
+*Last updated: June 19, 2025*
+
 ## � **Cost vs Value Analysis**
 
 ### **Current Costs Are Already Very Low**:

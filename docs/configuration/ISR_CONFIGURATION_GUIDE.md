@@ -65,3 +65,14 @@ Next.js requires literal numbers for `revalidate` exports - dynamic imports don'
 3. **Validation**: Automatic checking for consistency
 4. **Debug Visibility**: Real-time display of current config
 5. **Type Safety**: TypeScript interfaces ensure correctness
+
+## Related Documentation
+
+- [Cost Optimization Summary](./COST_OPTIMIZATION_SUMMARY.md) - Complete cost analysis and optimization results
+- [Server vs Client Analysis](./SERVER_VS_CLIENT_ANALYSIS.md) - Why server-rendering is optimal for blog list
+- [SEO Cost Optimization](./SEO_COST_OPTIMIZATION.md) - SEO-specific cost strategies
+- [Blog Setup Guide](../setup/BLOG_SETUP.md) - Complete blog implementation overview
+
+---
+
+*Last updated: June 19, 2025*

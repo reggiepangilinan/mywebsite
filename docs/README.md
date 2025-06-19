@@ -26,13 +26,19 @@ System configuration and optimization documentation:
 - [ISR Configuration Guide](./configuration/ISR_CONFIGURATION_GUIDE.md) - Incremental Static Regeneration setup
 - [ISR Status Summary](./configuration/ISR_STATUS_SUMMARY.md) - Current ISR implementation status
 - [SEO Cost Optimization](./configuration/SEO_COST_OPTIMIZATION.md) - Cost-effective SEO strategies
+- [Cost Optimization Summary](./configuration/COST_OPTIMIZATION_SUMMARY.md) - Complete cost analysis and optimization results
+- [Server vs Client Analysis](./configuration/SERVER_VS_CLIENT_ANALYSIS.md) - Performance and cost comparison of rendering strategies
 
 ### 🚀 [Deployment](./deployment/)
 Deployment and hosting documentation:
 - [Netlify Deploy](./deployment/NETLIFY_DEPLOY.md) - Netlify deployment configuration
 - [Netlify Logging Guide](./deployment/NETLIFY_LOGGING_GUIDE.md) - Logging and debugging on Netlify
 
-### 🔧 Miscellaneous
+### � [Examples](./examples/)
+Code examples and alternative implementations:
+- [Client-Rendered Blog Example](./examples/client-rendered-blog-example.tsx) - Alternative client-side rendering approach for comparison
+
+### �🔧 Miscellaneous
 - [Deprecation Fix](./DEPRECATION_FIX.md) - Node.js deprecation warning fixes
 - [Navigation Test](./NAVIGATION_TEST.md) - Navigation testing procedures
 
@@ -40,7 +46,8 @@ Deployment and hosting documentation:
 
 - **Getting Started**: See [Blog Setup](./setup/BLOG_SETUP.md) for initial configuration
 - **SEO Implementation**: Check [Dynamic SEO Guide](./guides/DYNAMIC_SEO_GUIDE.md)
-- **Performance Optimization**: Review [ISR Configuration](./configuration/ISR_CONFIGURATION_GUIDE.md)
+- **Performance Optimization**: Review [ISR Configuration](./configuration/ISR_CONFIGURATION_GUIDE.md) and [Cost Analysis](./configuration/COST_OPTIMIZATION_SUMMARY.md)
+- **Rendering Strategy**: Compare approaches in [Server vs Client Analysis](./configuration/SERVER_VS_CLIENT_ANALYSIS.md)
 - **Deployment**: Follow [Netlify Deploy Guide](./deployment/NETLIFY_DEPLOY.md)
 
 ## 🎯 **Implementation Plans** (New)
@@ -81,6 +88,7 @@ docs/
 ├── guides/ (feature guides)
 ├── configuration/ (config documentation)
 ├── deployment/ (deployment docs)
+├── examples/ (code examples)
 └── [misc files] (miscellaneous documentation)
 ```
 
