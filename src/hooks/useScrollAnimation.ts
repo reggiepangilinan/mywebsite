@@ -19,11 +19,13 @@ export function useScrollAnimation(threshold = 0.1, rootMargin = '0px') {
       return
     }
 
-    // Check if this is a blog post page with images
+    // Check if this is an individual blog post page with images (not blog list)
     const isBlogPost =
       typeof window !== 'undefined' &&
       window.location.pathname.includes('/blog/') &&
-      !window.location.pathname.includes('/blog/page/')
+      !window.location.pathname.includes('/blog/page/') &&
+      window.location.pathname !== '/blog' && // Exclude blog list page
+      window.location.pathname.split('/').length > 3 // Ensure it's a specific post like /blog/post-slug
 
     const hasImages =
       currentRef &&
