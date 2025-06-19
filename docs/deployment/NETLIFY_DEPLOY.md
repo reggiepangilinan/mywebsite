@@ -27,7 +27,42 @@
 2. Go to [netlify.com](https://netlify.com)
 3. Drag and drop the `out/` folder to deploy
 
+## Environment Variables Setup
+
+### Revalidation API Security
+For the force revalidation API to work securely, you need to set up the `REVALIDATION_SECRET` environment variable:
+
+1. **Generate a Secure Secret**:
+   ```bash
+   # Generate a random 32-character string (recommended)
+   openssl rand -base64 32
+   ```
+   Or use any secure random string generator.
+
+2. **Set Environment Variable in Netlify**:
+   - Go to your Netlify dashboard
+   - Navigate to **Site Settings** → **Environment Variables**
+   - Click **Add a variable**
+   - Set:
+     - **Key**: `REVALIDATION_SECRET`
+     - **Value**: Your generated secure string
+     - **Scopes**: Select all (Deploy time, Runtime, etc.)
+   - Click **Create variable**
+
+3. **Redeploy Site**:
+   After adding the environment variable, trigger a new deploy to apply the changes.
+
+### Other Environment Variables
+If using Contentful or other services, also set:
+```bash
+CONTENTFUL_SPACE_ID=your-contentful-space-id
+CONTENTFUL_ACCESS_TOKEN=your-contentful-access-token
+NEXT_PUBLIC_SITE_URL=https://your-netlify-domain.netlify.app
+```
+
 ## Post-Deployment
+- [ ] **Set up environment variables** (especially `REVALIDATION_SECRET`)
+- [ ] **Test revalidation API** at `yoursite.com/api/revalidate`
 - [ ] Verify site loads correctly
 - [ ] Test all navigation links
 - [ ] Check mobile responsiveness
@@ -36,6 +71,7 @@
 - [ ] Test download link functionality
 - [ ] Verify robots.txt is accessible at yoursite.com/robots.txt
 - [ ] Verify sitemap.xml is accessible at yoursite.com/sitemap.xml
+- [ ] **Set up Contentful webhooks** (if using Contentful)
 - [ ] Submit sitemap to Google Search Console (optional)
 - [ ] Set up custom domain (optional)
 

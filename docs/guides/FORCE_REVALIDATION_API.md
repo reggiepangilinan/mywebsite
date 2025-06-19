@@ -36,10 +36,21 @@ The Force Revalidation API (`/api/revalidate`) provides on-demand cache invalida
 ```
 
 ### **Environment Configuration**
+
+#### **For Netlify Deployment:**
+1. **Generate secure secret**: `openssl rand -base64 32`
+2. **Netlify Dashboard** → **Site Settings** → **Environment Variables**
+3. **Add variable**: `REVALIDATION_SECRET` = your generated string
+4. **Redeploy site** to apply changes
+
+#### **For Local Development:**
 ```bash
 # .env.local
 REVALIDATION_SECRET=your-super-secure-random-string-here
 ```
+
+#### **Production URL:**
+Your deployed endpoint will be: `https://your-site.netlify.app/api/revalidate`
 
 ### **Security Features**
 - ✅ **Token validation**: Prevents unauthorized revalidation

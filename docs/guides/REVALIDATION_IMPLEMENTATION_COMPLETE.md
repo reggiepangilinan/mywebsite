@@ -166,12 +166,13 @@ NEXT_PUBLIC_SITE_URL=https://your-domain.com
 4. **[Cost Optimization Summary](../configuration/COST_OPTIMIZATION_SUMMARY.md)** - Cost analysis including revalidation benefits
 5. **[Server vs Client Analysis](../configuration/SERVER_VS_CLIENT_ANALYSIS.md)** - Architecture decision rationale
 
-### **Setup Guides**
+### **Setup & Deployment Guides**
 6. **[Blog Setup Guide](../setup/BLOG_SETUP.md)** - Complete blog implementation including revalidation
+7. **[Netlify Revalidation Setup](../deployment/NETLIFY_REVALIDATION_SETUP.md)** - Netlify-specific environment variable and webhook setup
 
 ### **Testing Resources**
-7. **[Test Revalidation Script](../../scripts/test-revalidation.js)** - Automated testing utility
-8. **[Development Dashboard](../../src/app/dev-info/page.tsx)** - Built-in monitoring and testing
+8. **[Test Revalidation Script](../../scripts/test-revalidation.js)** - Automated testing utility
+9. **[Development Dashboard](../../src/app/dev-info/page.tsx)** - Built-in monitoring and testing
 
 ---
 

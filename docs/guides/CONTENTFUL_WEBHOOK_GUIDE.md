@@ -37,6 +37,25 @@ Contentful CMS → Webhook → /api/revalidate → ISR Cache Invalidation → Up
 
 ### **Step 1: Configure Environment Variables**
 
+#### **For Netlify Deployment:**
+
+1. **Generate a secure secret**:
+   ```bash
+   # Generate a random 32-character string
+   openssl rand -base64 32
+   ```
+
+2. **Set environment variable in Netlify**:
+   - Go to **Netlify Dashboard** → **Site Settings** → **Environment Variables**
+   - Click **Add a variable**
+   - Set `REVALIDATION_SECRET` to your generated string
+   - **Important**: Select all scopes (Deploy time, Runtime, etc.)
+   - Click **Create variable**
+
+3. **Redeploy your site** to apply the environment variable
+
+#### **For Local Development:**
+
 Add to your `.env.local`:
 ```bash
 # Revalidation Security
@@ -93,7 +112,7 @@ curl "https://yourdomain.com/api/revalidate?secret=your-secret"
 1. **Create/Update a blog post** in Contentful
 2. **Publish the post**
 3. **Check your site** - changes should appear immediately
-4. **Monitor logs** in Vercel/Netlify dashboard
+4. **Monitor logs** in Netlify dashboard (Functions → Function logs)
 
 ---
 

@@ -35,6 +35,7 @@ System configuration and optimization documentation:
 ### 🚀 [Deployment](./deployment/)
 Deployment and hosting documentation:
 - [Netlify Deploy](./deployment/NETLIFY_DEPLOY.md) - Netlify deployment configuration
+- [Netlify Revalidation Setup](./deployment/NETLIFY_REVALIDATION_SETUP.md) - Force revalidation setup for Netlify
 - [Netlify Logging Guide](./deployment/NETLIFY_LOGGING_GUIDE.md) - Logging and debugging on Netlify
 
 ### 📚 [Examples](./examples/)
