@@ -31,7 +31,8 @@ System configuration and optimization documentation:
 - [ISR Configuration Guide](./configuration/ISR_CONFIGURATION_GUIDE.md) - Incremental Static Regeneration setup
 - [ISR Status Summary](./configuration/ISR_STATUS_SUMMARY.md) - Current ISR implementation status
 - [SEO Cost Optimization](./configuration/SEO_COST_OPTIMIZATION.md) - Cost-effective SEO strategies
-- [Cost Optimization Summary](./configuration/COST_OPTIMIZATION_SUMMARY.md) - Complete cost analysis and optimization results
+- [Cost Optimization Summary](./configuration/COST_OPTIMIZATION_SUMMARY.md) - Blog-focused cost analysis and optimization results
+- [Comprehensive Cost Analysis](./configuration/COMPREHENSIVE_COST_ANALYSIS.md) - Complete cost breakdown for all pages and components
 - [Server vs Client Analysis](./configuration/SERVER_VS_CLIENT_ANALYSIS.md) - Performance and cost comparison of rendering strategies
 
 ### 🚀 [Deployment](./deployment/)
@@ -63,7 +64,7 @@ Testing and utility scripts:
 - **Getting Started**: See [Blog Setup](./setup/BLOG_SETUP.md) for initial configuration
 - **Content Management**: Use [Blog Post Management](./guides/BLOG_POST_MANAGEMENT.md) for bulk operations
 - **SEO Implementation**: Check [Dynamic SEO Guide](./guides/DYNAMIC_SEO_GUIDE.md)
-- **Performance Optimization**: Review [ISR Configuration](./configuration/ISR_CONFIGURATION_GUIDE.md) and [Cost Analysis](./configuration/COST_OPTIMIZATION_SUMMARY.md)
+- **Performance Optimization**: Review [ISR Configuration](./configuration/ISR_CONFIGURATION_GUIDE.md) and [Comprehensive Cost Analysis](./configuration/COMPREHENSIVE_COST_ANALYSIS.md)
 - **Image Optimization**: See [Blog Image Loading Fix](./fixes/BLOG_IMAGE_LOADING_FIX.md) for Contentful image loading solutions
 - **Webhook Integration**: Set up [Contentful Webhooks](./guides/CONTENTFUL_WEBHOOK_GUIDE.md) for instant updates
 - **Force Revalidation**: Complete [Revalidation Implementation Guide](./guides/REVALIDATION_IMPLEMENTATION_COMPLETE.md) for on-demand cache invalidation

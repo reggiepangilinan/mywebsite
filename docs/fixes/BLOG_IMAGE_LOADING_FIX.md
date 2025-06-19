@@ -201,12 +201,21 @@ The `next.config.ts` must include the image domain configuration as shown above.
 
 - [Component Convention](../guides/COMPONENT_CONVENTION.md) - Following established component patterns
 - [Blog Setup](../setup/BLOG_SETUP.md) - Initial Contentful configuration
-- [Performance Optimization](../configuration/COST_OPTIMIZATION_SUMMARY.md) - Overall performance strategy
+- [Comprehensive Cost Analysis](../configuration/COMPREHENSIVE_COST_ANALYSIS.md) - Cost implications of image optimization
 
 ### Configuration Files
 
 - [Next.js Configuration](../../next.config.ts) - Image domain and optimization settings
 - [Environment Variables](../../.env.example) - Contentful API configuration
+
+### Performance Impact
+
+The image optimizations implemented have minimal cost impact:
+
+- **WebP conversion**: Reduces bandwidth costs by 25-35%
+- **Lazy loading**: Reduces unnecessary API calls for off-screen images
+- **Contentful optimization**: Smart resizing reduces data transfer costs
+- See [Comprehensive Cost Analysis](../configuration/COMPREHENSIVE_COST_ANALYSIS.md) for detailed cost breakdown
 
 ## Verification Commands
 
