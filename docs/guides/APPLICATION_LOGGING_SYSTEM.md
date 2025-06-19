@@ -338,6 +338,57 @@ The logging system has been completely migrated:
 - **Comprehensive Coverage**: Single logging system handles all operational events
 - **Clean Architecture**: No legacy functions, simplified API
 
+## Recent Updates
+
+### June 2025 - System Renamed and Enhanced
+
+- **File renamed**: `src/lib/isr-logger.ts` → `src/lib/app-logger.ts`
+- **Function renamed**: `logISREvent` → `logAppEvent`
+- Added contextual prefixes for better log categorization
+- Improved documentation and examples
+- All legacy code removed
+
+### June 2025 - SEO Canonical Links Fixed
+
+- **URL Construction Improved**: Replaced string concatenation with `joinUrl` utility in SEO metadata generation
+- **Canonical Links Fixed**: Individual blog posts now have proper canonical URLs pointing to their specific pages instead of the homepage
+- **Better URL Handling**: Improved handling of external image URLs from Contentful CDN
+- **JSON-LD Updated**: Structured data now uses consistent URL utilities
+
+## Migration Summary
+
+### Complete Migration (June 2025)
+
+The logging system has been completely migrated:
+
+1. **New Primary Function**: `logAppEvent(context, message, data?)` with contextual prefixes
+2. **File Renamed**: `isr-logger.ts` → `app-logger.ts` to reflect broader purpose
+3. **All Legacy Functions Removed**: Complete migration from `logISREvent` to `logAppEvent`
+4. **Contextual Prefixes**:
+
+   - `[ISR]` for ISR events
+   - `[Contentful]` for API operations
+   - `[Page]` for rendering events
+   - `[Error]` for error conditions
+   - `[Bulk]` for bulk operations
+   - `[API]` for API routes
+   - `[System]` for system events
+
+5. **Complete Implementation Update**:
+   - All Contentful operations migrated to use contextual logging
+   - Page rendering events use `[Page]` prefix
+   - Error handling uses `[Error]` prefix
+   - Bulk operations use `[Bulk]` prefix
+   - All imports updated to use new file path
+
+### Benefits
+
+- **Better Log Organization**: Easy filtering by context
+- **Improved Debugging**: Context-specific prefixes for faster issue identification
+- **Enhanced Monitoring**: Clear categorization of different application events
+- **Comprehensive Coverage**: Single logging system handles all operational events
+- **Clean Architecture**: No legacy functions, simplified API
+
 ---
 
 **Note**: The system provides comprehensive operational logging for the entire Next.js application with contextual prefixes for easy identification and debugging.
