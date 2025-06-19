@@ -5,7 +5,8 @@ const nextConfig: NextConfig = {
   trailingSlash: false,
   
   images: {
-    unoptimized: true,
+    unoptimized: false, // Enable Next.js image optimization
+    formats: ['image/webp', 'image/avif'], // Enable modern formats
     domains: ['images.ctfassets.net'],
     remotePatterns: [
       {

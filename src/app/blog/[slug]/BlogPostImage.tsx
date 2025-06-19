@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
+import { optimizeContentfulImage } from '@/lib/contentful-image-optimizer'
 import styles from './blog-post.module.css'
 
 interface BlogPostImageProps {
@@ -26,9 +27,14 @@ export default function BlogPostImage({
   const [isLoaded, setIsLoaded] = useState(false)
   const [hasError, setHasError] = useState(false)
 
-  // Optimize Contentful image URL - with fallback
+  // Optimize Contentful image URL with modern formats
   const optimizedSrc = src.includes('ctfassets.net')
-    ? `${src}?w=${Math.min(width, 1200)}&q=80` // Simplified optimization without WebP forcing
+    ? optimizeContentfulImage(src, {
+        width: Math.min(width, 1200),
+        quality: 85,
+        format: 'webp', // Use WebP for better compression
+        fit: 'fill',
+      })
     : src
 
   // Fallback to original if optimization fails

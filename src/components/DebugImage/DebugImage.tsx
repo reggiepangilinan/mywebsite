@@ -1,5 +1,6 @@
 'use client'
 import Image from 'next/image'
+import { optimizeContentfulImage } from '@/lib/contentful-image-optimizer'
 import { logToLocalStorage } from '@/lib/production-logger'
 
 interface DebugImageProps {
@@ -19,15 +20,23 @@ export default function DebugImage({
   className,
   sizes,
 }: DebugImageProps) {
+  // Optimize Contentful images with modern formats
+  const optimizedSrc = src.includes('ctfassets.net')
+    ? optimizeContentfulImage(src, {
+        width: Math.min(width, 1200),
+        quality: 85,
+        format: 'webp',
+      })
+    : src
+
   return (
     <Image
-      src={src}
+      src={optimizedSrc}
       alt={alt}
       width={width}
       height={height}
       className={className}
       sizes={sizes}
-      unoptimized
       onError={(e) => {
         logToLocalStorage('richtext-image-error', {
           src,
