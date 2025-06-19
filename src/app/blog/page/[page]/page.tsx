@@ -57,7 +57,10 @@ export default async function BlogPagePaginated({
     <main className={styles.main}>
       <div className="container">
         <AnimatedSection delay={0}>
-          <h1 className={styles.title}>Blog Posts - Page {pageNumber}</h1>
+          <h1 className={styles.title}>
+            Blog Posts{' '}
+            <span className={styles.pageIndicator}>Page {pageNumber}</span>
+          </h1>
         </AnimatedSection>
 
         <div className={styles.content}>

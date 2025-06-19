@@ -1,5 +1,3 @@
-'use client'
-
 import Link from 'next/link'
 import { joinUrl } from '@/lib/url-utils'
 import styles from './PaginationControls.module.css'
@@ -110,53 +108,52 @@ export default function PaginationControls({
       aria-label="Blog pagination"
     >
       <div className={styles.controls}>
-        {/* Previous page link */}
-        {currentPage > 1 ? (
-          <Link
-            href={getPageUrl(currentPage - 1)}
-            className={`${styles.navLink} ${styles.prev}`}
-            aria-label="Go to previous page"
-          >
-            <span aria-hidden="true">←</span>
-            Previous
-          </Link>
-        ) : (
-          <span
-            className={`${styles.navLink} ${styles.prev} ${styles.disabled}`}
-            aria-hidden="true"
-          >
-            <span aria-hidden="true">←</span>
-            Previous
-          </span>
-        )}
+        {/* Page indicator */}
+        <span className={styles.pageInfo}>
+          Page {currentPage} of {totalPages}
+        </span>
 
-        {/* Page numbers */}
-        <div className={styles.pageNumbers}>{renderPageLinks()}</div>
+        {/* Navigation controls container */}
+        <div className={styles.navigationContainer}>
+          {/* Previous page link */}
+          {currentPage > 1 ? (
+            <Link
+              href={getPageUrl(currentPage - 1)}
+              className={`${styles.navLink} ${styles.prev}`}
+              aria-label="Go to previous page"
+            >
+              <span aria-hidden="true">‹</span>
+            </Link>
+          ) : (
+            <span
+              className={`${styles.navLink} ${styles.prev} ${styles.disabled}`}
+              aria-hidden="true"
+            >
+              <span aria-hidden="true">‹</span>
+            </span>
+          )}
 
-        {/* Next page link */}
-        {currentPage < totalPages ? (
-          <Link
-            href={getPageUrl(currentPage + 1)}
-            className={`${styles.navLink} ${styles.next}`}
-            aria-label="Go to next page"
-          >
-            Next
-            <span aria-hidden="true">→</span>
-          </Link>
-        ) : (
-          <span
-            className={`${styles.navLink} ${styles.next} ${styles.disabled}`}
-            aria-hidden="true"
-          >
-            Next
-            <span aria-hidden="true">→</span>
-          </span>
-        )}
-      </div>
+          {/* Page numbers */}
+          <div className={styles.pageNumbers}>{renderPageLinks()}</div>
 
-      {/* Page info */}
-      <div className={styles.pageInfo}>
-        Page {currentPage} of {totalPages}
+          {/* Next page link */}
+          {currentPage < totalPages ? (
+            <Link
+              href={getPageUrl(currentPage + 1)}
+              className={`${styles.navLink} ${styles.next}`}
+              aria-label="Go to next page"
+            >
+              <span aria-hidden="true">›</span>
+            </Link>
+          ) : (
+            <span
+              className={`${styles.navLink} ${styles.next} ${styles.disabled}`}
+              aria-hidden="true"
+            >
+              <span aria-hidden="true">›</span>
+            </span>
+          )}
+        </div>
       </div>
     </nav>
   )

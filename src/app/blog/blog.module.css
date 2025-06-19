@@ -13,7 +13,7 @@
 }
 
 .title::before {
-  content: "Blog Posts";
+  content: 'Blog Posts';
   position: absolute;
   top: 0;
   left: 0;
@@ -21,6 +21,20 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+.pageIndicator {
+  display: inline-block;
+  margin-left: var(--space-xs);
+  padding: 2px var(--space-xs);
+  background: var(--color-primary);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--space-xs);
+  vertical-align: middle;
+  position: relative;
+  z-index: 1;
 }
 
 .content {
@@ -132,7 +146,7 @@
 }
 
 .author::before {
-  content: "•";
+  content: '•';
   margin-right: 8px;
   margin-left: -4px;
 }
@@ -209,33 +223,33 @@
   .main {
     padding: 40px 0;
   }
-  
+
   .title {
     font-size: 2rem;
   }
-  
+
   .intro {
     font-size: 1.125rem;
     margin-bottom: 40px;
   }
-  
+
   .postsSection {
     gap: 30px;
   }
-  
+
   .postImage {
     height: 200px;
     margin-bottom: 20px;
   }
-  
+
   .postTitle {
     font-size: 1.5rem;
   }
-  
+
   .postSubtitle {
     font-size: 1rem;
   }
-  
+
   .emptyState {
     padding: 60px 20px;
   }
@@ -245,23 +259,23 @@
   .main {
     padding: 30px 0;
   }
-  
+
   .title {
     font-size: 1.75rem;
   }
-  
+
   .intro {
     font-size: 1rem;
   }
-  
+
   .postTitle {
     font-size: 1.25rem;
   }
-  
+
   .postImage {
     height: 180px;
   }
-  
+
   .postsSection {
     gap: 20px;
   }
