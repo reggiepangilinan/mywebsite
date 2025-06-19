@@ -1,16 +1,16 @@
-import { Metadata } from 'next';
-import { SITE_CONFIG } from '@/config/site';
-import { joinUrl } from '@/lib/url-utils';
+import { Metadata } from 'next'
+import { SITE_CONFIG } from '@/config/site'
+import { joinUrl } from '@/lib/url-utils'
 
 interface GenerateMetadataProps {
-  title?: string;
-  description?: string;
-  keywords?: string[];
-  author?: string;
-  publishDate?: string;
-  image?: string;
-  url?: string;
-  type?: 'website' | 'article';
+  title?: string
+  description?: string
+  keywords?: string[]
+  author?: string
+  publishDate?: string
+  image?: string
+  url?: string
+  type?: 'website' | 'article'
 }
 
 export function generatePageMetadata({
@@ -21,20 +21,24 @@ export function generatePageMetadata({
   publishDate,
   image,
   url,
-  type = 'website'
+  type = 'website',
 }: GenerateMetadataProps = {}): Metadata {
-  const baseUrl = SITE_CONFIG.url;
-  const defaultImage = joinUrl(baseUrl, '/og-image.png');
-  
-  const pageTitle = title 
-    ? `${title} | ${SITE_CONFIG.name}`
-    : SITE_CONFIG.name;
-  
-  const pageDescription = description || SITE_CONFIG.description;
-  const pageUrl = url ? `${baseUrl}${url}` : baseUrl;
-  const pageImage = image ? `${baseUrl}${image}` : defaultImage;
-  
-  const allKeywords = [...SITE_CONFIG.keywords, ...keywords];
+  const baseUrl = SITE_CONFIG.url
+  const defaultImage = joinUrl(baseUrl, '/og-image.png')
+
+  const pageTitle = title ? `${title} | ${SITE_CONFIG.name}` : SITE_CONFIG.name
+
+  const pageDescription = description || SITE_CONFIG.description
+  const pageUrl = url ? joinUrl(baseUrl, url) : baseUrl
+
+  // Handle external image URLs (e.g., from Contentful CDN)
+  const pageImage = image
+    ? image.startsWith('http')
+      ? image
+      : joinUrl(baseUrl, image)
+    : defaultImage
+
+  const allKeywords = [...SITE_CONFIG.keywords, ...keywords]
 
   return {
     title: pageTitle,
@@ -43,7 +47,7 @@ export function generatePageMetadata({
     authors: [{ name: author || SITE_CONFIG.author }],
     creator: SITE_CONFIG.author,
     publisher: SITE_CONFIG.author,
-    
+
     // Open Graph
     openGraph: {
       type,
@@ -102,7 +106,7 @@ export function generatePageMetadata({
       'article:author': author || SITE_CONFIG.author,
       ...(publishDate && { 'article:published_time': publishDate }),
     },
-  };
+  }
 }
 
 // JSON-LD structured data helpers
@@ -114,12 +118,12 @@ export function generateBlogPostJsonLd({
   url,
   image,
 }: {
-  title: string;
-  description: string;
-  author: string;
-  publishDate: string;
-  url: string;
-  image?: string;
+  title: string
+  description: string
+  author: string
+  publishDate: string
+  url: string
+  image?: string
 }) {
   return {
     '@context': 'https://schema.org',
@@ -138,16 +142,16 @@ export function generateBlogPostJsonLd({
     },
     datePublished: publishDate,
     dateModified: publishDate,
-    url: `${SITE_CONFIG.url}${url}`,
+    url: joinUrl(SITE_CONFIG.url, url),
     ...(image && {
       image: {
         '@type': 'ImageObject',
-        url: `${SITE_CONFIG.url}${image}`,
+        url: image.startsWith('http') ? image : joinUrl(SITE_CONFIG.url, image),
         width: 1200,
         height: 630,
       },
     }),
-  };
+  }
 }
 
 export function generatePersonJsonLd() {
@@ -165,5 +169,5 @@ export function generatePersonJsonLd() {
       '@type': 'Organization',
       name: 'Woolworths Group',
     },
-  };
+  }
 }

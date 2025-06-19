@@ -8,6 +8,7 @@ import {
   getAllBlogSlugs,
 } from '@/lib/contentful'
 import { resolveRichTextAssets } from '@/lib/rich-text-asset-resolver'
+import { generatePageMetadata } from '@/lib/seo'
 import AnimatedSection from '@/components/AnimatedSection'
 import RichTextRenderer from '@/components/RichTextRenderer'
 import { blogConfig } from '@/config/blog'
@@ -58,10 +59,11 @@ export async function generateMetadata({
   const post = await getBlogPost(slug)
 
   if (!post) {
-    return {
-      title: 'Post Not Found - Reggie Pangilinan',
+    return generatePageMetadata({
+      title: 'Post Not Found',
       description: 'The requested blog post could not be found.',
-    }
+      url: `/blog/${slug}`,
+    })
   }
 
   const fields = post.fields as any
@@ -77,42 +79,17 @@ export async function generateMetadata({
   }
 
   const imageUrl = getMetaImageUrl()
-  const imageAlt =
-    featuredImage?.fields?.title || featuredImage?.fields?.description || title
 
-  // Get image dimensions for better Open Graph tags
-  const imageDimensions = featuredImage?.fields?.file?.details?.image || {
-    width: 1200,
-    height: 630,
-  }
-
-  return {
-    title: `${title} - Reggie Pangilinan`,
-    description: description,
-    openGraph: {
-      title: `${title} - Reggie Pangilinan`,
-      description: excerpt,
-      type: 'article',
-      publishedTime: publishDate,
-      authors: author ? [author] : undefined,
-      tags: tags,
-      images: [
-        {
-          url: imageUrl,
-          width: imageDimensions.width,
-          height: imageDimensions.height,
-          alt: imageAlt,
-          type: featuredImage?.fields?.file?.contentType,
-        },
-      ],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: `${title} - Reggie Pangilinan`,
-      description: excerpt,
-      images: [imageUrl],
-    },
-  }
+  return generatePageMetadata({
+    title,
+    description,
+    keywords: tags || [],
+    author: author || 'Reggie Pangilinan',
+    publishDate,
+    image: imageUrl,
+    url: `/blog/${slug}`,
+    type: 'article',
+  })
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
