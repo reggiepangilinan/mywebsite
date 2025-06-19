@@ -26,11 +26,18 @@ export default function Header() {
   const isActive = (path: string): boolean => {
     // Always return false during SSR to prevent hydration mismatch
     if (typeof window === 'undefined' || !mounted) return false
-    
+
     const normalizedPathname = normalizePath(pathname)
     const normalizedPath = normalizePath(path)
-    
-    return normalizedPathname === normalizedPath
+
+    // For exact home page match
+    if (path === '/' || normalizedPath === '/') {
+      return normalizedPathname === '/' || normalizedPathname === ''
+    }
+
+    // For other paths, check if the current path starts with the navigation path
+    // This allows nested routes to highlight their parent navigation item
+    return normalizedPathname.startsWith(normalizedPath)
   }
 
   const handleNavClick = () => {
@@ -64,7 +71,7 @@ export default function Header() {
     if (isMenuOpen) {
       // Store current scroll position
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop
-      
+
       // Prevent scrolling on the body
       document.body.style.overflow = 'hidden'
       document.body.style.position = 'fixed'
@@ -75,20 +82,20 @@ export default function Header() {
     } else {
       // Get the stored scroll position
       const scrollTop = document.body.style.top
-      
+
       // Restore scrolling
       document.body.style.overflow = ''
       document.body.style.position = ''
       document.body.style.top = ''
       document.body.style.width = ''
       document.documentElement.style.overflow = ''
-      
+
       // Restore scroll position
       if (scrollTop) {
         window.scrollTo(0, parseInt(scrollTop || '0') * -1)
       }
     }
-    
+
     // Cleanup function to restore scroll when component unmounts
     return () => {
       document.body.style.overflow = ''
@@ -106,8 +113,8 @@ export default function Header() {
           <Link href="/" className={styles.logo} onClick={handleNavClick}>
             Reggie Pangilinan
           </Link>
-          
-          <button 
+
+          <button
             ref={menuButtonRef}
             className={styles.hamburger}
             onClick={toggleMenu}
@@ -115,22 +122,30 @@ export default function Header() {
             aria-expanded={isMenuOpen}
             aria-controls="navigation-menu"
           >
-            <span className={`${styles.hamburgerLine} ${isMenuOpen ? styles.hamburgerOpen : ''}`}></span>
-            <span className={`${styles.hamburgerLine} ${isMenuOpen ? styles.hamburgerOpen : ''}`}></span>
-            <span className={`${styles.hamburgerLine} ${isMenuOpen ? styles.hamburgerOpen : ''}`}></span>
+            <span
+              className={`${styles.hamburgerLine} ${isMenuOpen ? styles.hamburgerOpen : ''}`}
+            ></span>
+            <span
+              className={`${styles.hamburgerLine} ${isMenuOpen ? styles.hamburgerOpen : ''}`}
+            ></span>
+            <span
+              className={`${styles.hamburgerLine} ${isMenuOpen ? styles.hamburgerOpen : ''}`}
+            ></span>
           </button>
-            
-          <div className={`${styles.navRight} ${isMenuOpen ? styles.navRightOpen : ''}`}>
-            <div 
-              className={styles.navLinks} 
+
+          <div
+            className={`${styles.navRight} ${isMenuOpen ? styles.navRightOpen : ''}`}
+          >
+            <div
+              className={styles.navLinks}
               suppressHydrationWarning
               id="navigation-menu"
               role="menu"
               aria-label="Main navigation"
             >
-              <Link 
+              <Link
                 ref={firstMenuItemRef}
-                href="/" 
+                href="/"
                 className={`${styles.navLink} ${isActive('/') ? styles.active : ''}`}
                 onClick={handleNavClick}
                 suppressHydrationWarning
@@ -139,8 +154,8 @@ export default function Header() {
                 Home
               </Link>
               {process.env.NODE_ENV === 'development' && (
-                <Link 
-                  href="/blog" 
+                <Link
+                  href="/blog"
                   className={`${styles.navLink} ${isActive('/blog') ? styles.active : ''}`}
                   onClick={handleNavClick}
                   suppressHydrationWarning
@@ -149,8 +164,8 @@ export default function Header() {
                   Blog
                 </Link>
               )}
-              <Link 
-                href="/about" 
+              <Link
+                href="/about"
                 className={`${styles.navLink} ${isActive('/about') ? styles.active : ''}`}
                 onClick={handleNavClick}
                 suppressHydrationWarning
@@ -160,8 +175,8 @@ export default function Header() {
               </Link>
             </div>
             <div className={styles.mobileSocialLinks} suppressHydrationWarning>
-              <a 
-                href="https://github.com/reggiepangilinan" 
+              <a
+                href="https://github.com/reggiepangilinan"
                 className={styles.mobileSocialLink}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -170,12 +185,24 @@ export default function Header() {
                 aria-label="Visit Reggie's GitHub profile (opens in new tab)"
               >
                 GitHub
-                <svg className={styles.externalIcon} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                <svg
+                  className={styles.externalIcon}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                  />
                 </svg>
               </a>
-              <a 
-                href="https://linkedin.com/in/reggiepangilinan" 
+              <a
+                href="https://linkedin.com/in/reggiepangilinan"
                 className={styles.mobileSocialLink}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -184,8 +211,20 @@ export default function Header() {
                 aria-label="Visit Reggie's LinkedIn profile (opens in new tab)"
               >
                 LinkedIn
-                <svg className={styles.externalIcon} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                <svg
+                  className={styles.externalIcon}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                  />
                 </svg>
               </a>
             </div>
