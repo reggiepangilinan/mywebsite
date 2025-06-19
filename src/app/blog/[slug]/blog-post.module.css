@@ -486,3 +486,124 @@
     );
   }
 }
+
+/* Enhanced loading states and skeleton animations */
+.contentSkeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-bg-secondary) 25%,
+    rgba(255, 255, 255, 0.1) 50%,
+    var(--color-bg-secondary) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+.titleSkeleton {
+  height: 2.5rem;
+  width: 80%;
+  margin-bottom: var(--space-md);
+}
+
+.subtitleSkeleton {
+  height: 1.5rem;
+  width: 60%;
+  margin-bottom: var(--space-lg);
+}
+
+.metaSkeleton {
+  height: 1rem;
+  width: 40%;
+  margin-bottom: var(--space-xl);
+}
+
+.contentLineSkeleton {
+  height: 1rem;
+  margin-bottom: var(--space-sm);
+}
+
+.contentLineSkeleton:nth-child(odd) {
+  width: 95%;
+}
+
+.contentLineSkeleton:nth-child(even) {
+  width: 85%;
+}
+
+.contentLineSkeleton:last-child {
+  width: 70%;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Progressive content revelation */
+.progressiveContent {
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+.progressiveContent.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Faster image loading improvements - enhanced shimmer effect */
+
+.featuredImageContainer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    var(--color-bg-secondary) 25%,
+    rgba(255, 255, 255, 0.1) 50%,
+    var(--color-bg-secondary) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  z-index: 1;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.featuredImageContainer:has(.featuredImage.loaded)::before {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Immediate content visibility with progressive enhancement */
+.blogPostSection {
+  /* Content should be visible immediately, then enhanced */
+  opacity: 1;
+  transform: none;
+}
+
+.immediateContent {
+  /* Text content shows immediately without waiting */
+  opacity: 1;
+  animation: none;
+}
+
+/* Only images get the gentle loading treatment */
+.featuredImageContainer .featuredImage {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.featuredImageContainer .featuredImage.loaded {
+  opacity: 1;
+}

@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
+import { Suspense } from 'react'
 import {
   getBlogPost,
   getBlogPostForISR,
@@ -174,50 +175,89 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   return (
     <main className={styles.main}>
       <div className="container">
-        <AnimatedSection className={styles.blogPostSection}>
+        <AnimatedSection
+          className={`${styles.blogPostSection} ${styles.immediateContent}`}
+        >
           <header className={styles.header}>
-            <h1 className={styles.title} data-title={title}>
-              {title}
-            </h1>
+            <div className={`${styles.progressiveContent} ${styles.visible}`}>
+              <h1 className={styles.title} data-title={title}>
+                {title}
+              </h1>
+            </div>
 
-            {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
+            {subtitle && (
+              <div
+                className={`${styles.progressiveContent} ${styles.visible}`}
+                style={{ animationDelay: '0.1s' }}
+              >
+                <p className={styles.subtitle}>{subtitle}</p>
+              </div>
+            )}
 
-            <div className={styles.meta}>
-              <time dateTime={publishDate} className={styles.date}>
-                {formatDate(publishDate)}
-              </time>
-              {author && <span className={styles.author}>by {author}</span>}
+            <div
+              className={`${styles.progressiveContent} ${styles.visible}`}
+              style={{ animationDelay: '0.2s' }}
+            >
+              <div className={styles.meta}>
+                <time dateTime={publishDate} className={styles.date}>
+                  {formatDate(publishDate)}
+                </time>
+                {author && <span className={styles.author}>by {author}</span>}
+              </div>
             </div>
 
             {tags && tags.length > 0 && (
-              <div className={styles.tags}>
-                {tags.map((tag: string) => (
-                  <span key={tag} className={styles.tag}>
-                    {tag}
-                  </span>
-                ))}
+              <div
+                className={`${styles.progressiveContent} ${styles.visible}`}
+                style={{ animationDelay: '0.3s' }}
+              >
+                <div className={styles.tags}>
+                  {tags.map((tag: string) => (
+                    <span key={tag} className={styles.tag}>
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               </div>
             )}
           </header>
 
-          {hasFeaturedImage ? (
-            <BlogPostImage
-              src={imageUrl}
-              alt={imageAlt}
-              width={width}
-              height={height}
-              caption={imageCaption}
-            />
-          ) : (
-            <div className={styles.featuredImagePlaceholder}>
-              <div className={styles.placeholderContent}>
-                <div className={styles.placeholderIcon}>📝</div>
-                <span className={styles.placeholderText}>Blog Post</span>
+          <Suspense
+            fallback={
+              <div className={styles.featuredImageContainer}>
+                <div
+                  className={styles.contentSkeleton}
+                  style={{
+                    width: '100%',
+                    height: '400px',
+                    borderRadius: 'var(--radius-xl)',
+                  }}
+                ></div>
               </div>
-            </div>
-          )}
+            }
+          >
+            {hasFeaturedImage ? (
+              <BlogPostImage
+                src={imageUrl}
+                alt={imageAlt}
+                width={width}
+                height={height}
+                caption={imageCaption}
+              />
+            ) : (
+              <div className={styles.featuredImagePlaceholder}>
+                <div className={styles.placeholderContent}>
+                  <div className={styles.placeholderIcon}>📝</div>
+                  <span className={styles.placeholderText}>Blog Post</span>
+                </div>
+              </div>
+            )}
+          </Suspense>
 
-          <div className={styles.content}>
+          <div
+            className={`${styles.content} ${styles.progressiveContent} ${styles.visible}`}
+            style={{ animationDelay: '0.4s' }}
+          >
             {typeof resolvedContent === 'string' ? (
               <div dangerouslySetInnerHTML={{ __html: resolvedContent }} />
             ) : (
