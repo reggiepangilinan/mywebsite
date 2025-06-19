@@ -7,6 +7,7 @@ import {
   getBlogPostForISR,
   getAllBlogSlugs,
 } from '@/lib/contentful'
+import { resolveRichTextAssets } from '@/lib/rich-text-asset-resolver'
 import AnimatedSection from '@/components/AnimatedSection'
 import RichTextRenderer from '@/components/RichTextRenderer'
 import { blogConfig } from '@/config/blog'
@@ -138,6 +139,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { title, subtitle, content, featuredImage, publishDate, tags, author } =
     fields
 
+  // Resolve rich text assets for production compatibility
+  const resolvedContent =
+    typeof content === 'string' ? content : await resolveRichTextAssets(content)
+
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString(
       'en-US',
@@ -223,10 +228,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           )}
 
           <div className={styles.content}>
-            {typeof content === 'string' ? (
-              <div dangerouslySetInnerHTML={{ __html: content }} />
+            {typeof resolvedContent === 'string' ? (
+              <div dangerouslySetInnerHTML={{ __html: resolvedContent }} />
             ) : (
-              <RichTextRenderer content={content} />
+              <RichTextRenderer content={resolvedContent} />
             )}
           </div>
         </AnimatedSection>

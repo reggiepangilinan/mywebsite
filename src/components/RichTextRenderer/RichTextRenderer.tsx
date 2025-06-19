@@ -59,13 +59,18 @@ const renderOptions = {
       // Enhanced debugging and error handling
       logToLocalStorage('richtext-embedded-asset', {
         hasAsset: !!asset,
+        nodeData: node.data ? Object.keys(node.data) : [],
         asset: asset
           ? {
+              sys: asset.sys ? Object.keys(asset.sys) : null,
               hasFields: !!asset.fields,
               hasFile: !!asset.fields?.file,
               hasUrl: !!asset.fields?.file?.url,
               contentType: asset.fields?.file?.contentType,
               url: asset.fields?.file?.url,
+              fileName: asset.fields?.file?.fileName,
+              title: asset.fields?.title,
+              description: asset.fields?.description,
             }
           : null,
       })
@@ -160,7 +165,17 @@ const renderOptions = {
         )
       }
 
-      const imageUrl = url.startsWith('//') ? `https:${url}` : url
+      // Enhanced URL handling for production
+      let imageUrl = url
+      if (url.startsWith('//')) {
+        imageUrl = `https:${url}`
+      } else if (url.startsWith('/')) {
+        // Handle relative URLs by adding Contentful domain
+        imageUrl = `https://images.ctfassets.net${url}`
+      } else if (!url.startsWith('http')) {
+        // Handle other edge cases
+        imageUrl = `https:${url}`
+      }
 
       if (contentType?.startsWith('image/')) {
         const dimensions = asset.fields.file.details?.image || {}
@@ -173,11 +188,14 @@ const renderOptions = {
           'Embedded image'
 
         logToLocalStorage('richtext-image', {
-          imageUrl,
+          originalUrl: url,
+          processedUrl: imageUrl,
           alt,
           width,
           height,
           contentType,
+          hasDetails: !!asset.fields.file.details,
+          hasImageDimensions: !!dimensions.width,
         })
 
         return (
