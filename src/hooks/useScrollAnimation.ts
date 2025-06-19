@@ -30,26 +30,26 @@ export function useScrollAnimation(threshold = 0.1, rootMargin = '0px') {
       (currentRef.querySelector('img') ||
         currentRef.querySelector('[class*="image"]'))
 
-    // Use more aggressive settings for blog posts with images
+    // Use more refined settings for blog posts with images - smoother but still reliable
     const effectiveThreshold =
       isBlogPost && hasImages
-        ? 0.01
+        ? 0.05 // Less aggressive than 0.01, but still reliable
         : typeof window !== 'undefined' && window.innerWidth <= 768
           ? 0.05
           : threshold
     const effectiveRootMargin =
       isBlogPost && hasImages
-        ? '100px'
+        ? '50px' // Smaller margin for more natural timing
         : typeof window !== 'undefined' && window.innerWidth <= 768
           ? '-50px'
           : rootMargin
 
-    // Add backup timer for blog posts with images
+    // Longer backup timer for more natural feel
     const backupTimer =
       isBlogPost && hasImages
         ? setTimeout(() => {
             setIsVisible(true)
-          }, 800)
+          }, 1500) // Increased from 800ms to 1.5s for more natural timing
         : null
 
     const observer = new IntersectionObserver(
