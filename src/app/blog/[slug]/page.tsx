@@ -170,6 +170,31 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     <main className={styles.main}>
       <div className="container">
         <AnimatedSection>
+          <header className={styles.header}>
+            <h1 className={styles.title} data-title={title}>
+              {title}
+            </h1>
+
+            {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
+
+            <div className={styles.meta}>
+              <time dateTime={publishDate} className={styles.date}>
+                {formatDate(publishDate)}
+              </time>
+              {author && <span className={styles.author}>by {author}</span>}
+            </div>
+
+            {tags && tags.length > 0 && (
+              <div className={styles.tags}>
+                {tags.map((tag: string) => (
+                  <span key={tag} className={styles.tag}>
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
+          </header>
+
           {hasFeaturedImage ? (
             <div className={styles.featuredImageContainer}>
               <Image
@@ -196,31 +221,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               </div>
             </div>
           )}
-
-          <header className={styles.header}>
-            <h1 className={styles.title} data-title={title}>
-              {title}
-            </h1>
-
-            {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
-
-            <div className={styles.meta}>
-              <time dateTime={publishDate} className={styles.date}>
-                {formatDate(publishDate)}
-              </time>
-              {author && <span className={styles.author}>by {author}</span>}
-            </div>
-
-            {tags && tags.length > 0 && (
-              <div className={styles.tags}>
-                {tags.map((tag: string) => (
-                  <span key={tag} className={styles.tag}>
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            )}
-          </header>
 
           <div className={styles.content}>
             {typeof content === 'string' ? (

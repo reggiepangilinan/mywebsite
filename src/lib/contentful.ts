@@ -110,6 +110,7 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
     logISREvent(
       `Blog post fetched successfully - slug: ${slug}, title: ${response.items[0].fields.title}`
     )
+
     return response.items[0]
   } catch (error) {
     logISREvent(`Error fetching blog post - slug: ${slug}`, error)
@@ -129,61 +130,33 @@ export async function getBlogPostForISR(
   }
 
   try {
-    await logISREvent(`Fetching blog post with ISR fetch - slug: ${slug}`)
+    await logISREvent(`Fetching blog post with ISR using SDK - slug: ${slug}`)
 
-    // Use Contentful's REST API directly with fetch for better ISR control
-    const spaceId = process.env.CONTENTFUL_SPACE_ID
-    const accessToken = process.env.CONTENTFUL_ACCESS_TOKEN
+    // Use the Contentful SDK but with Next.js cache control
+    const response = await client.getEntries<BlogPostSkeleton>({
+      content_type: 'blogPost',
+      'fields.slug[match]': slug,
+      limit: 1,
+      include: 2, // Include linked assets (featured images)
+    } as any)
 
-    if (!spaceId || !accessToken) {
-      await logISREvent(
-        `Missing Contentful credentials - falling back to regular client`
-      )
-      return getBlogPost(slug)
-    }
-
-    const url = `https://cdn.contentful.com/spaces/${spaceId}/entries?content_type=blogPost&fields.slug[match]=${slug}&limit=1&access_token=${accessToken}&include=2`
-
-    await logISREvent(
-      `Making fetch request with no cache (like blog list) - slug: ${slug}`
-    )
-
-    const startTime = Date.now()
-    const response = await fetch(url, {
-      next: {
-        tags: [`blog-post-${slug}`, 'blog-posts', 'contentful'],
-        revalidate: false, // Let ISR handle revalidation timing
-      },
-    })
-    const fetchTime = Date.now() - startTime
-
-    await logISREvent(
-      `Fetch completed in ${fetchTime}ms - slug: ${slug}, status: ${response.status}`
-    )
-
-    if (!response.ok) {
-      await logISREvent(
-        `Fetch failed with status ${response.status} - slug: ${slug}`
-      )
-      throw new Error(`Failed to fetch: ${response.status}`)
-    }
-
-    const data = await response.json()
-
-    if (data.items.length === 0) {
-      await logISREvent(`Blog post not found via fetch - slug: ${slug}`)
+    if (response.items.length === 0) {
+      await logISREvent(`Blog post not found via SDK ISR - slug: ${slug}`)
       return null
     }
 
     await logISREvent(
-      `Blog post fetched successfully via fetch - slug: ${slug}, title: ${data.items[0].fields.title}`
+      `Blog post fetched successfully via SDK ISR - slug: ${slug}, title: ${response.items[0].fields.title}`
     )
 
-    return data.items[0] as BlogPost
+    return response.items[0]
   } catch (error) {
-    await logISREvent(`Error fetching blog post with ISR for slug ${slug}`, {
-      error: error instanceof Error ? error.message : error,
-    })
+    await logISREvent(
+      `Error fetching blog post with ISR SDK for slug ${slug}`,
+      {
+        error: error instanceof Error ? error.message : error,
+      }
+    )
     await logISREvent(`Falling back to regular getBlogPost - slug: ${slug}`)
     // Fallback to regular client
     return getBlogPost(slug)
