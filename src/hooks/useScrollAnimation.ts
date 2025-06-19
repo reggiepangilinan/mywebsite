@@ -27,31 +27,33 @@ export function useScrollAnimation(threshold = 0.1, rootMargin = '0px') {
       window.location.pathname !== '/blog' && // Exclude blog list page
       window.location.pathname.split('/').length > 3 // Ensure it's a specific post like /blog/post-slug
 
-    const hasImages =
+    // Enhanced detection for images that might still be loading
+    const hasImageElements =
       currentRef &&
-      (currentRef.querySelector('img') ||
-        currentRef.querySelector('[class*="image"]'))
+      (currentRef.querySelector('img[src]') ||
+        currentRef.querySelector('[class*="image"]') ||
+        currentRef.querySelector('[class*="Image"]'))
 
     // Use more refined settings for blog posts with images - very gentle and natural
     const effectiveThreshold =
-      isBlogPost && hasImages
+      isBlogPost && hasImageElements
         ? 0.1 // More relaxed threshold for natural trigger
         : typeof window !== 'undefined' && window.innerWidth <= 768
           ? 0.05
           : threshold
     const effectiveRootMargin =
-      isBlogPost && hasImages
+      isBlogPost && hasImageElements
         ? '100px' // Larger margin for earlier, more natural trigger
         : typeof window !== 'undefined' && window.innerWidth <= 768
           ? '-50px'
           : rootMargin
 
-    // Shorter backup timer for quicker fallback
+    // Adaptive backup timer based on image loading
     const backupTimer =
-      isBlogPost && hasImages
+      isBlogPost && hasImageElements
         ? setTimeout(() => {
             setIsVisible(true)
-          }, 1000) // Reduced to 1s for quicker fallback
+          }, 1200) // Slightly longer for image loading
         : null
 
     const observer = new IntersectionObserver(

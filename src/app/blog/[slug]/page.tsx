@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
-import Image from 'next/image'
 import {
   getBlogPost,
   getBlogPostForISR,
@@ -13,6 +12,7 @@ import RichTextRenderer from '@/components/RichTextRenderer'
 import { blogConfig } from '@/config/blog'
 import { logISREvent } from '@/lib/isr-logger'
 import { ISR_CONFIG } from '@/config/isr'
+import BlogPostImage from './BlogPostImage'
 import styles from './blog-post.module.css'
 
 // Enable ISR with configurable revalidation
@@ -201,23 +201,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </header>
 
           {hasFeaturedImage ? (
-            <div className={styles.featuredImageContainer}>
-              <Image
-                src={imageUrl}
-                alt={imageAlt}
-                width={width}
-                height={height}
-                className={styles.featuredImage}
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
-                unoptimized
-                priority
-              />
-              {imageCaption && (
-                <figcaption className={styles.imageCaption}>
-                  {imageCaption}
-                </figcaption>
-              )}
-            </div>
+            <BlogPostImage
+              src={imageUrl}
+              alt={imageAlt}
+              width={width}
+              height={height}
+              caption={imageCaption}
+            />
           ) : (
             <div className={styles.featuredImagePlaceholder}>
               <div className={styles.placeholderContent}>
