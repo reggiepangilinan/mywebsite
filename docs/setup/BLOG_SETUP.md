@@ -216,6 +216,10 @@ npm run dev
 - [Cost Optimization Summary](../configuration/COST_OPTIMIZATION_SUMMARY.md) - Complete cost analysis results
 - [Server vs Client Analysis](../configuration/SERVER_VS_CLIENT_ANALYSIS.md) - Why server-rendering is optimal
 
+### Content Management & Updates
+- [Force Revalidation API](../guides/FORCE_REVALIDATION_API.md) - On-demand cache invalidation for immediate updates
+- [Contentful Webhook Guide](../guides/CONTENTFUL_WEBHOOK_GUIDE.md) - Webhook integration for automatic revalidation
+
 ### SEO & Performance
 - [Dynamic SEO Guide](../guides/DYNAMIC_SEO_GUIDE.md) - Dynamic robots.txt and sitemap implementation
 - [SEO Cost Optimization](../configuration/SEO_COST_OPTIMIZATION.md) - SEO cost optimization strategies

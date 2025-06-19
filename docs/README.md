@@ -1,6 +1,9 @@
 # 📚 Documentation
 
-Welcome to the documentation for Reggie Pangilinan's personal website. This folder contains all project documentation organized by category.
+Welcome to the doc### 📚 [Examples](./examples/)
+Code examples and alternative implementations:
+- [Client-Rendered Blog Example](./examples/client-rendered-blog-example.tsx) - Alternative client-side rendering approach for comparison
+- [Test Revalidation Script](../scripts/test-revalidation.js) - Testing utility for force revalidation APIntation for Reggie Pangilinan's personal website. This folder contains all project documentation organized by category.
 
 ## 📁 Documentation Structure
 
@@ -15,6 +18,9 @@ Feature implementation and best practice guides:
 - [CSS Variables](./guides/CSS_VARIABLES.md) - Design tokens and CSS custom properties system
 - [Double Slash Handling](./guides/DOUBLE_SLASH_HANDLING.md) - URL normalization and double slash prevention
 - [Dynamic SEO Guide](./guides/DYNAMIC_SEO_GUIDE.md) - Dynamic robots.txt and sitemap.xml implementation
+- [Contentful Webhook Guide](./guides/CONTENTFUL_WEBHOOK_GUIDE.md) - Webhook integration for automatic revalidation
+- [Force Revalidation API](./guides/FORCE_REVALIDATION_API.md) - API reference for on-demand cache invalidation
+- [Revalidation Implementation Complete](./guides/REVALIDATION_IMPLEMENTATION_COMPLETE.md) - Complete guide to force revalidation system
 - [Sitemap Guide](./guides/SITEMAP_GUIDE.md) - Sitemap generation and optimization
 - [Social Share Guide](./guides/SOCIAL_SHARE_GUIDE.md) - Open Graph and social media optimization
 - [Testing Strategy](./guides/TESTING_STRATEGY.md) - Testing implementation and setup
@@ -47,6 +53,8 @@ Code examples and alternative implementations:
 - **Getting Started**: See [Blog Setup](./setup/BLOG_SETUP.md) for initial configuration
 - **SEO Implementation**: Check [Dynamic SEO Guide](./guides/DYNAMIC_SEO_GUIDE.md)
 - **Performance Optimization**: Review [ISR Configuration](./configuration/ISR_CONFIGURATION_GUIDE.md) and [Cost Analysis](./configuration/COST_OPTIMIZATION_SUMMARY.md)
+- **Webhook Integration**: Set up [Contentful Webhooks](./guides/CONTENTFUL_WEBHOOK_GUIDE.md) for instant updates
+- **Force Revalidation**: Complete [Revalidation Implementation Guide](./guides/REVALIDATION_IMPLEMENTATION_COMPLETE.md) for on-demand cache invalidation
 - **Rendering Strategy**: Compare approaches in [Server vs Client Analysis](./configuration/SERVER_VS_CLIENT_ANALYSIS.md)
 - **Deployment**: Follow [Netlify Deploy Guide](./deployment/NETLIFY_DEPLOY.md)
 

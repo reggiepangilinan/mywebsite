@@ -72,6 +72,8 @@ Next.js requires literal numbers for `revalidate` exports - dynamic imports don'
 - [Server vs Client Analysis](./SERVER_VS_CLIENT_ANALYSIS.md) - Why server-rendering is optimal for blog list
 - [SEO Cost Optimization](./SEO_COST_OPTIMIZATION.md) - SEO-specific cost strategies
 - [Blog Setup Guide](../setup/BLOG_SETUP.md) - Complete blog implementation overview
+- [Force Revalidation API](../guides/FORCE_REVALIDATION_API.md) - On-demand cache invalidation for immediate updates
+- [Contentful Webhook Guide](../guides/CONTENTFUL_WEBHOOK_GUIDE.md) - Webhook integration for automatic revalidation
 
 ---
 

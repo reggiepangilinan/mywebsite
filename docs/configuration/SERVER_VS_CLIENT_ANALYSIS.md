@@ -198,6 +198,8 @@ The cost is identical, but server-rendering provides significantly better:
 - [ISR Configuration Guide](./ISR_CONFIGURATION_GUIDE.md) - Current ISR setup and timing
 - [Blog Setup Guide](../setup/BLOG_SETUP.md) - Complete blog implementation overview
 - [Client-Rendered Example](../examples/client-rendered-blog-example.tsx) - Code example of alternative approach
+- [Force Revalidation API](../guides/FORCE_REVALIDATION_API.md) - On-demand cache invalidation for immediate updates
+- [Contentful Webhook Guide](../guides/CONTENTFUL_WEBHOOK_GUIDE.md) - Webhook integration for automatic revalidation
 
 ---
 
