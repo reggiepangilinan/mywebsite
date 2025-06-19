@@ -614,13 +614,11 @@ export default function DevInfoPage() {
                   fetch('/api/status')
                     .then((res) => {
                       const endTime = performance.now()
-                      return res
-                        .json()
-                        .then((data) => ({
-                          data,
-                          time: endTime - startTime,
-                          status: res.status,
-                        }))
+                      return res.json().then((data) => ({
+                        data,
+                        time: endTime - startTime,
+                        status: res.status,
+                      }))
                     })
                     .then(({ data, time, status }) => {
                       const container = document.getElementById('api-results')
@@ -973,6 +971,203 @@ REVALIDATION_SECRET=your-secret node scripts/test-revalidation.js`}
             <code>/docs/guides/FORCE_REVALIDATION_API.md</code> for complete API
             reference.
           </p>
+        </div>
+      </div>
+
+      {/* Blog Post Management Section */}
+      <div
+        style={{
+          marginBottom: '20px',
+          padding: '15px',
+          border: '1px solid #ff6b6b',
+          borderRadius: '5px',
+          backgroundColor: 'rgba(255, 107, 107, 0.1)',
+        }}
+      >
+        <h2>🗑️ Blog Post Management (DANGER ZONE)</h2>
+        <div style={{ marginBottom: '15px' }}>
+          <p
+            style={{
+              fontSize: '12px',
+              color: 'var(--text-secondary)',
+              marginBottom: '10px',
+            }}
+          >
+            <strong>📖 Documentation:</strong> See{' '}
+            <code>/docs/guides/BLOG_POST_MANAGEMENT.md</code> for complete guide
+            and troubleshooting.
+          </p>
+
+          <p
+            style={{
+              color: '#ff6b6b',
+              fontWeight: 'bold',
+              marginBottom: '10px',
+            }}
+          >
+            ⚠️ WARNING: This will permanently delete ALL blog posts from
+            Contentful!
+          </p>
+
+          <div style={{ marginBottom: '15px' }}>
+            <label
+              style={{
+                display: 'block',
+                marginBottom: '5px',
+                fontWeight: 'bold',
+              }}
+            >
+              Contentful Space ID:
+            </label>
+            <input
+              type="text"
+              id="spaceId"
+              placeholder="Enter your Contentful Space ID"
+              style={{
+                width: '100%',
+                padding: '8px',
+                border: '1px solid #666',
+                borderRadius: '4px',
+                backgroundColor: 'var(--input-bg)',
+                color: 'var(--input-text)',
+                fontFamily: 'monospace',
+              }}
+            />
+          </div>
+
+          <div style={{ marginBottom: '15px' }}>
+            <label
+              style={{
+                display: 'block',
+                marginBottom: '5px',
+                fontWeight: 'bold',
+              }}
+            >
+              Contentful Management Token:
+            </label>
+            <input
+              type="password"
+              id="managementToken"
+              placeholder="Enter your Contentful Management Token"
+              style={{
+                width: '100%',
+                padding: '8px',
+                border: '1px solid #666',
+                borderRadius: '4px',
+                backgroundColor: 'var(--input-bg)',
+                color: 'var(--input-text)',
+                fontFamily: 'monospace',
+              }}
+            />
+          </div>
+
+          <button
+            onClick={async () => {
+              const spaceId = (
+                document.getElementById('spaceId') as HTMLInputElement
+              )?.value
+              const managementToken = (
+                document.getElementById('managementToken') as HTMLInputElement
+              )?.value
+
+              if (!spaceId || !managementToken) {
+                alert('Please provide both Space ID and Management Token')
+                return
+              }
+
+              const confirmDelete = confirm(
+                'Are you ABSOLUTELY sure you want to delete ALL blog posts? This action cannot be undone!'
+              )
+
+              if (!confirmDelete) return
+
+              const secondConfirm = confirm(
+                'This is your final warning! Type &quot;DELETE ALL&quot; in the next prompt to proceed.'
+              )
+
+              if (!secondConfirm) return
+
+              const finalConfirmation = prompt(
+                'Type &quot;DELETE ALL&quot; to confirm:'
+              )
+              if (finalConfirmation !== 'DELETE ALL') {
+                alert('Deletion cancelled - confirmation text did not match')
+                return
+              }
+
+              try {
+                const response = await fetch('/api/delete-all-posts', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    spaceId,
+                    managementToken,
+                  }),
+                })
+
+                const result = await response.json()
+
+                if (result.success) {
+                  alert(
+                    `Successfully deleted ${result.deletedCount} blog posts!`
+                  )
+                } else {
+                  alert(
+                    `Deletion failed: ${result.error || 'Unknown error'}\n\nErrors: ${result.errors?.join('\n') || 'None'}`
+                  )
+                }
+              } catch (error) {
+                alert(
+                  `Network error: ${error instanceof Error ? error.message : 'Unknown error'}`
+                )
+              }
+            }}
+            style={{
+              backgroundColor: '#ff6b6b',
+              color: 'white',
+              border: 'none',
+              padding: '10px 20px',
+              borderRadius: '4px',
+              cursor: 'pointer',
+              fontWeight: 'bold',
+              fontSize: '14px',
+            }}
+          >
+            🗑️ DELETE ALL BLOG POSTS
+          </button>
+
+          <div
+            style={{
+              marginTop: '15px',
+              fontSize: '12px',
+              color: 'var(--text-secondary)',
+            }}
+          >
+            <p>
+              <strong>📝 How to get Management Token:</strong>
+            </p>
+            <ol style={{ paddingLeft: '20px', marginTop: '5px' }}>
+              <li>
+                Go to{' '}
+                <a
+                  href="https://app.contentful.com"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Contentful Web App
+                </a>
+              </li>
+              <li>Navigate to Settings → API keys</li>
+              <li>Click &quot;Content management tokens&quot;</li>
+              <li>Create a new token or copy an existing one</li>
+            </ol>
+            <p style={{ marginTop: '10px' }}>
+              <strong>🔍 Space ID:</strong> Found in your Contentful space
+              settings or in the URL when viewing your space.
+            </p>
+          </div>
         </div>
       </div>
     </div>

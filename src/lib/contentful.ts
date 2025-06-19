@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createClient, Entry, EntrySkeletonType, Asset } from 'contentful'
+import { createClient as createManagementClient } from 'contentful-management'
 import { Document } from '@contentful/rich-text-types'
 import { logISREvent } from './isr-logger'
 
@@ -7,10 +8,13 @@ import { logISREvent } from './isr-logger'
 const spaceId = process.env.CONTENTFUL_SPACE_ID
 const accessToken = process.env.CONTENTFUL_ACCESS_TOKEN
 
-const client = spaceId && accessToken ? createClient({
-  space: spaceId,
-  accessToken: accessToken,
-}) : null
+const client =
+  spaceId && accessToken
+    ? createClient({
+        space: spaceId,
+        accessToken: accessToken,
+      })
+    : null
 
 export interface BlogPostFields {
   title: string
@@ -36,9 +40,14 @@ export interface BlogPostsResponse {
   total: number
 }
 
-export async function getBlogPosts(limit = 10, skip = 0): Promise<BlogPostsResponse> {
+export async function getBlogPosts(
+  limit = 10,
+  skip = 0
+): Promise<BlogPostsResponse> {
   if (!client) {
-    await logISREvent('Contentful client not configured - returning empty blog posts')
+    await logISREvent(
+      'Contentful client not configured - returning empty blog posts'
+    )
     return {
       items: [],
       total: 0,
@@ -47,7 +56,7 @@ export async function getBlogPosts(limit = 10, skip = 0): Promise<BlogPostsRespo
 
   try {
     await logISREvent(`Fetching blog posts - limit: ${limit}, skip: ${skip}`)
-    
+
     const response = await client.getEntries<BlogPostSkeleton>({
       content_type: 'blogPost',
       limit,
@@ -55,14 +64,18 @@ export async function getBlogPosts(limit = 10, skip = 0): Promise<BlogPostsRespo
       order: '-fields.publishDate' as any,
     })
 
-    await logISREvent(`Blog posts fetched successfully - ${response.items.length} items, total: ${response.total}`)
+    await logISREvent(
+      `Blog posts fetched successfully - ${response.items.length} items, total: ${response.total}`
+    )
 
     return {
       items: response.items,
       total: response.total,
     }
   } catch (error) {
-    await logISREvent('Error fetching blog posts', { error: error instanceof Error ? error.message : error })
+    await logISREvent('Error fetching blog posts', {
+      error: error instanceof Error ? error.message : error,
+    })
     return {
       items: [],
       total: 0,
@@ -72,13 +85,15 @@ export async function getBlogPosts(limit = 10, skip = 0): Promise<BlogPostsRespo
 
 export async function getBlogPost(slug: string): Promise<BlogPost | null> {
   if (!client) {
-    console.error('Contentful client not configured - returning null for blog post')
+    console.error(
+      'Contentful client not configured - returning null for blog post'
+    )
     return null
   }
 
   try {
     logISREvent(`Fetching blog post (regular) - slug: ${slug}`)
-    
+
     const response = await client.getEntries<BlogPostSkeleton>({
       content_type: 'blogPost',
       'fields.slug[match]': slug,
@@ -90,7 +105,9 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
       return null
     }
 
-    logISREvent(`Blog post fetched successfully - slug: ${slug}, title: ${response.items[0].fields.title}`)
+    logISREvent(
+      `Blog post fetched successfully - slug: ${slug}, title: ${response.items[0].fields.title}`
+    )
     return response.items[0]
   } catch (error) {
     logISREvent(`Error fetching blog post - slug: ${slug}`, error)
@@ -99,56 +116,72 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
 }
 
 // Alternative version that uses fetch with Next.js cache control
-export async function getBlogPostForISR(slug: string): Promise<BlogPost | null> {
+export async function getBlogPostForISR(
+  slug: string
+): Promise<BlogPost | null> {
   if (!client) {
-    await logISREvent('Contentful client not configured - returning null for blog post')
+    await logISREvent(
+      'Contentful client not configured - returning null for blog post'
+    )
     return null
   }
 
   try {
     await logISREvent(`Fetching blog post with ISR fetch - slug: ${slug}`)
-    
+
     // Use Contentful's REST API directly with fetch for better ISR control
     const spaceId = process.env.CONTENTFUL_SPACE_ID
     const accessToken = process.env.CONTENTFUL_ACCESS_TOKEN
-    
+
     if (!spaceId || !accessToken) {
-      await logISREvent(`Missing Contentful credentials - falling back to regular client`)
+      await logISREvent(
+        `Missing Contentful credentials - falling back to regular client`
+      )
       return getBlogPost(slug)
     }
 
     const url = `https://cdn.contentful.com/spaces/${spaceId}/entries?content_type=blogPost&fields.slug[match]=${slug}&limit=1&access_token=${accessToken}&include=2`
-    
-    await logISREvent(`Making fetch request with no cache (like blog list) - slug: ${slug}`)
-    
+
+    await logISREvent(
+      `Making fetch request with no cache (like blog list) - slug: ${slug}`
+    )
+
     const startTime = Date.now()
     const response = await fetch(url, {
       next: {
         tags: [`blog-post-${slug}`, 'blog-posts', 'contentful'],
-        revalidate: false // Let ISR handle revalidation timing
-      }
+        revalidate: false, // Let ISR handle revalidation timing
+      },
     })
     const fetchTime = Date.now() - startTime
 
-    await logISREvent(`Fetch completed in ${fetchTime}ms - slug: ${slug}, status: ${response.status}`)
+    await logISREvent(
+      `Fetch completed in ${fetchTime}ms - slug: ${slug}, status: ${response.status}`
+    )
 
     if (!response.ok) {
-      await logISREvent(`Fetch failed with status ${response.status} - slug: ${slug}`)
+      await logISREvent(
+        `Fetch failed with status ${response.status} - slug: ${slug}`
+      )
       throw new Error(`Failed to fetch: ${response.status}`)
     }
 
     const data = await response.json()
-    
+
     if (data.items.length === 0) {
       await logISREvent(`Blog post not found via fetch - slug: ${slug}`)
       return null
     }
 
-    await logISREvent(`Blog post fetched successfully via fetch - slug: ${slug}, title: ${data.items[0].fields.title}`)
-    
+    await logISREvent(
+      `Blog post fetched successfully via fetch - slug: ${slug}, title: ${data.items[0].fields.title}`
+    )
+
     return data.items[0] as BlogPost
   } catch (error) {
-    await logISREvent(`Error fetching blog post with ISR for slug ${slug}`, { error: error instanceof Error ? error.message : error })
+    await logISREvent(`Error fetching blog post with ISR for slug ${slug}`, {
+      error: error instanceof Error ? error.message : error,
+    })
     await logISREvent(`Falling back to regular getBlogPost - slug: ${slug}`)
     // Fallback to regular client
     return getBlogPost(slug)
@@ -171,5 +204,75 @@ export async function getAllBlogSlugs(): Promise<string[]> {
   } catch (error) {
     console.error('Error fetching blog slugs:', error)
     return []
+  }
+}
+
+// Management API for deletion operations
+export async function deleteAllBlogPosts(
+  spaceId: string,
+  managementToken: string
+): Promise<{ success: boolean; deletedCount: number; errors: string[] }> {
+  try {
+    await logISREvent('Starting bulk deletion of all blog posts')
+
+    const managementClient = createManagementClient({
+      accessToken: managementToken,
+    })
+
+    const space = await managementClient.getSpace(spaceId)
+    const environment = await space.getEnvironment('master')
+
+    // Get all blog post entries
+    const entries = await environment.getEntries({
+      content_type: 'blogPost',
+      limit: 1000, // Contentful max limit
+    })
+
+    await logISREvent(`Found ${entries.items.length} blog posts to delete`)
+
+    const errors: string[] = []
+    let deletedCount = 0
+
+    // Delete each entry
+    for (const entry of entries.items) {
+      try {
+        // First unpublish if published
+        if (entry.isPublished()) {
+          await entry.unpublish()
+          await logISREvent(
+            `Unpublished entry: ${entry.fields.title?.['en-US'] || entry.sys.id}`
+          )
+        }
+
+        // Then delete
+        await entry.delete()
+        deletedCount++
+        await logISREvent(
+          `Deleted entry: ${entry.fields.title?.['en-US'] || entry.sys.id}`
+        )
+      } catch (error) {
+        const errorMsg = `Failed to delete entry ${entry.sys.id}: ${error instanceof Error ? error.message : error}`
+        errors.push(errorMsg)
+        await logISREvent(errorMsg)
+      }
+    }
+
+    await logISREvent(
+      `Bulk deletion completed - ${deletedCount} deleted, ${errors.length} errors`
+    )
+
+    return {
+      success: errors.length === 0,
+      deletedCount,
+      errors,
+    }
+  } catch (error) {
+    const errorMsg = `Bulk deletion failed: ${error instanceof Error ? error.message : error}`
+    await logISREvent(errorMsg)
+    return {
+      success: false,
+      deletedCount: 0,
+      errors: [errorMsg],
+    }
   }
 }

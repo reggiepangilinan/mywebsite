@@ -15,6 +15,7 @@ Feature implementation and best practice guides:
 - [CSS Variables](./guides/CSS_VARIABLES.md) - Design tokens and CSS custom properties system
 - [Double Slash Handling](./guides/DOUBLE_SLASH_HANDLING.md) - URL normalization and double slash prevention
 - [Dynamic SEO Guide](./guides/DYNAMIC_SEO_GUIDE.md) - Dynamic robots.txt and sitemap.xml implementation
+- [Blog Post Management](./guides/BLOG_POST_MANAGEMENT.md) - Bulk delete and content management via Contentful API
 - [Contentful Webhook Guide](./guides/CONTENTFUL_WEBHOOK_GUIDE.md) - Webhook integration for automatic revalidation
 - [Force Revalidation API](./guides/FORCE_REVALIDATION_API.md) - API reference for on-demand cache invalidation
 - [Revalidation Implementation Complete](./guides/REVALIDATION_IMPLEMENTATION_COMPLETE.md) - Complete guide to force revalidation system
@@ -56,6 +57,7 @@ Testing and utility scripts:
 ## 🎯 Quick Links
 
 - **Getting Started**: See [Blog Setup](./setup/BLOG_SETUP.md) for initial configuration
+- **Content Management**: Use [Blog Post Management](./guides/BLOG_POST_MANAGEMENT.md) for bulk operations
 - **SEO Implementation**: Check [Dynamic SEO Guide](./guides/DYNAMIC_SEO_GUIDE.md)
 - **Performance Optimization**: Review [ISR Configuration](./configuration/ISR_CONFIGURATION_GUIDE.md) and [Cost Analysis](./configuration/COST_OPTIMIZATION_SUMMARY.md)
 - **Webhook Integration**: Set up [Contentful Webhooks](./guides/CONTENTFUL_WEBHOOK_GUIDE.md) for instant updates
