@@ -12,18 +12,9 @@ interface BlogPostImageProps {
   caption?: string
 }
 
-// Generate a simple blur placeholder
-const generateBlurPlaceholder = () => {
-  const canvas = document.createElement('canvas')
-  canvas.width = 8
-  canvas.height = 6
-  const ctx = canvas.getContext('2d')
-  if (ctx) {
-    ctx.fillStyle = '#f3f4f6'
-    ctx.fillRect(0, 0, 8, 6)
-  }
-  return canvas.toDataURL()
-}
+// Static blur placeholder to avoid hydration issues
+const STATIC_BLUR_DATA_URL =
+  'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkrHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=='
 
 export default function BlogPostImage({
   src,
@@ -34,19 +25,16 @@ export default function BlogPostImage({
 }: BlogPostImageProps) {
   const [isLoaded, setIsLoaded] = useState(false)
   const [hasError, setHasError] = useState(false)
-  const [blurDataURL, setBlurDataURL] = useState<string>('')
 
-  // Generate blur placeholder on client side
-  useState(() => {
-    if (typeof window !== 'undefined') {
-      setBlurDataURL(generateBlurPlaceholder())
-    }
-  })
-
-  // Optimize Contentful image URL
+  // Optimize Contentful image URL - with fallback
   const optimizedSrc = src.includes('ctfassets.net')
-    ? `${src}?w=${Math.min(width, 1200)}&h=${Math.min(height, 800)}&fit=fill&f=webp&q=80`
+    ? `${src}?w=${Math.min(width, 1200)}&q=80` // Simplified optimization without WebP forcing
     : src
+
+  // Fallback to original if optimization fails
+  const [useOriginal, setUseOriginal] = useState(false)
+  const [disableOptimization, setDisableOptimization] = useState(false)
+  const finalSrc = useOriginal ? src : optimizedSrc
 
   if (hasError) {
     return (
@@ -56,6 +44,10 @@ export default function BlogPostImage({
           Failed to load image
           <br />
           <small>{alt}</small>
+          <br />
+          <small style={{ fontSize: '10px', opacity: 0.7 }}>
+            URL: {finalSrc}
+          </small>
         </div>
       </div>
     )
@@ -64,17 +56,30 @@ export default function BlogPostImage({
   return (
     <div className={styles.featuredImageContainer}>
       <Image
-        src={optimizedSrc}
+        src={finalSrc}
         alt={alt}
         width={width}
         height={height}
         className={`${styles.featuredImage} ${isLoaded ? styles.loaded : ''}`}
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
-        placeholder={blurDataURL ? 'blur' : 'empty'}
-        blurDataURL={blurDataURL}
+        placeholder={!disableOptimization ? 'blur' : 'empty'}
+        blurDataURL={disableOptimization ? undefined : STATIC_BLUR_DATA_URL}
+        unoptimized={disableOptimization}
         priority
         onLoad={() => setIsLoaded(true)}
-        onError={() => setHasError(true)}
+        onError={() => {
+          if (!useOriginal) {
+            // Try with original URL if optimized fails
+            setUseOriginal(true)
+          } else if (!disableOptimization) {
+            // Try with Next.js optimization disabled
+            setDisableOptimization(true)
+            setUseOriginal(false) // Reset to try optimized URL again but unoptimized
+          } else {
+            // If everything fails, mark as error
+            setHasError(true)
+          }
+        }}
       />
       {caption && isLoaded && (
         <figcaption className={styles.imageCaption}>{caption}</figcaption>

@@ -5,7 +5,16 @@ const nextConfig: NextConfig = {
   trailingSlash: false,
   
   images: {
-    unoptimized: true
+    unoptimized: true,
+    domains: ['images.ctfassets.net'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.ctfassets.net',
+        port: '',
+        pathname: '/**',
+      },
+    ],
   },
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
