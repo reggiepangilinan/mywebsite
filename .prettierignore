@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+.next/
+out/
+dist/
+
+# Logs
+*.log
+
+# Environment files
+.env*
+
+# Cache
+.eslintcache
+
+# Generated files
+tsconfig.tsbuildinfo
+
+# Public assets
+public/
+
+# Documentation that should keep specific formatting
+docs/examples/
+README.md
+
+# Config files that should keep specific formatting
+*.config.js
+*.config.ts
+netlify.toml

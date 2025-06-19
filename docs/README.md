@@ -21,6 +21,7 @@ Feature implementation and best practice guides:
 - [Sitemap Guide](./guides/SITEMAP_GUIDE.md) - Sitemap generation and optimization
 - [Social Share Guide](./guides/SOCIAL_SHARE_GUIDE.md) - Open Graph and social media optimization
 - [Testing Strategy](./guides/TESTING_STRATEGY.md) - Testing implementation and setup
+- [Linting Setup](./guides/LINTING_SETUP.md) - Automated code quality and formatting
 - [Code Quality Roadmap](./guides/CODE_QUALITY_ROADMAP.md) - Code quality improvements checklist
 - [Monitoring & Analytics](./guides/MONITORING_ANALYTICS.md) - Performance monitoring setup
 
