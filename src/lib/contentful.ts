@@ -2,7 +2,7 @@
 import { createClient, Entry, EntrySkeletonType, Asset } from 'contentful'
 import { createClient as createManagementClient } from 'contentful-management'
 import { Document } from '@contentful/rich-text-types'
-import { logISREvent } from './isr-logger'
+import { logAppEvent } from './app-logger'
 
 // Check if environment variables are available
 const spaceId = process.env.CONTENTFUL_SPACE_ID
@@ -45,8 +45,9 @@ export async function getBlogPosts(
   skip = 0
 ): Promise<BlogPostsResponse> {
   if (!client) {
-    await logISREvent(
-      'Contentful client not configured - returning empty blog posts'
+    await logAppEvent(
+      'Contentful',
+      'Client not configured - returning empty blog posts'
     )
     return {
       items: [],
@@ -55,7 +56,10 @@ export async function getBlogPosts(
   }
 
   try {
-    await logISREvent(`Fetching blog posts - limit: ${limit}, skip: ${skip}`)
+    await logAppEvent(
+      'Contentful',
+      `Fetching blog posts - limit: ${limit}, skip: ${skip}`
+    )
 
     const response = await client.getEntries<BlogPostSkeleton>({
       content_type: 'blogPost',
@@ -65,7 +69,8 @@ export async function getBlogPosts(
       include: 2, // Include linked assets (featured images)
     })
 
-    await logISREvent(
+    await logAppEvent(
+      'Contentful',
       `Blog posts fetched successfully - ${response.items.length} items, total: ${response.total}`
     )
 
@@ -74,7 +79,7 @@ export async function getBlogPosts(
       total: response.total,
     }
   } catch (error) {
-    await logISREvent('Error fetching blog posts', {
+    await logAppEvent('Error', 'Failed to fetch blog posts', {
       error: error instanceof Error ? error.message : error,
     })
     return {
@@ -93,7 +98,7 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
   }
 
   try {
-    logISREvent(`Fetching blog post (regular) - slug: ${slug}`)
+    logAppEvent('Contentful', `Fetching blog post (regular) - slug: ${slug}`)
 
     const response = await client.getEntries<BlogPostSkeleton>({
       content_type: 'blogPost',
@@ -103,17 +108,18 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
     } as any)
 
     if (response.items.length === 0) {
-      logISREvent(`Blog post not found - slug: ${slug}`)
+      logAppEvent('Contentful', `Blog post not found - slug: ${slug}`)
       return null
     }
 
-    logISREvent(
+    logAppEvent(
+      'Contentful',
       `Blog post fetched successfully - slug: ${slug}, title: ${response.items[0].fields.title}`
     )
 
     return response.items[0]
   } catch (error) {
-    logISREvent(`Error fetching blog post - slug: ${slug}`, error)
+    logAppEvent('Error', `Failed to fetch blog post - slug: ${slug}`, error)
     return null
   }
 }
@@ -123,14 +129,18 @@ export async function getBlogPostForISR(
   slug: string
 ): Promise<BlogPost | null> {
   if (!client) {
-    await logISREvent(
-      'Contentful client not configured - returning null for blog post'
+    await logAppEvent(
+      'Contentful',
+      'Client not configured - returning null for blog post'
     )
     return null
   }
 
   try {
-    await logISREvent(`Fetching blog post with ISR using SDK - slug: ${slug}`)
+    await logAppEvent(
+      'ISR',
+      `Fetching blog post with ISR using SDK - slug: ${slug}`
+    )
 
     // Use the Contentful SDK but with Next.js cache control
     const response = await client.getEntries<BlogPostSkeleton>({
@@ -141,23 +151,31 @@ export async function getBlogPostForISR(
     } as any)
 
     if (response.items.length === 0) {
-      await logISREvent(`Blog post not found via SDK ISR - slug: ${slug}`)
+      await logAppEvent(
+        'ISR',
+        `Blog post not found via SDK ISR - slug: ${slug}`
+      )
       return null
     }
 
-    await logISREvent(
+    await logAppEvent(
+      'ISR',
       `Blog post fetched successfully via SDK ISR - slug: ${slug}, title: ${response.items[0].fields.title}`
     )
 
     return response.items[0]
   } catch (error) {
-    await logISREvent(
-      `Error fetching blog post with ISR SDK for slug ${slug}`,
+    await logAppEvent(
+      'Error',
+      `Failed to fetch blog post with ISR SDK for slug ${slug}`,
       {
         error: error instanceof Error ? error.message : error,
       }
     )
-    await logISREvent(`Falling back to regular getBlogPost - slug: ${slug}`)
+    await logAppEvent(
+      'ISR',
+      `Falling back to regular getBlogPost - slug: ${slug}`
+    )
     // Fallback to regular client
     return getBlogPost(slug)
   }
@@ -188,7 +206,7 @@ export async function deleteAllBlogPosts(
   managementToken: string
 ): Promise<{ success: boolean; deletedCount: number; errors: string[] }> {
   try {
-    await logISREvent('Starting bulk deletion of all blog posts')
+    await logAppEvent('Bulk', 'Starting bulk deletion of all blog posts')
 
     const managementClient = createManagementClient({
       accessToken: managementToken,
@@ -203,7 +221,10 @@ export async function deleteAllBlogPosts(
       limit: 1000, // Contentful max limit
     })
 
-    await logISREvent(`Found ${entries.items.length} blog posts to delete`)
+    await logAppEvent(
+      'Bulk',
+      `Found ${entries.items.length} blog posts to delete`
+    )
 
     const errors: string[] = []
     let deletedCount = 0
@@ -214,7 +235,8 @@ export async function deleteAllBlogPosts(
         // First unpublish if published
         if (entry.isPublished()) {
           await entry.unpublish()
-          await logISREvent(
+          await logAppEvent(
+            'Bulk',
             `Unpublished entry: ${entry.fields.title?.['en-US'] || entry.sys.id}`
           )
         }
@@ -222,17 +244,19 @@ export async function deleteAllBlogPosts(
         // Then delete
         await entry.delete()
         deletedCount++
-        await logISREvent(
+        await logAppEvent(
+          'Bulk',
           `Deleted entry: ${entry.fields.title?.['en-US'] || entry.sys.id}`
         )
       } catch (error) {
         const errorMsg = `Failed to delete entry ${entry.sys.id}: ${error instanceof Error ? error.message : error}`
         errors.push(errorMsg)
-        await logISREvent(errorMsg)
+        await logAppEvent('Error', errorMsg)
       }
     }
 
-    await logISREvent(
+    await logAppEvent(
+      'Bulk',
       `Bulk deletion completed - ${deletedCount} deleted, ${errors.length} errors`
     )
 
@@ -243,7 +267,7 @@ export async function deleteAllBlogPosts(
     }
   } catch (error) {
     const errorMsg = `Bulk deletion failed: ${error instanceof Error ? error.message : error}`
-    await logISREvent(errorMsg)
+    await logAppEvent('Error', errorMsg)
     return {
       success: false,
       deletedCount: 0,

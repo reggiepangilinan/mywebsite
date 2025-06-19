@@ -2,7 +2,19 @@
 
 ## Overview
 
-The `logISREvent` function provides comprehensive operational logging for the Next.js application, handling much more than just ISR (Incremental Static Regeneration) events. Despite its historical name, it serves as the primary logging mechanism for all application operations.
+The `logAppEvent` function provides comprehensive operational logging for the Next.js application, handling much more than just ISR (Incremental Static Regeneration) events. It serves as the primary logging mechanism for all application operations with contextual prefixes for easy identification.
+
+## Contextual Prefixes
+
+The logging system uses contextual prefixes to categorize different types of events:
+
+- **`[ISR]`** - Incremental Static Regeneration events
+- **`[Contentful]`** - Contentful API operations and responses
+- **`[Page]`** - Page rendering lifecycle events
+- **`[Error]`** - Error conditions and exception handling
+- **`[Bulk]`** - Bulk operations and content management
+- **`[API]`** - API route operations
+- **`[System]`** - System-level events and debugging
 
 ## Logging Scope
 
@@ -43,59 +55,101 @@ The `logISREvent` function provides comprehensive operational logging for the Ne
 
 ## Implementation
 
-### Core Function: `logISREvent(message, data?)`
+### Core Function: `logAppEvent(context, message, data?)`
 
-**Location**: `/src/lib/isr-logger.ts`
+**Location**: `/src/lib/app-logger.ts`
+
+**Signature**:
 
 ```typescript
-// Application logging system for Netlify free tier
-// Handles ISR events, Contentful operations, error tracking, and operational logging
-export async function logISREvent(message: string, data?: unknown) {
-  // Environment-aware logging
+type LogContext =
+  | 'ISR'
+  | 'Contentful'
+  | 'Page'
+  | 'Error'
+  | 'Bulk'
+  | 'API'
+  | 'System'
+
+export async function logAppEvent(
+  context: LogContext,
+  message: string,
+  data?: unknown
+) {
+  // Environment-aware logging with contextual prefixes
   // Production: console.error + console.log for maximum visibility
   // Development: console.log (when explicitly enabled)
+  // Output: [Context] message | timestamp | Data: {...}
 }
 ```
 
 ### Usage Patterns
 
+**Import:**
+
+```typescript
+import { logAppEvent } from '@/lib/app-logger'
+```
+
 #### Contentful Operations
 
 ```typescript
 // API call logging
-await logISREvent(`Fetching blog posts - limit: ${limit}, skip: ${skip}`)
+await logAppEvent(
+  'Contentful',
+  `Fetching blog posts - limit: ${limit}, skip: ${skip}`
+)
 
 // Error handling
-await logISREvent('Error fetching blog posts', { error, limit, skip })
+await logAppEvent('Error', 'Failed to fetch blog posts', { error, limit, skip })
 
 // Success confirmation
-await logISREvent(`Successfully fetched ${posts.items.length} blog posts`)
+await logAppEvent(
+  'Contentful',
+  `Successfully fetched ${posts.items.length} blog posts`
+)
 ```
 
 #### Page Rendering
 
 ```typescript
 // Render start
-await logISREvent(`Individual blog post render started - slug: ${slug}`)
+await logAppEvent('Page', `Individual blog post render started - slug: ${slug}`)
 
 // 404 handling
-await logISREvent(`Blog post not found, returning 404 - slug: ${slug}`)
+await logAppEvent('Page', `Blog post not found, returning 404 - slug: ${slug}`)
 
 // Success
-await logISREvent(`Blog post rendered successfully - slug: ${slug}`)
+await logAppEvent('Page', `Blog post rendered successfully - slug: ${slug}`)
+```
+
+#### ISR Events
+
+```typescript
+// ISR-specific operations
+await logAppEvent(
+  'ISR',
+  `Fetching blog post with ISR using SDK - slug: ${slug}`
+)
+
+// Fallback scenarios
+await logAppEvent('ISR', `Falling back to regular getBlogPost - slug: ${slug}`)
 ```
 
 #### Bulk Operations
 
 ```typescript
 // Operation start
-await logISREvent('Starting bulk deletion of all blog posts')
+await logAppEvent('Bulk', 'Starting bulk deletion of all blog posts')
 
 // Progress tracking
-await logISREvent(`Found ${entries.items.length} blog posts to delete`)
+await logAppEvent('Bulk', `Found ${entries.items.length} blog posts to delete`)
 
 // Completion
-await logISREvent(`Bulk deletion completed - ${deleted} items processed`)
+await logAppEvent(
+  'Bulk',
+  `Bulk deletion completed - ${deleted} items processed`
+)
 ```
 
 ## Environment Configuration
@@ -154,7 +208,7 @@ process.stderr.write() // Error stream
 
 ### Core Implementation
 
-- `/src/lib/isr-logger.ts` - Main logging functions
+- `/src/lib/app-logger.ts` - Main logging functions
 - `/src/lib/contentful.ts` - Primary usage for Contentful operations
 - `/src/app/blog/[slug]/page.tsx` - Page rendering events
 
@@ -175,17 +229,20 @@ process.stderr.write() // Error stream
 
 ```typescript
 // ✅ Good - specific and actionable
-await logISREvent(`Blog post fetch failed - slug: ${slug}, status: 404`)
+await logAppEvent(
+  'Contentful',
+  `Blog post fetch failed - slug: ${slug}, status: 404`
+)
 
 // ❌ Poor - vague and unhelpful
-await logISREvent('Error occurred')
+await logAppEvent('Error', 'Error occurred')
 ```
 
 ### 2. Include Context Data
 
 ```typescript
 // ✅ Good - includes debugging context
-await logISREvent('Contentful API timeout', {
+await logAppEvent('Error', 'Contentful API timeout', {
   slug,
   timeout: 5000,
   attempt: 2,
@@ -196,10 +253,29 @@ await logISREvent('Contentful API timeout', {
 
 ```typescript
 // ✅ Good - follows established patterns
-await logISREvent(`Operation started - type: ${type}, count: ${count}`)
-await logISREvent(
+await logAppEvent('Bulk', `Operation started - type: ${type}, count: ${count}`)
+await logAppEvent(
+  'Bulk',
   `Operation completed - type: ${type}, processed: ${processed}`
 )
+```
+
+## Log Output Format
+
+### Current Format
+
+```
+[Context] message | timestamp | Data: {...}
+```
+
+### Examples
+
+```
+[Contentful] Fetching blog posts - limit: 10, skip: 0 | 2025-06-19T10:19:12.891Z
+[Page] Individual blog post render started - slug: example-post | 2025-06-19T10:19:13.925Z
+[ISR] Blog post fetched successfully via SDK ISR - slug: example-post, title: My Post | 2025-06-19T10:19:14.128Z
+[Error] Failed to fetch blog post - slug: invalid | 2025-06-19T10:19:15.234Z | Data: {"error":"Not found"}
+[Bulk] Starting bulk deletion of all blog posts | 2025-06-19T10:19:16.345Z
 ```
 
 ## Troubleshooting
@@ -228,15 +304,40 @@ await logISREvent(
 4. **Performance Metrics**: Request timing and performance data
 5. **Name Update**: Rename to `logApplicationEvent` for clarity
 
-### Migration Considerations
+## Migration History
 
-If renaming `logISREvent`:
+### Complete Migration (June 2025)
 
-1. Update all import statements
-2. Update documentation references
-3. Maintain backward compatibility during transition
-4. Update environment variable names for consistency
+The logging system has been completely migrated:
+
+1. **New Primary Function**: `logAppEvent(context, message, data?)` with contextual prefixes
+2. **File Renamed**: `isr-logger.ts` → `app-logger.ts` to reflect broader purpose
+3. **All Legacy Functions Removed**: Complete migration from `logISREvent` to `logAppEvent`
+4. **Contextual Prefixes**:
+
+   - `[ISR]` for ISR events
+   - `[Contentful]` for API operations
+   - `[Page]` for rendering events
+   - `[Error]` for error conditions
+   - `[Bulk]` for bulk operations
+   - `[API]` for API routes
+   - `[System]` for system events
+
+5. **Complete Implementation Update**:
+   - All Contentful operations migrated to use contextual logging
+   - Page rendering events use `[Page]` prefix
+   - Error handling uses `[Error]` prefix
+   - Bulk operations use `[Bulk]` prefix
+   - All imports updated to use new file path
+
+### Benefits
+
+- **Better Log Organization**: Easy filtering by context
+- **Improved Debugging**: Context-specific prefixes for faster issue identification
+- **Enhanced Monitoring**: Clear categorization of different application events
+- **Comprehensive Coverage**: Single logging system handles all operational events
+- **Clean Architecture**: No legacy functions, simplified API
 
 ---
 
-**Note**: While historically named for ISR logging, this system now serves as the primary operational logging mechanism for the entire application. The name reflects its origins but not its current comprehensive scope.
+**Note**: The system provides comprehensive operational logging for the entire Next.js application with contextual prefixes for easy identification and debugging.

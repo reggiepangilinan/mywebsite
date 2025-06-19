@@ -1,7 +1,21 @@
 // Application logging system for Netlify free tier
 // Handles ISR events, Contentful operations, error tracking, and operational logging
 // Stores logs via console methods optimized for hosting platform visibility
-export async function logISREvent(message: string, data?: unknown) {
+
+type LogContext =
+  | 'ISR'
+  | 'Contentful'
+  | 'Page'
+  | 'Error'
+  | 'Bulk'
+  | 'API'
+  | 'System'
+
+export async function logAppEvent(
+  context: LogContext,
+  message: string,
+  data?: unknown
+) {
   // COMPLETELY DISABLE logging in development to prevent Next.js debugger errors
   // Only enable if explicitly requested via environment variables
   const isDev = process.env.NODE_ENV === 'development'
@@ -22,7 +36,7 @@ export async function logISREvent(message: string, data?: unknown) {
 
   try {
     const timestamp = new Date().toISOString()
-    const logMessage = `[APP-${timestamp}] ${message}`
+    const logMessage = `[${context}] ${message} | ${timestamp}`
     const logData = data ? ` | Data: ${JSON.stringify(data)}` : ''
     const fullLog = logMessage + logData
 
@@ -39,7 +53,7 @@ export async function logISREvent(message: string, data?: unknown) {
       // 3. Less likely to be filtered out by log retention policies
       // 4. Application events (ISR, Contentful, errors) are important for debugging
       // 5. Background processes (serverless functions) often suppress console.log
-      // Note: These aren't actual errors - [APP] prefix identifies them as informational
+      // Note: These aren't actual errors - contextual prefixes identify event types
       console.error(fullLog)
       console.log(fullLog)
 
@@ -56,14 +70,14 @@ export async function logISREvent(message: string, data?: unknown) {
   } catch (error) {
     // Fallback - only in non-dev or when debugging
     if (!isDev || isExplicitlyEnabled) {
-      console.warn('[APP] Logging error:', error)
-      console.warn(`[APP] Original message: ${message}`)
+      console.warn('[System] Logging error:', error)
+      console.warn(`[System] Original message: ${message}`)
     }
   }
 }
 
 // Lightweight logging for production (minimal overhead)
-export function logISREventLite(message: string) {
+export function logAppEventLite(context: LogContext, message: string) {
   // COMPLETELY DISABLE in development unless explicitly enabled
   const isDev = process.env.NODE_ENV === 'development'
   const isExplicitlyEnabled =
@@ -75,7 +89,7 @@ export function logISREventLite(message: string) {
   }
 
   // Only log in production or when explicitly enabled
-  const log = `[APP] ${message} | ${new Date().toISOString()}`
+  const log = `[${context}] ${message} | ${new Date().toISOString()}`
 
   if (isDev && isExplicitlyEnabled) {
     // In development with explicit enabling, use console.log

@@ -4,7 +4,7 @@
 
 ### Application Logging System
 
-The `logISREvent` function provides comprehensive operational logging for:
+The `logAppEvent` function provides comprehensive operational logging for:
 
 - **ISR Events**: Page revalidation, cache status, timing
 - **Contentful API Operations**: Blog post fetching, pagination, error handling
@@ -61,7 +61,7 @@ Route (app)                                 Size  First Load JS  Revalidate  Exp
 
 ```typescript
 // Our application logging system uses multiple methods for maximum visibility:
-// logISREvent() handles ISR events, Contentful operations, and error tracking
+// logAppEvent() handles ISR events, Contentful operations, and error tracking with contextual prefixes
 console.error(logMessage) // Highest priority
 console.log(logMessage) // Standard logging
 process.stdout.write() // Direct output stream
@@ -70,11 +70,11 @@ process.stderr.write() // Error output stream
 
 **Logging Scope**:
 
-- ✅ ISR revalidation events
-- ✅ Contentful API calls and responses
-- ✅ Blog post rendering lifecycle
-- ✅ Error conditions and fallback scenarios
-- ✅ Bulk operations and maintenance tasks
+- ✅ ISR revalidation events (`[ISR]` prefix)
+- ✅ Contentful API calls and responses (`[Contentful]` prefix)
+- ✅ Blog post rendering lifecycle (`[Page]` prefix)
+- ✅ Error conditions and fallback scenarios (`[Error]` prefix)
+- ✅ Bulk operations and maintenance tasks (`[Bulk]` prefix)
 
 ## 🛠 How to Verify ISR is Working
 
@@ -168,6 +168,6 @@ The ISR system is properly configured and working. The lack of visible logs in N
 
 ## 📚 Related Documentation
 
-- **[Application Logging System](../guides/APPLICATION_LOGGING_SYSTEM.md)** - Comprehensive guide to `logISREvent` usage beyond ISR
+- **[Application Logging System](../guides/APPLICATION_LOGGING_SYSTEM.md)** - Comprehensive guide to `logAppEvent` usage with contextual prefixes
 - **[Blog Post Management](../guides/BLOG_POST_MANAGEMENT.md)** - Logging in bulk operations and content management
 - **[Contentful Integration](../setup/BLOG_SETUP.md)** - API operation logging and error handling

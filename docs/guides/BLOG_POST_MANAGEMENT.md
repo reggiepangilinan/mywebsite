@@ -194,7 +194,7 @@ Management Token: [your-management-token]
 
 - **Development Only**: Feature only available in dev-info dashboard
 - **Manual Process**: No automated or scheduled deletions
-- **Audit Trail**: All operations logged via application logging system (`logISREvent`)
+- **Audit Trail**: All operations logged via application logging system (`logAppEvent`)
 
 ### Risk Mitigation
 

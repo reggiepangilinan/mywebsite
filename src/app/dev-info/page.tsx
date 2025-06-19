@@ -1,6 +1,6 @@
 'use client'
 
-import { createDebugInfo } from '@/lib/isr-logger'
+import { createDebugInfo } from '@/lib/app-logger'
 import { getBlogPosts } from '@/lib/contentful'
 import { ISR_CONFIG } from '@/config/isr'
 import { useEffect, useState } from 'react'

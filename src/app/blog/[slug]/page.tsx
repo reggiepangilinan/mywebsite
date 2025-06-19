@@ -11,7 +11,7 @@ import { resolveRichTextAssets } from '@/lib/rich-text-asset-resolver'
 import AnimatedSection from '@/components/AnimatedSection'
 import RichTextRenderer from '@/components/RichTextRenderer'
 import { blogConfig } from '@/config/blog'
-import { logISREvent } from '@/lib/isr-logger'
+import { logAppEvent } from '@/lib/app-logger'
 import { ISR_CONFIG } from '@/config/isr'
 import BlogPostImage from './BlogPostImage'
 import styles from './blog-post.module.css'
@@ -121,17 +121,24 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   // Validate revalidate matches config
   ISR_CONFIG.validatePageRevalidate('blog-post', revalidate)
 
-  await logISREvent(`Individual blog post render started - slug: ${slug}`)
+  await logAppEvent(
+    'Page',
+    `Individual blog post render started - slug: ${slug}`
+  )
 
   // Use ISR-specific function with fetch and Next.js cache control
   const post = await getBlogPostForISR(slug)
 
   if (!post) {
-    await logISREvent(`Blog post not found, returning 404 - slug: ${slug}`)
+    await logAppEvent(
+      'Page',
+      `Blog post not found, returning 404 - slug: ${slug}`
+    )
     notFound()
   }
 
-  await logISREvent(
+  await logAppEvent(
+    'Page',
     `Individual blog post render completed - slug: ${slug}, title: ${post.fields.title}`
   )
 
