@@ -88,12 +88,8 @@
   transform: translateX(0);
 }
 
-/* Blog post specific enhancements - very elegant and subtle */
-.animatedSection:has(img),
-.animatedSection:has([class*='image']) {
-  /* Very subtle fallback for content with images - barely noticeable */
-  animation: gentleContentShow 0.4s ease-out 1.2s forwards;
-}
+/* Removed blog post specific CSS animations to prevent flickering on blog list page */
+/* All animation logic is now handled in the useScrollAnimation hook */
 
 @keyframes gentleContentShow {
   from {
