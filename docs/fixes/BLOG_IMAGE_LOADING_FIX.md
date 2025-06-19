@@ -92,6 +92,33 @@ The `BlogPostImage` component now includes:
    - Priority loading for above-the-fold images
    - Proper alt text and caption support
 
+### 3. Blog List Image Optimization
+
+**File**: `src/components/BlogListImage/BlogListImage.tsx`
+
+Enhanced image loading for blog list pages with specific optimizations for listing views:
+
+```typescript
+// Optimized for blog list with smaller dimensions and WebP format
+const optimizedSrc = src.includes('ctfassets.net')
+  ? `${src}?w=${Math.min(width, 800)}&h=${Math.min(height, 400)}&fit=fill&f=center&q=75&fm=webp`
+  : src
+```
+
+**Key Features**:
+
+- **WebP Format**: Automatic WebP conversion for 25-35% size reduction
+- **Responsive Sizing**: Optimized dimensions for list view (800x400 max)
+- **Lazy Loading**: Images load only when entering viewport
+- **Progressive Enhancement**: Static blur placeholder → optimized image → fallbacks
+- **Error Handling**: Graceful fallback system with visual error states
+
+**Implementation**:
+
+- Used in `/blog` and `/blog/page/[page]` routes
+- Replaces basic Next.js Image with optimized version
+- Maintains existing CSS styling and responsive behavior
+
 ## Testing Performed
 
 ### 1. URL Accessibility Test

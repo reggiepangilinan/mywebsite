@@ -1,7 +1,7 @@
 import { getBlogPosts } from '@/lib/contentful'
 import AnimatedSection from '@/components/AnimatedSection'
 import Link from 'next/link'
-import Image from 'next/image'
+import BlogListImage from '@/components/BlogListImage'
 import { blogConfig } from '@/config/blog'
 import { joinUrl } from '@/lib/url-utils'
 import styles from '../../blog.module.css'
@@ -103,13 +103,13 @@ export default async function BlogPagePaginated({
                     <article className={styles.postCard}>
                       {imageUrl && (
                         <div className={styles.postImageWrapper}>
-                          <Image
+                          <BlogListImage
                             src={imageUrl}
                             alt={title}
+                            href={joinUrl('/blog', slug)}
+                            className={styles.postImage}
                             width={400}
                             height={200}
-                            className={styles.postImage}
-                            unoptimized
                           />
                         </div>
                       )}

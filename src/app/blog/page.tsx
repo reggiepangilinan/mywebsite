@@ -1,7 +1,7 @@
 import { getBlogPosts } from '@/lib/contentful'
 import AnimatedSection from '@/components/AnimatedSection'
 import Link from 'next/link'
-import Image from 'next/image'
+import BlogListImage from '@/components/BlogListImage'
 import { blogConfig } from '@/config/blog'
 import { joinUrl } from '@/lib/url-utils'
 import styles from './blog.module.css'
@@ -81,19 +81,14 @@ export default async function BlogPage() {
                     <article className={styles.postItem}>
                       {imageUrl && (
                         <div className={styles.postImage}>
-                          <Link
+                          <BlogListImage
+                            src={imageUrl}
+                            alt={imageAlt}
                             href={joinUrl('/blog', slug)}
-                            className={styles.postImageLink}
-                          >
-                            <Image
-                              src={imageUrl}
-                              alt={imageAlt}
-                              width={800}
-                              height={400}
-                              className={styles.image}
-                              unoptimized
-                            />
-                          </Link>
+                            className={styles.image}
+                            width={800}
+                            height={400}
+                          />
                         </div>
                       )}
 
