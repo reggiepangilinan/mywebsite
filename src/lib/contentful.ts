@@ -123,7 +123,10 @@ export async function getBlogPostForISR(slug: string): Promise<BlogPost | null> 
     
     const startTime = Date.now()
     const response = await fetch(url, {
-      cache: 'no-store' // Match blog list behavior - always fetch fresh
+      next: {
+        tags: [`blog-post-${slug}`, 'blog-posts', 'contentful'],
+        revalidate: false // Let ISR handle revalidation timing
+      }
     })
     const fetchTime = Date.now() - startTime
 

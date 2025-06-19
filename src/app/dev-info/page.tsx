@@ -409,6 +409,110 @@ export default function DevInfoPage() {
         </ul>
         <p><strong>Note:</strong> Netlify free tier has limited log retention. See NETLIFY_LOGGING_GUIDE.md for details.</p>
       </div>
+
+      <div style={{ marginBottom: '20px', padding: '15px', border: '1px solid #666', borderRadius: '5px' }}>
+        <h2>🔄 Revalidation Webhook Testing</h2>
+        <p>Test the on-demand revalidation system for Contentful webhooks:</p>
+        
+        <div style={{ marginBottom: '15px' }}>
+          <h3>📡 Revalidation API Status</h3>
+          <p><strong>Endpoint:</strong> <code>/api/revalidate</code></p>
+          <p><strong>Status:</strong> {process.env.REVALIDATION_SECRET ? '✅ Configured' : '❌ Not configured (missing REVALIDATION_SECRET)'}</p>
+          <p><strong>Environment:</strong> {process.env.NODE_ENV}</p>
+        </div>
+
+        <div style={{ marginBottom: '15px' }}>
+          <h3>🧪 Quick Tests</h3>
+          <ol>
+            <li><strong>Test endpoint status:</strong> <code>GET /api/revalidate?secret=YOUR_SECRET</code></li>
+            <li><strong>Revalidate all blog content:</strong> Update any blog post in Contentful</li>
+            <li><strong>Manual revalidation:</strong> <code>POST /api/revalidate</code> with proper payload</li>
+            <li><strong>Check this page logs:</strong> Refresh to see if revalidation events are logged</li>
+          </ol>
+        </div>
+
+        <div style={{ marginBottom: '15px' }}>
+          <h3>📋 Webhook Payload Example</h3>
+          <pre style={{ 
+            background: '#333', 
+            color: '#fff', 
+            padding: '10px', 
+            borderRadius: '5px', 
+            fontSize: '12px',
+            overflow: 'auto'
+          }}>
+{`{
+  "secret": "your-secret-token",
+  "type": "contentful",
+  "contentType": "blogPost",
+  "slug": "your-blog-post-slug"
+}`}
+          </pre>
+        </div>
+
+        <p><small>💡 <strong>Setup Guide:</strong> See <code>docs/guides/CONTENTFUL_WEBHOOK_GUIDE.md</code></small></p>
+      </div>
+
+      <div style={{ marginBottom: '20px', padding: '15px', border: '1px solid #666', borderRadius: '5px' }}>
+        <h2>🔄 Force Revalidation Testing</h2>
+        <p><strong>Endpoint:</strong> <code>/api/revalidate</code></p>
+        <p><strong>Status:</strong> {process.env.NODE_ENV === 'production' ? '🟢 Production Ready' : '🟡 Development Mode'}</p>
+        
+        <div style={{ marginTop: '15px' }}>
+          <h3>📡 Test Revalidation</h3>
+          <p style={{ fontSize: '14px', color: '#888', marginBottom: '10px' }}>
+            Use these examples to test the revalidation endpoint:
+          </p>
+          
+          <div style={{ marginBottom: '10px' }}>
+            <strong>1. Test endpoint status:</strong>
+            <pre style={{ backgroundColor: '#f5f5f5', padding: '8px', borderRadius: '4px', fontSize: '12px', overflow: 'auto' }}>
+curl "{window.location.origin}/api/revalidate?secret=your-secret"
+            </pre>
+          </div>
+          
+          <div style={{ marginBottom: '10px' }}>
+            <strong>2. Revalidate specific blog post:</strong>
+            <pre style={{ backgroundColor: '#f5f5f5', padding: '8px', borderRadius: '4px', fontSize: '12px', overflow: 'auto' }}>
+{`curl -X POST ${typeof window !== 'undefined' ? window.location.origin : 'https://yourdomain.com'}/api/revalidate \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "secret": "your-secret",
+    "type": "contentful", 
+    "contentType": "blogPost",
+    "slug": "your-post-slug"
+  }'`}
+            </pre>
+          </div>
+          
+          <div style={{ marginBottom: '10px' }}>
+            <strong>3. Revalidate all blog content:</strong>
+            <pre style={{ backgroundColor: '#f5f5f5', padding: '8px', borderRadius: '4px', fontSize: '12px', overflow: 'auto' }}>
+{`curl -X POST ${typeof window !== 'undefined' ? window.location.origin : 'https://yourdomain.com'}/api/revalidate \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "secret": "your-secret",
+    "type": "contentful",
+    "contentType": "blogPost"
+  }'`}
+            </pre>
+          </div>
+          
+          <div style={{ marginBottom: '15px' }}>
+            <strong>4. Test with script:</strong>
+            <pre style={{ backgroundColor: '#f5f5f5', padding: '8px', borderRadius: '4px', fontSize: '12px', overflow: 'auto' }}>
+{`# From project root
+REVALIDATION_SECRET=your-secret node scripts/test-revalidation.js`}
+            </pre>
+          </div>
+          
+          <p style={{ fontSize: '12px', color: '#666' }}>
+            <strong>📝 Note:</strong> Replace "your-secret" with your actual REVALIDATION_SECRET value.
+            <br />
+            <strong>🔗 Documentation:</strong> See <code>/docs/guides/FORCE_REVALIDATION_API.md</code> for complete API reference.
+          </p>
+        </div>
+      </div>
     </div>
   )
 }
