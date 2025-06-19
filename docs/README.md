@@ -40,7 +40,11 @@ Deployment and hosting documentation:
 - [Netlify Revalidation Setup](./deployment/NETLIFY_REVALIDATION_SETUP.md) - Force revalidation setup for Netlify
 - [Netlify Logging Guide](./deployment/NETLIFY_LOGGING_GUIDE.md) - Logging and debugging on Netlify
 
-### 📚 [Examples](./examples/)
+### � [Fixes](./fixes/)
+Problem resolution and bug fix documentation:
+- [Blog Image Loading Fix](./fixes/BLOG_IMAGE_LOADING_FIX.md) - Complete fix for Contentful image loading and hydration issues
+
+### �📚 [Examples](./examples/)
 Code examples and alternative implementations:
 - [Client-Rendered Blog Example](./examples/client-rendered-blog-example.tsx) - Alternative client-side rendering approach for comparison
 - [Test Revalidation Script](../scripts/test-revalidation.js) - Testing utility for force revalidation API
@@ -60,6 +64,7 @@ Testing and utility scripts:
 - **Content Management**: Use [Blog Post Management](./guides/BLOG_POST_MANAGEMENT.md) for bulk operations
 - **SEO Implementation**: Check [Dynamic SEO Guide](./guides/DYNAMIC_SEO_GUIDE.md)
 - **Performance Optimization**: Review [ISR Configuration](./configuration/ISR_CONFIGURATION_GUIDE.md) and [Cost Analysis](./configuration/COST_OPTIMIZATION_SUMMARY.md)
+- **Image Optimization**: See [Blog Image Loading Fix](./fixes/BLOG_IMAGE_LOADING_FIX.md) for Contentful image loading solutions
 - **Webhook Integration**: Set up [Contentful Webhooks](./guides/CONTENTFUL_WEBHOOK_GUIDE.md) for instant updates
 - **Force Revalidation**: Complete [Revalidation Implementation Guide](./guides/REVALIDATION_IMPLEMENTATION_COMPLETE.md) for on-demand cache invalidation
 - **Rendering Strategy**: Compare approaches in [Server vs Client Analysis](./configuration/SERVER_VS_CLIENT_ANALYSIS.md)

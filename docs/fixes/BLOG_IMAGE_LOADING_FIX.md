@@ -186,11 +186,27 @@ The `next.config.ts` must include the image domain configuration as shown above.
 2. **Image Components**
 
    - `src/app/blog/[slug]/BlogPostImage.tsx` - Enhanced with optimizations and static blur
+   - `src/components/BlogListImage/BlogListImage.tsx` - Optimized component for blog list views
    - `src/app/blog/[slug]/BlogPostImageSimple.tsx` - Simplified version for testing
    - `src/app/blog/[slug]/page.tsx` - Uses BlogPostImage component
+   - `src/app/blog/page.tsx` - Uses BlogListImage component for optimized list view
+   - `src/app/blog/page/[page]/page.tsx` - Uses BlogListImage component for paginated views
 
 3. **Utilities Created**
    - Test API endpoint for debugging image URLs (removed after testing)
+
+## Cross-References
+
+### Related Documentation
+
+- [Component Convention](../guides/COMPONENT_CONVENTION.md) - Following established component patterns
+- [Blog Setup](../setup/BLOG_SETUP.md) - Initial Contentful configuration
+- [Performance Optimization](../configuration/COST_OPTIMIZATION_SUMMARY.md) - Overall performance strategy
+
+### Configuration Files
+
+- [Next.js Configuration](../../next.config.ts) - Image domain and optimization settings
+- [Environment Variables](../../.env.example) - Contentful API configuration
 
 ## Verification Commands
 
