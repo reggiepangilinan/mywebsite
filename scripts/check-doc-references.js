@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 
 /**
- * Check document cross-reference validity
- * Scans all documentation files for broken internal links
+ * Check document cross-reference validity and find orphaned documents
+ * Scans all documentation files for broken internal links and documents not referenced from anywhere
+ * Uses docs/README.md as the entry point for orphan detection
  */
 
 const fs = require('fs')
@@ -16,6 +17,7 @@ const colors = {
   blue: '\x1b[34m',
   magenta: '\x1b[35m',
   cyan: '\x1b[36m',
+  gray: '\x1b[90m',
   reset: '\x1b[0m',
   bold: '\x1b[1m',
 }
@@ -27,6 +29,8 @@ class DocumentCrossReferenceChecker {
     this.brokenLinks = []
     this.validLinks = []
     this.checkedFiles = new Set()
+    this.referencedFiles = new Set()
+    this.orphanedFiles = []
   }
 
   /**
@@ -142,6 +146,13 @@ class DocumentCrossReferenceChecker {
 
         if (validity.valid) {
           this.validLinks.push({ ...link, ...validity })
+          // Track referenced files for orphan detection
+          if (
+            validity.type === 'internal' &&
+            validity.resolvedPath.endsWith('.md')
+          ) {
+            this.referencedFiles.add(validity.resolvedPath)
+          }
         } else {
           this.brokenLinks.push({ ...link, ...validity })
         }
@@ -157,6 +168,21 @@ class DocumentCrossReferenceChecker {
   }
 
   /**
+   * Find orphaned documents (not referenced from any other document)
+   */
+  findOrphanedDocuments(allMarkdownFiles) {
+    const readmePath = path.join(this.docsRoot, 'README.md')
+
+    // Add README.md as always referenced (entry point)
+    this.referencedFiles.add(readmePath)
+
+    // Find files that exist but are not referenced
+    this.orphanedFiles = allMarkdownFiles.filter((file) => {
+      return !this.referencedFiles.has(file)
+    })
+  }
+
+  /**
    * Generate report
    */
   generateReport() {
@@ -168,9 +194,13 @@ class DocumentCrossReferenceChecker {
     console.log(`${colors.blue}Summary:${colors.reset}`)
     console.log(`- Files checked: ${this.checkedFiles.size}`)
     console.log(`- Valid links: ${this.validLinks.length}`)
-    console.log(`- Broken links: ${this.brokenLinks.length}\n`)
+    console.log(`- Broken links: ${this.brokenLinks.length}`)
+    console.log(`- Orphaned documents: ${this.orphanedFiles.length}\n`)
+
+    let hasIssues = false
 
     if (this.brokenLinks.length > 0) {
+      hasIssues = true
       console.log(
         `${colors.red}${colors.bold}Broken Links Found:${colors.reset}`
       )
@@ -201,6 +231,29 @@ class DocumentCrossReferenceChecker {
       })
     }
 
+    if (this.orphanedFiles.length > 0) {
+      hasIssues = true
+      console.log(
+        `\n${colors.magenta}${colors.bold}Orphaned Documents Found:${colors.reset}`
+      )
+      console.log(`${colors.magenta}${'─'.repeat(30)}${colors.reset}`)
+      console.log(
+        `${colors.yellow}These documents are not referenced from any other document:${colors.reset}\n`
+      )
+
+      this.orphanedFiles.forEach((file) => {
+        const relativePath = path.relative(this.projectRoot, file)
+        console.log(`  ${colors.magenta}⚠${colors.reset} ${relativePath}`)
+      })
+
+      console.log(`\n${colors.cyan}💡 Consider:${colors.reset}`)
+      console.log(`- Adding references to these documents in relevant files`)
+      console.log(
+        `- Adding them to the main docs/README.md if they should be discoverable`
+      )
+      console.log(`- Removing them if they are no longer needed`)
+    }
+
     if (this.validLinks.length > 0) {
       console.log(
         `\n${colors.green}${colors.bold}Valid Links Summary:${colors.reset}`
@@ -215,8 +268,8 @@ class DocumentCrossReferenceChecker {
       })
     }
 
-    // Return exit code
-    return this.brokenLinks.length === 0 ? 0 : 1
+    // Return exit code - fail if there are broken links or orphaned files
+    return hasIssues ? 1 : 0
   }
 
   /**
@@ -243,6 +296,9 @@ class DocumentCrossReferenceChecker {
       console.log(`Checking: ${relativePath}`)
       this.checkFileLinks(file)
     })
+
+    // Check for orphaned documents
+    this.findOrphanedDocuments(markdownFiles)
 
     return this.generateReport()
   }

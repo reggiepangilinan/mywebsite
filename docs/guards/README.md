@@ -14,7 +14,7 @@ npm run guards
 npm run validate:guards    # Validate pattern mappings
 npm run sync:guards       # Auto-sync guard configuration
 npm run check:site-config # Full lint + hardcoded value check
-npm run check:docs        # Validate documentation cross-references
+npm run check:docs        # Validate documentation cross-references and find orphaned documents
 ```
 
 ## 🛡️ How It Works
@@ -25,7 +25,7 @@ The system provides multiple layers of protection:
 2. **Pre-commit Hooks** - Prevents hardcoded values from being committed  
 3. **Comprehensive Scanner** - Deep analysis of all files
 4. **Auto-Sync** - Keeps guard configuration in sync with SITE_CONFIG
-5. **Documentation Validation** - Ensures all internal links in documentation are valid
+5. **Documentation Validation** - Ensures all internal links are valid and no documents are orphaned
 
 ## 📋 What Gets Detected
 
@@ -114,7 +114,7 @@ When everything is clean:
 - **Zero Maintenance** - Guards auto-update when SITE_CONFIG changes
 - **Regression Prevention** - Impossible to accidentally add hardcoded values
 - **Real-time Feedback** - ESLint shows issues as you type
-- **Documentation Integrity** - All internal documentation links validated automatically
+- **Documentation Integrity** - All internal documentation links validated and no orphaned documents
 - **CI/CD Ready** - One command validates everything (`npm run guards`)
 
 Your site configuration is fully centralized and protected! 🛡️
