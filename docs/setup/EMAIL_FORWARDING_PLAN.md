@@ -2,74 +2,83 @@
 
 ## Overview
 
-Set up email forwarding from `me@reggiepangilinan.com` to Gmail using Netlify's email forwarding capabilities.
+Set up email forwarding from `me@reggiepangilinan.com` to Gmail using third-party email forwarding services.
 
-## Options Analysis
+⚠️ **Important**: Netlify does NOT provide built-in email forwarding services. You must use a third-party service.
 
-### Option 1: Netlify Email Forwarding (Recommended)
+## Recommended Solution: ImprovMX
 
-- **Cost**: Free tier available
-- **Setup**: Simple configuration through Netlify dashboard
-- **Reliability**: Built into Netlify platform
-- **Limitations**: Basic forwarding only
+**Best choice for Netlify-hosted domains:**
 
-### Option 2: Third-party Email Services
-
-- **Services**: ImprovMX, ForwardEmail, etc.
-- **Cost**: Free tiers available
-- **Setup**: DNS configuration required
-- **Features**: More advanced features
+- ✅ **Completely free** for unlimited aliases
+- ✅ No credit card required
+- ✅ 99.99% SLA uptime
+- ✅ Works perfectly with Netlify DNS
+- ✅ Simple setup process
 
 ## Implementation Steps
 
-### Step 1: Netlify Email Setup
+### Step 1: ImprovMX Account Setup
 
-1. Go to Netlify Dashboard → Site Settings → Domain Management → Email
-2. Enable email forwarding for reggiepangilinan.com
-3. Add forwarding rule: `me@reggiepangilinan.com` → Gmail address
-4. Verify DNS records are properly configured
+1. Visit [ImprovMX](https://improvmx.com/)
+2. Click "Get Started Free"
+3. Enter domain: `reggiepangilinan.com`
+4. Set up forwarding: `me@reggiepangilinan.com` → your Gmail address
 
-### Step 2: DNS Configuration (if needed)
+### Step 2: DNS Configuration via Netlify
 
-- MX records will be automatically configured by Netlify
-- Verify SPF and DKIM records for deliverability
+**Add these DNS records via Netlify Dashboard:**
 
-### Step 3: Testing
-
-1. Send test email to `me@reggiepangilinan.com`
-2. Verify receipt in Gmail
-3. Test reply functionality
-
-### Step 4: Documentation
-
-- Document the setup process
-- Add troubleshooting guide
-- Update contact information
-
-## DNS Records Required
+**MX Records:**
 
 ```
-MX    @    mail.netlify.com    10
-TXT   @    "v=spf1 include:_spf.netlify.com ~all"
+Type: MX
+Name: @ (or leave blank)
+Value: mx1.improvmx.com
+Priority: 10
+
+Type: MX
+Name: @ (or leave blank)
+Value: mx2.improvmx.com
+Priority: 20
 ```
 
-## Alternative: ImprovMX Setup (Fallback)
+**SPF Record:**
 
-If Netlify doesn't support email forwarding:
+```
+Type: TXT
+Name: @ (or leave blank)
+Value: "v=spf1 include:_spf.improvmx.com ~all"
+```
 
-1. Sign up for ImprovMX (free tier)
-2. Add domain verification
-3. Configure DNS records:
-   ```
-   MX    @    mx1.improvmx.com    10
-   MX    @    mx2.improvmx.com    20
-   TXT   @    "v=spf1 include:_spf.improvmx.com ~all"
-   ```
-4. Set up forwarding rule
+### Step 3: Verification & Testing
+
+1. ImprovMX will verify domain ownership
+2. DNS propagation takes 24-48 hours
+3. Test by sending email to `me@reggiepangilinan.com`
+4. Verify receipt in Gmail
+
+## Alternative Free Services
+
+### Cloudflare Email Routing
+
+- ✅ **Free** (unlimited forwarding)
+- ⚠️ **Requirement**: Must use Cloudflare nameservers
+
+### ForwardEmail.net
+
+- ✅ **Free tier** available
+- ✅ Open source
+- ⚠️ **Limitation**: Some restrictions on free tier
 
 ## Security Considerations
 
-- Enable 2FA on email forwarding service
+- Enable 2FA on ImprovMX account
 - Monitor for spam/abuse
-- Set up proper SPF/DKIM records
-- Consider rate limiting if available
+- Proper SPF records for deliverability
+- Use strong passwords
+
+## Documentation References
+
+- [Complete Implementation Guide](./EMAIL_FORWARDING_IMPLEMENTATION.md) - Detailed setup instructions
+- [Netlify Email Summary](./NETLIFY_EMAIL_SUMMARY.md) - Netlify-specific clarifications
