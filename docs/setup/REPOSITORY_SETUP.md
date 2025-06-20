@@ -87,6 +87,9 @@ npm run dev
 
 # Open in browser
 open http://localhost:3000
+
+# Alternative: Use VS Code F5 debugging
+# Press F5 in VS Code to automatically start dev server + Chrome with debugging
 ```
 
 ## 🛠️ Development Workflow
@@ -293,6 +296,14 @@ npm run lint
 # Check VS Code settings for conflicting formatters
 ```
 
+**6. VS Code F5 Debugging Issues**
+
+See the [Visual Studio Code Debugging section](#visual-studio-code-debugging-f5) above for comprehensive troubleshooting of F5 debugging, including:
+
+- Chrome not opening automatically
+- Breakpoints not being hit
+- Port conflicts and connection issues
+
 **4. Contentful Connection Issues**
 
 - Verify environment variables are correctly set
@@ -340,3 +351,91 @@ After setup, explore:
 **Happy coding!** 🚀
 
 For questions or issues, refer to the comprehensive documentation in the `/docs` folder or check the development dashboard at `/dev-info`.
+
+### Visual Studio Code Debugging (F5)
+
+This project includes comprehensive VS Code debugging configurations that allow you to debug your Next.js application directly in the editor.
+
+#### 🚀 Available Debug Configurations
+
+1. **🚀 Launch Next.js + Chrome** (Recommended)
+
+   - Press `F5` or click the debug button in VS Code
+   - Automatically starts the Next.js dev server
+   - Opens Chrome with debugging enabled
+   - Provides full debugging capabilities for both server and client code
+
+2. **Launch Next.js App Only**
+
+   - Starts only the Next.js development server
+   - Use this if you want to manually open the browser
+
+3. **Attach Chrome Debugger**
+
+   - Attaches to an already running Chrome instance with debugging enabled
+   - Useful for debugging existing sessions
+
+4. **Launch Chrome Only**
+   - Opens Chrome with debugging enabled pointing to localhost:3000
+   - Requires Next.js to already be running
+
+#### 🔧 How to Use F5 Debugging
+
+1. **Open VS Code** in the project root directory
+2. **Set breakpoints** in your TypeScript/JavaScript files
+3. **Press F5** or go to Run → Start Debugging
+4. **Select "🚀 Launch Next.js + Chrome"** from the dropdown (if not already selected)
+5. **Wait for both services to start**:
+   - Next.js dev server will start on an available port (3000, 3001, etc.)
+   - Chrome will automatically open with debugging enabled
+6. **Navigate to your application** in the opened Chrome window
+7. **Debug normally** - breakpoints will trigger in VS Code
+
+#### 🛠️ Debugging Features
+
+- **Server-side debugging**: Debug API routes, middleware, and server components
+- **Client-side debugging**: Debug React components and browser JavaScript
+- **Hot reload**: Changes are reflected immediately without restarting
+- **Source maps**: Full TypeScript debugging with original source
+- **Console integration**: See all logs in VS Code's integrated terminal
+
+#### 🐛 Troubleshooting F5 Debugging
+
+**F5 not working:**
+
+- Ensure you're in the correct VS Code workspace folder
+- Check that "🚀 Launch Next.js + Chrome" is selected in the debug dropdown
+- Try manually selecting the configuration and clicking the play button
+- Alternative: Use `npm run dev` and manually open Chrome
+
+**Chrome not opening automatically:**
+
+- Install Chrome if not already installed
+- Check Chrome installation path in `scripts/open-browser.js`
+- Try running `node scripts/open-browser.js` manually after starting dev server
+- On macOS: Grant VS Code permission to control other applications in System Preferences
+
+**Debugger not hitting breakpoints:**
+
+- Ensure source maps are enabled (they are by default)
+- Try refreshing the Chrome page after setting breakpoints
+- Check that the TypeScript is compiling without errors: `npm run type-check`
+- Restart the debugging session (Ctrl+Shift+F5)
+
+**Port conflicts:**
+
+- The system automatically finds available ports (3000, 3001, 3002, etc.)
+- If issues persist, manually stop other Node.js processes: `pkill -f node`
+
+#### 📋 Debug Setup Requirements
+
+The following VS Code extensions are automatically configured:
+
+- **JavaScript Debugger** (built into VS Code)
+- **TypeScript and JavaScript Language Features** (built into VS Code)
+
+Optional but recommended extensions:
+
+- **ESLint** - Real-time linting
+- **Prettier** - Code formatting
+- **Next.js snippets** - Next.js-specific snippets
