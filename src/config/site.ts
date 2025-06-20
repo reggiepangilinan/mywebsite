@@ -142,6 +142,61 @@ export const SITE_CONFIG = {
     /** Optional delay between crawler requests (in seconds) */
     crawlDelay: undefined, // Optional crawl delay in seconds
   },
+
+  /**
+   * Guard system configuration for detecting hardcoded values
+   *
+   * This configuration defines what values should be detected by the
+   * ESLint rules and scanner scripts to ensure SITE_CONFIG usage.
+   */
+  guards: {
+    /** Values that should be replaced with SITE_CONFIG properties */
+    patterns: {
+      /** Domain patterns that should use SITE_CONFIG.url */
+      domains: [
+        'reggiepangilinan.com',
+        'https://reggiepangilinan.com',
+        'http://reggiepangilinan.com',
+      ],
+      /** Email patterns that should use SITE_CONFIG.contact.email */
+      emails: ['me@reggiepangilinan.com'],
+      /** Name patterns that should use SITE_CONFIG.name or SITE_CONFIG.author */
+      names: ['Reggie Pangilinan'],
+      /** Social handle patterns that should use SITE_CONFIG.social.* */
+      socialHandles: ['@reggiepangilinan'],
+      /** Social URL patterns that should use SITE_CONFIG.social.* */
+      socialUrls: [
+        'github.com/reggiepangilinan',
+        'https://github.com/reggiepangilinan',
+        'linkedin.com/in/reggiepangilinan',
+        'https://linkedin.com/in/reggiepangilinan',
+      ],
+      /** Image path patterns that should use SITE_CONFIG.images.* */
+      imagePaths: ['/profile.webp', '/og-image.png'],
+    },
+    /** Files and directories to exclude from pattern detection */
+    excludes: [
+      'node_modules',
+      '.next',
+      'build',
+      'dist',
+      '.git',
+      'src/config/site.ts', // Allow hardcoded values in the config file itself
+      'eslint.config.mjs', // Allow in eslint config
+      'scripts/check-hardcoded-values.js', // Allow in scanner script
+      'scripts/guard-config.js', // Allow in auto-generated guard config
+      'scripts/sync-guard-config.js', // Allow in sync script
+      'scripts/validate-guard-patterns.js', // Allow in validation script
+      'docs/', // Allow in documentation
+      'public/',
+      'README.md',
+    ],
+    /** Content exclusions - don't flag if these strings are present in the same line */
+    contentExclusions: [
+      'CV -', // Don't flag CV filenames
+      'Resume -', // Don't flag resume filenames
+    ],
+  },
 } as const
 
 /**

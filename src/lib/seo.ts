@@ -24,7 +24,7 @@ export function generatePageMetadata({
   type = 'website',
 }: GenerateMetadataProps = {}): Metadata {
   const baseUrl = SITE_CONFIG.url
-  const defaultImage = joinUrl(baseUrl, '/og-image.png')
+  const defaultImage = joinUrl(baseUrl, SITE_CONFIG.images.ogDefault)
 
   const pageTitle = title ? `${title} | ${SITE_CONFIG.name}` : SITE_CONFIG.name
 

@@ -2,6 +2,7 @@
 import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
 import { Suspense } from 'react'
+import { SITE_CONFIG } from '@/config/site'
 import {
   getBlogPost,
   getBlogPostForISR,
@@ -73,7 +74,7 @@ export async function generateMetadata({
   const description = subtitle ? `${subtitle} - ${excerpt}` : excerpt
 
   const getMetaImageUrl = () => {
-    if (!featuredImage?.fields?.file?.url) return '/og-image.png'
+    if (!featuredImage?.fields?.file?.url) return SITE_CONFIG.images.ogDefault
     const url = featuredImage.fields.file.url
     return url.startsWith('//') ? `https:${url}` : url
   }
@@ -84,7 +85,7 @@ export async function generateMetadata({
     title,
     description,
     keywords: tags || [],
-    author: author || 'Reggie Pangilinan',
+    author: author || SITE_CONFIG.author,
     publishDate,
     image: imageUrl,
     url: `/blog/${slug}`,

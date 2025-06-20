@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import { useState, useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
+import { SITE_CONFIG } from '@/config/site'
 import styles from './Header.module.css'
 import ThemeToggle from '@/components/ThemeToggle'
 import { normalizePathname } from '@/lib/url-utils'
@@ -176,7 +177,7 @@ export default function Header() {
             </div>
             <div className={styles.mobileSocialLinks} suppressHydrationWarning>
               <a
-                href="https://github.com/reggiepangilinan"
+                href={SITE_CONFIG.social.github}
                 className={styles.mobileSocialLink}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -202,7 +203,7 @@ export default function Header() {
                 </svg>
               </a>
               <a
-                href="https://linkedin.com/in/reggiepangilinan"
+                href={SITE_CONFIG.social.linkedin}
                 className={styles.mobileSocialLink}
                 target="_blank"
                 rel="noopener noreferrer"

@@ -1,5 +1,6 @@
 'use client'
 
+import { SITE_CONFIG } from '@/config/site'
 import { createDebugInfo } from '@/lib/app-logger'
 import { getBlogPosts } from '@/lib/contentful'
 import { ISR_CONFIG } from '@/config/isr'
@@ -510,7 +511,7 @@ export default function DevInfoPage() {
                 curl -s -H &quot;Accept: application/json&quot;{' '}
                 {typeof window !== 'undefined'
                   ? window.location.origin
-                  : 'https://reggiepangilinan.com'}
+                  : SITE_CONFIG.url}
                 /api/status | jq .
               </code>
             </div>
@@ -523,7 +524,7 @@ export default function DevInfoPage() {
                 curl -I{' '}
                 {typeof window !== 'undefined'
                   ? window.location.origin
-                  : 'https://reggiepangilinan.com'}
+                  : SITE_CONFIG.url}
                 /robots.txt
               </code>
             </div>
@@ -536,7 +537,7 @@ export default function DevInfoPage() {
                 curl -s -I -H &quot;Accept: application/xml&quot;{' '}
                 {typeof window !== 'undefined'
                   ? window.location.origin
-                  : 'https://reggiepangilinan.com'}
+                  : SITE_CONFIG.url}
                 /sitemap.xml
               </code>
             </div>
@@ -549,7 +550,7 @@ export default function DevInfoPage() {
                 time curl -s{' '}
                 {typeof window !== 'undefined'
                   ? window.location.origin
-                  : 'https://reggiepangilinan.com'}
+                  : SITE_CONFIG.url}
                 /sitemap-isr.xml &gt; /dev/null
               </code>
             </div>
@@ -565,7 +566,7 @@ export default function DevInfoPage() {
                 {'{time_total}'}s\n&quot;{' '}
                 {typeof window !== 'undefined'
                   ? window.location.origin
-                  : 'https://reggiepangilinan.com'}
+                  : SITE_CONFIG.url}
                 /$endpoint; done
               </code>
             </div>

@@ -10,6 +10,11 @@
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "type-check": "tsc --noEmit",
+    "check:hardcoded": "node scripts/check-hardcoded-values.js",
+    "check:site-config": "npm run lint && npm run check:hardcoded",
+    "sync:guards": "node scripts/sync-guard-config.js",
+    "validate:guards": "node scripts/validate-guard-patterns.js",
+    "guards": "npm run validate:guards && npm run sync:guards && npm run check:site-config",
     "prepare": "husky",
     "pre-commit": "lint-staged"
   },
@@ -38,7 +43,8 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "eslint --fix"
+      "eslint --fix",
+      "node scripts/check-hardcoded-values.js"
     ],
     "*.{js,jsx,ts,tsx,json,css,md}": [
       "prettier --write"
