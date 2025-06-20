@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     'Learn about my engineering leadership journey, technical skills, and professional experience across enterprise environments. Specializing in React, Next.js, TypeScript, and Azure.',
 
   openGraph: {
-    title: `About ${SITE_CONFIG.name} - Engineering Leader & Technical Architect`,
+    title: `About ${SITE_CONFIG.name} - Engineering Leadership & Fullstack Development`,
     description:
       'Seasoned engineering leader delivering performant, scalable, and user-centric digital platforms across enterprise environments. Expert in React, Next.js, TypeScript, and Azure.',
     url: `${SITE_CONFIG.url}/about`,
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   },
 
   twitter: {
-    title: `About ${SITE_CONFIG.name} - Engineering Leader & Technical Architect`,
+    title: `About ${SITE_CONFIG.name} - Engineering Leadership & Fullstack Development`,
     description:
       'Seasoned engineering leader delivering performant, scalable, and user-centric digital platforms across enterprise environments.',
     images: [`${SITE_CONFIG.url}${SITE_CONFIG.images.profile}`],
