@@ -7,6 +7,13 @@ import { skillsData, keySkillsData } from './skills-data'
 import { experienceData } from './experience-data'
 import AnimatedSection from '@/components/AnimatedSection'
 import PrimaryButton from '@/components/PrimaryButton'
+import { SITE_CONFIG } from '@/config/site'
+
+// Utility function to convert subject to URL-friendly format
+const createMailtoUrl = (email: string, subject: string): string => {
+  const encodedSubject = encodeURIComponent(subject)
+  return `mailto:${email}?subject=${encodedSubject}`
+}
 
 interface AboutContentProps {
   isOpenToWork: boolean
@@ -66,7 +73,10 @@ export default function AboutContent({ isOpenToWork }: AboutContentProps) {
             <AnimatedSection delay={300}>
               <div className={styles.contactSection}>
                 <PrimaryButton
-                  href="mailto:me@reggiepangilinan.com"
+                  href={createMailtoUrl(
+                    SITE_CONFIG.contact.email,
+                    SITE_CONFIG.contact.defaultEmailSubject
+                  )}
                   icon={<span>✉️</span>}
                 >
                   Drop me a message
