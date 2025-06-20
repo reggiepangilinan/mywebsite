@@ -35,7 +35,7 @@
 }
 
 .intro {
-  font-size: var(--font-size-xl);
+  font-size: var(--font-size-base);
   line-height: 1.6;
   margin-bottom: var(--space-5xl);
   text-align: left;
@@ -462,7 +462,7 @@
   }
 
   .intro {
-    font-size: 1.1rem;
+    font-size: var(--font-size-base);
   }
 
   .skillsGrid {
