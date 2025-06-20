@@ -221,7 +221,7 @@ process.stderr.write() // Error stream
 
 - `/docs/guides/BLOG_POST_MANAGEMENT.md` - Bulk operations usage
 - `/docs/configuration/COMPREHENSIVE_COST_ANALYSIS.md` - Performance impact
-- `/docs/fixes/BLOG_IMAGE_LOADING_FIX.md` - Error handling examples
+- See error handling examples in the guides above
 
 ## Best Practices
 

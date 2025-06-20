@@ -255,10 +255,6 @@ npm run dev
 - [Dynamic SEO Guide](../guides/DYNAMIC_SEO_GUIDE.md) - Dynamic robots.txt and sitemap implementation
 - [SEO Cost Optimization](../configuration/SEO_COST_OPTIMIZATION.md) - SEO cost optimization strategies
 
-### Code Examples
-
-- [Client-Rendered Example](../examples/client-rendered-blog-example.tsx) - Alternative client-side approach (for comparison)
-
 ---
 
 _Last updated: June 19, 2025_
@@ -289,7 +285,6 @@ Your blog system is now fully functional and ready for content! Simply set up yo
 
 ## Related Documentation
 
-- **[Blog Image Loading Fix](../fixes/BLOG_IMAGE_LOADING_FIX.md)** - Complete solution for Contentful image loading and optimization
 - **[Component Convention](../guides/COMPONENT_CONVENTION.md)** - Component organization and best practices
 - **[Dynamic SEO Guide](../guides/DYNAMIC_SEO_GUIDE.md)** - SEO implementation for blog posts
 - **[ISR Configuration Guide](../configuration/ISR_CONFIGURATION_GUIDE.md)** - Incremental Static Regeneration setup

@@ -8,6 +8,8 @@ Welcome to the documentation for Reggie Pangilinan's personal website. This fold
 Initial project configuration and feature setup guides:
 - [Blog Setup](./setup/BLOG_SETUP.md) - Complete guide for Contentful blog integration
 - [Favicon Guide](./setup/FAVICON_GUIDE.md) - Comprehensive favicon and icon setup
+- [Email Contact Setup](./setup/EMAIL_CONTACT_SETUP.md) - Contact form setup and configuration
+- [Netlify Email Summary](./setup/NETLIFY_EMAIL_SUMMARY.md) - Email service integration summary
 
 ### 📖 [Guides](./guides/)  
 Feature implementation and best practice guides:
@@ -17,6 +19,7 @@ Feature implementation and best practice guides:
 - [Double Slash Handling](./guides/DOUBLE_SLASH_HANDLING.md) - URL normalization and double slash prevention
 - [Dynamic SEO Guide](./guides/DYNAMIC_SEO_GUIDE.md) - Dynamic robots.txt and sitemap.xml implementation
 - [Blog Post Management](./guides/BLOG_POST_MANAGEMENT.md) - Bulk delete and content management via Contentful API
+- [Blog Pagination Strategy](./guides/BLOG_PAGINATION_STRATEGY.md) - Blog pagination implementation and optimization
 - [Contentful Webhook Guide](./guides/CONTENTFUL_WEBHOOK_GUIDE.md) - Webhook integration for automatic revalidation
 - [Force Revalidation API](./guides/FORCE_REVALIDATION_API.md) - API reference for on-demand cache invalidation
 - [Revalidation Implementation Complete](./guides/REVALIDATION_IMPLEMENTATION_COMPLETE.md) - Complete guide to force revalidation system
@@ -26,6 +29,8 @@ Feature implementation and best practice guides:
 - [Linting Setup](./guides/LINTING_SETUP.md) - Automated code quality and formatting
 - [Code Quality Roadmap](./guides/CODE_QUALITY_ROADMAP.md) - Code quality improvements checklist
 - [Monitoring & Analytics](./guides/MONITORING_ANALYTICS.md) - Performance monitoring setup
+- [Modern Image Optimization](./guides/MODERN_IMAGE_OPTIMIZATION.md) - Image optimization strategies
+- [Open to Work Mode](./guides/OPEN_TO_WORK_MODE.md) - Open to work feature implementation
 
 ### ⚙️ [Configuration](./configuration/)
 System configuration and optimization documentation:
@@ -42,23 +47,13 @@ Deployment and hosting documentation:
 - [Netlify Revalidation Setup](./deployment/NETLIFY_REVALIDATION_SETUP.md) - Force revalidation setup for Netlify
 - [Netlify Logging Guide](./deployment/NETLIFY_LOGGING_GUIDE.md) - Logging and debugging on Netlify
 
-### � [Fixes](./fixes/)
-Problem resolution and bug fix documentation:
-- [Blog Image Loading Fix](./fixes/BLOG_IMAGE_LOADING_FIX.md) - Complete fix for Contentful image loading and hydration issues
-
-### �📚 [Examples](./examples/)
-Code examples and alternative implementations:
-- [Client-Rendered Blog Example](./examples/client-rendered-blog-example.tsx) - Alternative client-side rendering approach for comparison
-- [Test Revalidation Script](../scripts/test-revalidation.js) - Testing utility for force revalidation API
-
-### 🔧 [Scripts](../scripts/)
-Testing and utility scripts:
-- [Test Revalidation Script](../scripts/test-revalidation.js) - Automated testing for force revalidation endpoint
-- [Test Revalidation Shell Script](../scripts/test-revalidation.sh) - Shell wrapper for revalidation testing
+### 🔒 [Guards](./guards/)
+Automated configuration validation and pattern enforcement:
+- [Guard System](./guards/README.md) - Automated configuration validation system
 
 ### 📋 Miscellaneous
 - [Deprecation Fix](./DEPRECATION_FIX.md) - Node.js deprecation warning fixes
-- [Navigation Test](./NAVIGATION_TEST.md) - Navigation testing procedures
+- [Architecture Diagram](./ARCHITECTURE_DIAGRAM.md) - System architecture overview
 
 ## 🎯 Quick Links
 
@@ -66,21 +61,18 @@ Testing and utility scripts:
 - **Content Management**: Use [Blog Post Management](./guides/BLOG_POST_MANAGEMENT.md) for bulk operations
 - **SEO Implementation**: Check [Dynamic SEO Guide](./guides/DYNAMIC_SEO_GUIDE.md)
 - **Performance Optimization**: Review [ISR Configuration](./configuration/ISR_CONFIGURATION_GUIDE.md) and [Comprehensive Cost Analysis](./configuration/COMPREHENSIVE_COST_ANALYSIS.md)
-- **Image Optimization**: See [Blog Image Loading Fix](./fixes/BLOG_IMAGE_LOADING_FIX.md) for Contentful image loading solutions
 - **Webhook Integration**: Set up [Contentful Webhooks](./guides/CONTENTFUL_WEBHOOK_GUIDE.md) for instant updates
 - **Force Revalidation**: Complete [Revalidation Implementation Guide](./guides/REVALIDATION_IMPLEMENTATION_COMPLETE.md) for on-demand cache invalidation
 - **Rendering Strategy**: Compare approaches in [Server vs Client Analysis](./configuration/SERVER_VS_CLIENT_ANALYSIS.md)
 - **Deployment**: Follow [Netlify Deploy Guide](./deployment/NETLIFY_DEPLOY.md)
 
-## 🎯 **Implementation Plans** (New)
-Project roadmaps and development progress:
-- [Quick Start Guide](./QUICK_START.md) - 30-second resume development guide
-- [Resumable Roadmap](./RESUMABLE_ROADMAP.md) - Complete step-by-step implementation guide
-- [3-Day Implementation Plan](./3-DAY-IMPLEMENTATION-PLAN.md) - Performance & accessibility roadmap
-- [Day 1 Complete](./DAY-1-COMPLETE.md) - Completed accessibility improvements
-- [Progress Report](./PROGRESS_REPORT.md) - Current status and achievements
+## 🎯 **Configuration & Setup**
+System configuration and setup guides:
+- [Site Configuration](../src/config/site.ts) - Centralized site configuration with SITE_CONFIG
+- [Guard System](./guards/README.md) - Automated configuration validation system
+- [Component Convention](./guides/COMPONENT_CONVENTION.md) - Component structure guidelines
 
-## 📋 **Quality & Testing** (New)
+## 📋 **Quality & Testing**
 Code quality and testing documentation:
 - [Testing Strategy](./guides/TESTING_STRATEGY.md) - Testing implementation and setup
 - [Code Quality Roadmap](./guides/CODE_QUALITY_ROADMAP.md) - Code quality improvements checklist
@@ -89,10 +81,6 @@ Code quality and testing documentation:
 ---
 
 ## 🚀 **Getting Started**
-
-### For Development Resume
-1. **[Quick Start Guide](./QUICK_START.md)** - If you're resuming development
-2. **[Resumable Roadmap](./RESUMABLE_ROADMAP.md)** - For detailed next steps
 
 ### For New Features  
 1. Review the relevant guide in [Guides](./guides/)
@@ -110,7 +98,7 @@ docs/
 ├── guides/ (feature guides)
 ├── configuration/ (config documentation)
 ├── deployment/ (deployment docs)
-├── examples/ (code examples)
+├── guards/ (automated validation)
 └── [misc files] (miscellaneous documentation)
 ```
 
@@ -123,4 +111,4 @@ docs/
 
 ---
 
-*Last updated: June 19, 2025*
+*Last updated: June 20, 2025*

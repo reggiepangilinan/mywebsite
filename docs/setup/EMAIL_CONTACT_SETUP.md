@@ -59,10 +59,7 @@ This documentation covers the implementation of email contact functionality on t
 
 ### Manual Setup
 
-See detailed guides:
-
-- `/docs/setup/EMAIL_FORWARDING_PLAN.md` - Planning and options
-- `/docs/setup/EMAIL_FORWARDING_IMPLEMENTATION.md` - Step-by-step setup
+Email forwarding is configured using DNS records and ImprovMX service. See the current configuration in `/docs/setup/NETLIFY_EMAIL_SUMMARY.md` for active setup details.
 
 ## DNS Configuration
 
@@ -152,8 +149,7 @@ Common issues and solutions:
 
 ### Documentation
 
-- `/docs/setup/EMAIL_FORWARDING_PLAN.md`
-- `/docs/setup/EMAIL_FORWARDING_IMPLEMENTATION.md`
+- `/docs/setup/NETLIFY_EMAIL_SUMMARY.md` - Current email configuration
 - `/docs/setup/EMAIL_CONTACT_SETUP.md` (this file)
 
 ### Scripts

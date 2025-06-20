@@ -14,7 +14,8 @@
     "check:site-config": "npm run lint && npm run check:hardcoded",
     "sync:guards": "node scripts/sync-guard-config.js",
     "validate:guards": "node scripts/validate-guard-patterns.js",
-    "guards": "npm run validate:guards && npm run sync:guards && npm run check:site-config",
+    "check:docs": "node scripts/check-doc-references.js",
+    "guards": "npm run validate:guards && npm run sync:guards && npm run check:site-config && npm run check:docs",
     "prepare": "husky",
     "pre-commit": "lint-staged"
   },

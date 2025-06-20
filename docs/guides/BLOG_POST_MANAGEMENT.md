@@ -278,7 +278,6 @@ After deletion, verify success by:
 - **Contentful Management API**: [Official Documentation](https://www.contentful.com/developers/docs/references/content-management-api/)
 - **Application Logging**: `/docs/configuration/ISR_STATUS_SUMMARY.md`
 - **Blog Setup**: `/docs/setup/BLOG_SETUP.md`
-- **Development Dashboard**: `/docs/QUICK_START.md`
 
 ## Support
 
