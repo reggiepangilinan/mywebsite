@@ -149,14 +149,13 @@ All documentation is organized under the `docs/` folder:
 - **API Endpoints**: `/api/status`, `/robots.txt`, `/sitemap.xml`
 - **Debug Logging**: Console-based logging with Netlify compatibility
 
-## 📚 Documentation
+## 🚀 Deployment
 
-See the [docs folder](./docs/) for comprehensive guides:
+For deployment instructions, see the [Netlify Deployment Guide](./docs/deployment/NETLIFY_DEPLOY.md).
 
-- **Setup**: Blog configuration, favicon setup
-- **Guides**: SEO, social sharing, performance optimization  
-- **Configuration**: ISR settings, cost optimization
-- **Deployment**: Netlify setup and troubleshooting
+## 🔧 Troubleshooting
+
+For troubleshooting common issues, see the [Repository Setup Guide](./docs/setup/REPOSITORY_SETUP.md#troubleshooting).
 
 ## 🤝 Contributing
 
@@ -169,99 +168,3 @@ See the [docs folder](./docs/) for comprehensive guides:
 ## 📄 License
 
 This project is licensed under the MIT License.
-
----
-
-For detailed documentation, please visit the [docs folder](./docs/).
-   - **Plugin**: `@netlify/plugin-nextjs` (enables ISR)
-   - **Node version**: `18`
-
-4. **Environment Variables**: Add your Contentful credentials:
-   ```
-   CONTENTFUL_SPACE_ID=your_space_id
-   CONTENTFUL_ACCESS_TOKEN=your_access_token
-   ENABLE_ISR_LOGS=true
-   ```
-
-5. **Deploy**: Click "Deploy site" - Netlify will automatically build and deploy with ISR support
-
-#### Option 2: Manual Deploy
-
-1. **Build locally**:
-   ```bash
-   npm run build
-   ```
-
-2. **Deploy the `out` folder**:
-   - Go to [Netlify](https://netlify.com)
-   - Drag and drop the `out` folder to the deploy area
-
-#### Features Included:
-
-- ✅ **Static Export**: Optimized for CDN delivery
-- ✅ **Security Headers**: XSS protection, frame options, etc.
-- ✅ **Cache Optimization**: Long-term caching for static assets
-- ✅ **Redirect Handling**: Clean URLs and trailing slash management
-- ✅ **Performance**: Pre-built static files for fast loading
-
-#### Custom Domain
-
-After deployment, you can add a custom domain in your Netlify site settings.
-
-## Troubleshooting
-
-### Chrome Not Opening Automatically
-
-If Chrome doesn't open automatically, try these solutions:
-
-1. **Make sure Chrome is installed** and accessible from the command line
-2. **Check permissions**: On macOS, you might need to allow VS Code to control other applications
-3. **Manual fallback**: If auto-launch fails, the console will show the URL to open manually
-4. **Alternative browsers**: Modify the scripts in `scripts/open-browser.js` to use your preferred browser
-
-### VS Code Debugger Issues
-
-1. **F5 not working**: 
-   - Make sure you're in the VS Code workspace folder
-   - Check that "🚀 Launch Next.js + Chrome" is selected in the debug dropdown
-   - Try manually selecting the configuration and clicking the play button
-   - If still not working, use `npm run dev:chrome` as an alternative
-
-2. **Chrome not opening automatically**:
-   - Install Chrome if not already installed
-   - Check that the path to Chrome is correct in `scripts/open-browser.js`
-   - Try running `node scripts/open-browser.js` manually after starting the dev server
-
-3. **Install Chrome Debugger**: The JavaScript Debugger extension should be installed automatically
-4. **Port conflicts**: If you see "port in use" errors, the script will find the next available port
-5. **Server timeout**: If the server takes too long to start, increase the timeout in `scripts/open-browser.js`
-
-### Common Issues
-
-- **Missing Contentful credentials**: Add environment variables for blog functionality
-- **ISR not working**: Check `/dev-info` page and ensure environment variables are set
-- **Build errors**: Run `npm run lint` to check for TypeScript/ESLint errors
-- **Port already in use**: The app will automatically use the next available port (3001, 3002, etc.)
-
-## Documentation
-
-This project includes comprehensive documentation:
-
-- **`ISR_CONFIGURATION_GUIDE.md`** - How to configure ISR timing
-- **`ISR_STATUS_SUMMARY.md`** - Current ISR setup and verification
-- **`NETLIFY_LOGGING_GUIDE.md`** - Debugging ISR on Netlify
-- **`NETLIFY_DEPLOY.md`** - Deployment instructions
-- **`BLOG_SETUP.md`** - Blog and Contentful setup
-
-## Development Tools
-
-This project includes several VS Code configurations:
-
-- **Launch configurations**: Debug the app with Chrome DevTools integration
-- **Tasks**: Automated build and development server startup
-- **Auto Chrome launcher**: Smart port detection and browser opening
-- **Background tasks**: Server monitoring and automatic browser refresh
-
-## License
-
-MIT License - feel free to use this template for your own portfolio!

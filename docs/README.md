@@ -6,6 +6,7 @@ Welcome to the documentation for Reggie Pangilinan's personal website. This fold
 
 ### 🏗️ [Setup](./setup/)
 Initial project configuration and feature setup guides:
+- [Repository Setup](./setup/REPOSITORY_SETUP.md) - Comprehensive development environment setup guide
 - [Blog Setup](./setup/BLOG_SETUP.md) - Complete guide for Contentful blog integration
 - [Favicon Guide](./setup/FAVICON_GUIDE.md) - Comprehensive favicon and icon setup
 - [Email Contact Setup](./setup/EMAIL_CONTACT_SETUP.md) - Contact form setup and configuration
@@ -57,6 +58,7 @@ Automated configuration validation and pattern enforcement:
 
 ## 🎯 Quick Links
 
+- **Repository Setup**: See [Repository Setup](./setup/REPOSITORY_SETUP.md) for complete development environment setup
 - **Getting Started**: See [Blog Setup](./setup/BLOG_SETUP.md) for initial configuration
 - **Content Management**: Use [Blog Post Management](./guides/BLOG_POST_MANAGEMENT.md) for bulk operations
 - **SEO Implementation**: Check [Dynamic SEO Guide](./guides/DYNAMIC_SEO_GUIDE.md)
