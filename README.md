@@ -10,7 +10,8 @@ A modern personal portfolio website built with Next.js 15, TypeScript, and CSS M
 - 📝 **Dynamic Blog**: Contentful CMS integration with ISR
 - ⚡ **ISR**: Incremental Static Regeneration for optimal performance
 - 🔍 **Dynamic SEO**: Auto-generated robots.txt and sitemap.xml
-- �️ **Developer Tools**: Built-in API testing dashboard at `/dev-info`
+- 💼 **Open to Work Mode**: Toggle professional content visibility
+- 🛠️ **Developer Tools**: Built-in API testing dashboard at `/dev-info`
 - 🔧 **TypeScript**: Type-safe development
 
 ## 🏗️ Architecture
@@ -44,7 +45,17 @@ Create `.env.local` with your Contentful credentials:
 ```bash
 CONTENTFUL_SPACE_ID=your_space_id
 CONTENTFUL_ACCESS_TOKEN=your_access_token
+
+# Optional: Control job search content visibility
+OPEN_TO_WORK_MODE=false
 ```
+
+### 💼 Open to Work Mode
+Control the visibility of professional content on the About page:
+- Set `OPEN_TO_WORK_MODE=true` to show Open to Work announcement, Key Skills, Tech Stack, Experience, and Resume download
+- Set to `false` or omit to hide job search related content
+- **Rebuild required** - changes require rebuild and redeploy as the About page is statically generated
+- See [Open to Work Mode Guide](./docs/guides/OPEN_TO_WORK_MODE.md) for details
 
 ## 📚 Documentation
 

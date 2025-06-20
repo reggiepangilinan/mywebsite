@@ -1,0 +1,122 @@
+// Application logging system for Netlify free tier
+// Handles ISR events, Contentful operations, error tracking, and operational logging
+// Stores logs via console methods optimized for hosting platform visibility
+
+type LogContext =
+  | 'ISR'
+  | 'Contentful'
+  | 'Page'
+  | 'Error'
+  | 'Bulk'
+  | 'API'
+  | 'System'
+
+export async function logAppEvent(
+  context: LogContext,
+  message: string,
+  data?: unknown
+) {
+  // COMPLETELY DISABLE logging in development to prevent Next.js debugger errors
+  // Only enable if explicitly requested via environment variables
+  const isDev = process.env.NODE_ENV === 'development'
+  const isExplicitlyEnabled =
+    process.env.ENABLE_ISR_LOGS === 'true' || process.env.DEBUG === 'true'
+
+  // Skip ALL logging in development unless explicitly requested
+  if (isDev && !isExplicitlyEnabled) {
+    return
+  }
+
+  // In production, always log (for Netlify build logs)
+  const shouldLog = !isDev || isExplicitlyEnabled
+
+  if (!shouldLog) {
+    return
+  }
+
+  try {
+    const timestamp = new Date().toISOString()
+    const logMessage = `[${context}] ${message} | ${timestamp}`
+    const logData = data ? ` | Data: ${JSON.stringify(data)}` : ''
+    const fullLog = logMessage + logData
+
+    // Use appropriate log level - console.log for info, not console.error
+    // This prevents showing as errors in Next.js debugger
+    if (isDev) {
+      // In development, use console.log to avoid error highlighting
+      console.log(fullLog)
+    } else {
+      // In production/build, use console.error for better visibility in logs
+      // Why console.error in production?
+      // 1. Higher priority in hosting platform log aggregation (Netlify, Vercel)
+      // 2. Better visibility in deployment and function logs
+      // 3. Less likely to be filtered out by log retention policies
+      // 4. Application events (ISR, Contentful, errors) are important for debugging
+      // 5. Background processes (serverless functions) often suppress console.log
+      // Note: These aren't actual errors - contextual prefixes identify event types
+      console.error(fullLog)
+      console.log(fullLog)
+
+      // For server-side, also try different output streams
+      if (typeof process !== 'undefined') {
+        if (process.stdout?.write) {
+          process.stdout.write(`${fullLog}\n`)
+        }
+        if (process.stderr?.write) {
+          process.stderr.write(`${fullLog}\n`)
+        }
+      }
+    }
+  } catch (error) {
+    // Fallback - only in non-dev or when debugging
+    if (!isDev || isExplicitlyEnabled) {
+      console.warn('[System] Logging error:', error)
+      console.warn(`[System] Original message: ${message}`)
+    }
+  }
+}
+
+// Legacy function for backward compatibility
+export async function logISREvent(message: string, data?: unknown) {
+  return logAppEvent('ISR', message, data)
+}
+
+// Lightweight logging for production (minimal overhead)
+export function logAppEventLite(context: LogContext, message: string) {
+  // COMPLETELY DISABLE in development unless explicitly enabled
+  const isDev = process.env.NODE_ENV === 'development'
+  const isExplicitlyEnabled =
+    process.env.ENABLE_ISR_LOGS === 'true' || process.env.DEBUG === 'true'
+
+  // Skip ALL logging in development unless explicitly requested
+  if (isDev && !isExplicitlyEnabled) {
+    return
+  }
+
+  // Only log in production or when explicitly enabled
+  const log = `[${context}] ${message} | ${new Date().toISOString()}`
+
+  if (isDev && isExplicitlyEnabled) {
+    // In development with explicit enabling, use console.log
+    console.log(log)
+  } else if (!isDev) {
+    // In production, use console.error for visibility
+    console.error(log)
+    console.log(log)
+  }
+}
+
+// Legacy function for backward compatibility
+export function logISREventLite(message: string) {
+  return logAppEventLite('ISR', message)
+}
+
+// For debugging: create a simple debug page component
+export function createDebugInfo() {
+  return {
+    loggingEnabled: process.env.ENABLE_ISR_LOGS === 'true',
+    nodeEnv: process.env.NODE_ENV,
+    timestamp: new Date().toISOString(),
+    message: 'Application logging system active',
+  }
+}

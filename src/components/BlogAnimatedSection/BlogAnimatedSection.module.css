@@ -1,0 +1,60 @@
+.blogAnimatedSection {
+  opacity: 0;
+  transform: translateY(var(--space-lg));
+  transition:
+    opacity 0.4s ease-out,
+    transform 0.4s ease-out;
+  position: relative;
+  /* Fast fallback for blog posts - show content quickly */
+  animation: blogFallbackShow 0.1s ease-out 0.8s forwards;
+}
+
+.blogAnimatedSection.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes blogFallbackShow {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Priority sections (content with images) appear even faster */
+.blogAnimatedSection.priority {
+  animation: blogFallbackShow 0.1s ease-out 0.3s forwards;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .blogAnimatedSection {
+    /* Reduce animation intensity on mobile */
+    opacity: 0;
+    transform: translateY(var(--space-sm));
+    transition:
+      opacity 0.3s ease-out,
+      transform 0.3s ease-out;
+    animation: blogFallbackShow 0.1s ease-out 0.5s forwards;
+  }
+}
+
+/* Very small screens - immediate visibility */
+@media (max-width: 480px) {
+  .blogAnimatedSection {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    animation: none;
+  }
+}
+
+/* Emergency fallback for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .blogAnimatedSection {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+}
