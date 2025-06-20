@@ -37,9 +37,16 @@
 .intro {
   font-size: var(--font-size-base);
   line-height: 1.6;
-  margin-bottom: var(--space-5xl);
+  margin-bottom: var(--space-3xl);
   text-align: left;
   color: var(--color-text-secondary);
+}
+
+/* Contact Section */
+.contactSection {
+  margin-bottom: var(--space-5xl);
+  display: flex;
+  justify-content: flex-start;
 }
 
 .skillsSection {
@@ -286,35 +293,8 @@
 
 /* Download Section */
 .downloadSection {
-  margin-top: 40px;
+  margin-top: var(--space-4xl);
   text-align: left;
-}
-
-.downloadLink {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 24px;
-  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-  color: white;
-  text-decoration: none;
-  border-radius: 8px;
-  font-weight: 600;
-  font-size: 1rem;
-  transition: all 0.2s ease;
-  border: none;
-  cursor: pointer;
-}
-
-.downloadLink:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
-}
-
-.downloadIcon {
-  width: 20px;
-  height: 20px;
-  stroke: currentColor;
 }
 
 /* Open to Work Section */
@@ -465,6 +445,11 @@
     font-size: var(--font-size-base);
   }
 
+  .contactSection {
+    justify-content: center;
+    margin-bottom: var(--space-4xl);
+  }
+
   .skillsGrid {
     grid-template-columns: 1fr;
   }
@@ -599,12 +584,6 @@
   .downloadSection {
     display: block !important;
     margin-top: 24px !important;
-  }
-
-  .downloadLink {
-    display: inline-flex !important;
-    padding: 10px 20px !important;
-    font-size: 0.9rem !important;
   }
 }
 

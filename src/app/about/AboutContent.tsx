@@ -6,6 +6,7 @@ import styles from './about.module.css'
 import { skillsData, keySkillsData } from './skills-data'
 import { experienceData } from './experience-data'
 import AnimatedSection from '@/components/AnimatedSection'
+import PrimaryButton from '@/components/PrimaryButton'
 
 interface AboutContentProps {
   isOpenToWork: boolean
@@ -61,12 +62,23 @@ export default function AboutContent({ isOpenToWork }: AboutContentProps) {
                 code quality across diverse tech stacks.
               </p>
             </AnimatedSection>
+
+            <AnimatedSection delay={300}>
+              <div className={styles.contactSection}>
+                <PrimaryButton
+                  href="mailto:me@reggiepangilinan.com"
+                  icon={<span>✉️</span>}
+                >
+                  Drop me a message
+                </PrimaryButton>
+              </div>
+            </AnimatedSection>
           </div>
         </div>
 
         <div className={styles.content}>
           {isOpenToWork && (
-            <AnimatedSection delay={300}>
+            <AnimatedSection delay={400}>
               <div className={styles.openToWorkSection}>
                 <div className={styles.openToWorkContent}>
                   <div className={styles.openToWorkIndicator}>
@@ -85,7 +97,7 @@ export default function AboutContent({ isOpenToWork }: AboutContentProps) {
           )}
 
           {isOpenToWork && (
-            <AnimatedSection delay={400}>
+            <AnimatedSection delay={500}>
               <div className={styles.keySkillsSection}>
                 <h2 className={styles.sectionTitle}>
                   <span className={styles.emoji}>🎯</span>
@@ -129,7 +141,7 @@ export default function AboutContent({ isOpenToWork }: AboutContentProps) {
           )}
 
           {isOpenToWork && (
-            <AnimatedSection delay={100}>
+            <AnimatedSection delay={700}>
               <div className={styles.experienceWrapper}>
                 <div className={styles.experienceSection}>
                   <h2 className={styles.sectionTitle}>
@@ -185,29 +197,29 @@ export default function AboutContent({ isOpenToWork }: AboutContentProps) {
                     ))}
                   </div>
                   <div className={styles.downloadSection}>
-                    <a
+                    <PrimaryButton
                       href="/CV - REGGIE PANGILINAN 2025.pdf"
-                      className={styles.downloadLink}
                       download="Reggie_Pangilinan_Resume.pdf"
                       target="_blank"
                       rel="noopener noreferrer"
+                      icon={
+                        <svg
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                          />
+                        </svg>
+                      }
                     >
                       Download Full Resume
-                      <svg
-                        className={styles.downloadIcon}
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                        />
-                      </svg>
-                    </a>
+                    </PrimaryButton>
                   </div>
                 </div>
               </div>
