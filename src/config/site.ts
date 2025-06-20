@@ -50,6 +50,34 @@ export const SITE_CONFIG = {
   },
 
   /**
+   * Social media configuration
+   *
+   * Static social media URLs and handles used throughout the site.
+   * These are build-time constants and don't affect rendering strategy.
+   */
+  social: {
+    /** Twitter/X handle (with @) */
+    twitter: '@reggiepangilinan',
+    /** GitHub profile URL */
+    github: 'https://github.com/reggiepangilinan',
+    /** LinkedIn profile URL */
+    linkedin: 'https://linkedin.com/in/reggiepangilinan',
+  },
+
+  /**
+   * Static image paths configuration
+   *
+   * Centralized image paths for consistent usage across components.
+   * All paths are relative to the public directory.
+   */
+  images: {
+    /** Profile photo path */
+    profile: '/profile.webp',
+    /** Default Open Graph image */
+    ogDefault: '/og-image.png',
+  },
+
+  /**
    * Static pages configuration for sitemap generation
    *
    * Defines how static pages should be handled in the sitemap.xml file.

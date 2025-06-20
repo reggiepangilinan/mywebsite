@@ -76,8 +76,8 @@ export function generatePageMetadata({
     // Twitter Card
     twitter: {
       card: 'summary_large_image',
-      site: '@reggiepangilinan',
-      creator: '@reggiepangilinan',
+      site: SITE_CONFIG.social.twitter,
+      creator: SITE_CONFIG.social.twitter,
       title: pageTitle,
       description: pageDescription,
       images: [pageImage],
@@ -160,10 +160,7 @@ export function generatePersonJsonLd() {
     '@type': 'Person',
     name: SITE_CONFIG.author,
     url: SITE_CONFIG.url,
-    sameAs: [
-      'https://github.com/reggiepangilinan',
-      'https://linkedin.com/in/reggiepangilinan',
-    ],
+    sameAs: [SITE_CONFIG.social.github, SITE_CONFIG.social.linkedin],
     jobTitle: 'Engineering Leader & Full Stack Developer',
     worksFor: {
       '@type': 'Organization',
