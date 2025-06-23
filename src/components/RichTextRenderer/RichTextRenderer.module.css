@@ -119,34 +119,55 @@
   list-style-type: circle;
 }
 
-/* Nested ordered list numbering styles */
+/* Base ordered list styles */
 .orderedList {
   list-style-type: decimal; /* 1, 2, 3 */
+  padding-left: var(--space-xl);
+  margin: var(--space-md) 0;
 }
 
-.listItem .orderedList {
-  list-style-type: lower-alpha; /* a, b, c */
+/* Nested ordered list styles with higher specificity */
+/* Level 1: decimal (1, 2, 3) - default */
+
+/* Level 2: lower-alpha (a, b, c) */
+.listItem > .orderedList {
+  list-style-type: lower-alpha !important;
 }
 
-.listItem .listItem .orderedList {
-  list-style-type: lower-roman; /* i, ii, iii */
+/* Level 3: lower-roman (i, ii, iii) */
+.listItem > .listItem > .orderedList,
+.listItem .listItem > .orderedList {
+  list-style-type: lower-roman !important;
 }
 
-.listItem .listItem .listItem .orderedList {
-  list-style-type: decimal; /* 1, 2, 3 (back to decimal) */
+/* Level 4: back to decimal (1, 2, 3) */
+.listItem > .listItem > .listItem > .orderedList,
+.listItem .listItem .listItem > .orderedList {
+  list-style-type: decimal !important;
 }
 
-.listItem .listItem .listItem .listItem .orderedList {
-  list-style-type: lower-alpha; /* a, b, c (back to alpha) */
+/* Level 5: back to lower-alpha (a, b, c) */
+.listItem > .listItem > .listItem > .listItem > .orderedList,
+.listItem .listItem .listItem .listItem > .orderedList {
+  list-style-type: lower-alpha !important;
 }
 
-.listItem .listItem .listItem .listItem .listItem .orderedList {
-  list-style-type: lower-roman; /* i, ii, iii (back to roman) */
+/* Level 6: back to lower-roman (i, ii, iii) */
+.listItem > .listItem > .listItem > .listItem > .listItem > .orderedList,
+.listItem .listItem .listItem .listItem .listItem > .orderedList {
+  list-style-type: lower-roman !important;
 }
 
-/* Deep nesting fallback - cycles through the pattern */
-.listItem .listItem .listItem .listItem .listItem .listItem .orderedList {
-  list-style-type: decimal;
+/* Deep nesting fallback - continue the cycle */
+.listItem
+  > .listItem
+  > .listItem
+  > .listItem
+  > .listItem
+  > .listItem
+  > .orderedList,
+.listItem .listItem .listItem .listItem .listItem .listItem > .orderedList {
+  list-style-type: decimal !important;
 }
 
 /* Blockquote */
