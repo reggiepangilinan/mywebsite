@@ -1,113 +1,401 @@
+/* Minimalist container design */
 .gistContainer {
   margin: var(--space-2xl) 0;
   border-radius: var(--radius-lg);
   overflow: hidden;
   border: 1px solid var(--color-border);
   background: var(--color-bg);
-  transition: var(--transition-base);
+  transition: border-color var(--transition-base);
 }
 
 .gistContainer:hover {
-  border-color: var(--color-border-hover);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-color: var(--color-text-secondary);
 }
 
-.gistContent {
-  /* GitHub Gist styling overrides */
+/* Minimalist header */
+.gistHeader {
+  background: var(--color-bg);
+  padding: var(--space-md) var(--space-lg);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.gistMeta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-md);
+  height: 24px;
+  min-height: 24px;
+}
+
+.gistTitle {
+  color: var(--color-text);
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-base);
+  transition: color var(--transition-base);
+  line-height: 1;
+}
+
+.gistTitle:hover {
+  color: var(--color-primary);
+}
+
+.gistOwner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  height: 24px;
+  min-height: 24px;
+  text-decoration: none;
+}
+
+.ownerLink {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  font-size: var(--font-size-sm);
+  transition: color var(--transition-base);
+}
+
+.ownerLink:hover {
+  color: var(--color-primary);
+  text-decoration: none;
+  border-bottom: none !important;
+}
+
+.avatar {
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border);
+}
+
+/* Modern file section with syntax highlighting feel */
+.gistFile {
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg);
+}
+
+.gistFile:last-child {
+  border-bottom: none;
+}
+
+.fileHeader {
+  background: var(--color-bg-secondary);
+  padding: var(--space-sm) var(--space-lg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.fileInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.filename {
+  font-family:
+    'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New',
+    monospace;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+
+.language {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  background: var(--color-bg);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  font-weight: var(--font-weight-medium);
+  text-transform: lowercase;
+}
+
+.copyButton {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.copyButton:hover {
+  background: var(--color-primary);
+  color: var(--color-white);
+  border-color: var(--color-primary);
+}
+
+.copyButton:active {
+  transform: translateY(1px);
+}
+
+.copyText {
+  font-family: inherit;
+}
+
+.fileContent {
+  background: var(--code-bg);
+  overflow-x: auto;
+  position: relative;
+}
+
+/* Code block with proper line numbers */
+.codeBlock {
+  background: var(--code-bg);
+  font-family:
+    'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New',
+    monospace;
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  max-height: 600px;
+  overflow-y: scroll;
+  overflow-x: auto;
+  border-radius: 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) var(--color-bg);
+}
+
+.codeBlock::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+.codeBlock::-webkit-scrollbar-track {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+}
+
+.codeBlock::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 6px;
+  border: 2px solid var(--color-bg);
+}
+
+.codeBlock::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-secondary);
+}
+
+.codeContent {
+  margin: 0 !important;
+  padding: var(--space-lg);
+  background: transparent;
+  white-space: pre;
   width: 100%;
 }
 
-/* Override GitHub Gist default styles to match site theme */
-.gistContent :global(.gist) {
-  margin: 0 !important;
-  border: none !important;
+.codeContent code {
+  background: transparent;
+  padding: 0;
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+  color: var(--code-text);
+  display: block;
+  line-height: 1.6;
+  white-space: pre;
+  text-shadow: none !important;
 }
 
-.gistContent :global(.gist .gist-file) {
-  border: none !important;
-  margin: 0 !important;
+/* Remove any text shadows from syntax highlighted elements */
+.codeContent :global(*) {
+  text-shadow: none !important;
 }
 
-.gistContent :global(.gist .gist-data) {
-  border: none !important;
-  background: var(--color-bg-secondary) !important;
+/* Custom Prism.js syntax highlighting */
+.codeContent :global(.token.comment),
+.codeContent :global(.token.prolog),
+.codeContent :global(.token.doctype),
+.codeContent :global(.token.cdata) {
+  color: var(--color-text-secondary);
+  opacity: 0.7;
 }
 
-.gistContent :global(.gist .gist-meta) {
-  background: var(--color-bg-tertiary) !important;
-  border-top: 1px solid var(--color-border) !important;
-  color: var(--color-text-secondary) !important;
-  padding: var(--space-sm) var(--space-md) !important;
-  font-size: var(--font-size-sm) !important;
+.codeContent :global(.token.punctuation) {
+  color: var(--code-text);
 }
 
-.gistContent :global(.gist .gist-meta a) {
-  color: var(--color-primary) !important;
-  text-decoration: none !important;
+.codeContent :global(.token.property),
+.codeContent :global(.token.tag),
+.codeContent :global(.token.boolean),
+.codeContent :global(.token.number),
+.codeContent :global(.token.constant),
+.codeContent :global(.token.symbol),
+.codeContent :global(.token.deleted) {
+  color: #e06c75;
 }
 
-.gistContent :global(.gist .gist-meta a:hover) {
-  color: var(--color-primary-hover) !important;
-  text-decoration: underline !important;
+.codeContent :global(.token.selector),
+.codeContent :global(.token.attr-name),
+.codeContent :global(.token.string),
+.codeContent :global(.token.char),
+.codeContent :global(.token.builtin),
+.codeContent :global(.token.inserted) {
+  color: #98c379;
 }
 
-.gistContent :global(.gist .highlight) {
-  background: var(--color-bg-secondary) !important;
+.codeContent :global(.token.operator),
+.codeContent :global(.token.entity),
+.codeContent :global(.token.url),
+.codeContent :global(.language-css .token.string),
+.codeContent :global(.style .token.string) {
+  color: #56b6c2;
 }
 
-.gistContent :global(.gist .blob-code) {
-  background: transparent !important;
-  color: var(--color-text) !important;
-  font-size: var(--font-size-sm) !important;
-  line-height: 1.6 !important;
-  padding: var(--space-xs) var(--space-sm) !important;
+.codeContent :global(.token.atrule),
+.codeContent :global(.token.attr-value),
+.codeContent :global(.token.keyword) {
+  color: #c678dd;
 }
 
-.gistContent :global(.gist .blob-num) {
-  background: var(--color-bg-tertiary) !important;
-  color: var(--color-text-tertiary) !important;
-  border-right: 1px solid var(--color-border) !important;
-  padding: var(--space-xs) var(--space-sm) !important;
-  font-size: var(--font-size-sm) !important;
+.codeContent :global(.token.function),
+.codeContent :global(.token.class-name) {
+  color: #e5c07b;
 }
 
-.gistContent :global(.gist .pl-c) {
-  color: var(--color-text-secondary) !important;
-  font-style: italic !important;
+.codeContent :global(.token.regex),
+.codeContent :global(.token.important),
+.codeContent :global(.token.variable) {
+  color: #d19a66;
 }
 
-.gistContent :global(.gist .pl-k) {
-  color: var(--color-primary) !important;
-  font-weight: var(--font-weight-semibold) !important;
+/* Light theme overrides */
+[data-theme='light'] .codeContent :global(.token.property),
+[data-theme='light'] .codeContent :global(.token.tag),
+[data-theme='light'] .codeContent :global(.token.boolean),
+[data-theme='light'] .codeContent :global(.token.number),
+[data-theme='light'] .codeContent :global(.token.constant),
+[data-theme='light'] .codeContent :global(.token.symbol),
+[data-theme='light'] .codeContent :global(.token.deleted) {
+  color: #d73a49;
 }
 
-.gistContent :global(.gist .pl-s) {
-  color: #22c55e !important;
+[data-theme='light'] .codeContent :global(.token.selector),
+[data-theme='light'] .codeContent :global(.token.attr-name),
+[data-theme='light'] .codeContent :global(.token.string),
+[data-theme='light'] .codeContent :global(.token.char),
+[data-theme='light'] .codeContent :global(.token.builtin),
+[data-theme='light'] .codeContent :global(.token.inserted) {
+  color: #22863a;
 }
 
-.gistContent :global(.gist .pl-v) {
-  color: #f59e0b !important;
+[data-theme='light'] .codeContent :global(.token.operator),
+[data-theme='light'] .codeContent :global(.token.entity),
+[data-theme='light'] .codeContent :global(.token.url),
+[data-theme='light'] .codeContent :global(.language-css .token.string),
+[data-theme='light'] .codeContent :global(.style .token.string) {
+  color: #005cc5;
 }
 
-/* Loading state */
+[data-theme='light'] .codeContent :global(.token.atrule),
+[data-theme='light'] .codeContent :global(.token.attr-value),
+[data-theme='light'] .codeContent :global(.token.keyword) {
+  color: #d73a49;
+}
+
+[data-theme='light'] .codeContent :global(.token.function),
+[data-theme='light'] .codeContent :global(.token.class-name) {
+  color: #6f42c1;
+}
+
+[data-theme='light'] .codeContent :global(.token.regex),
+[data-theme='light'] .codeContent :global(.token.important),
+[data-theme='light'] .codeContent :global(.token.variable) {
+  color: #e36209;
+}
+
+/* Custom syntax highlighting for our basic highlighter - Dark theme */
+.codeContent :global(.keyword) {
+  color: #c678dd !important;
+  font-weight: 500;
+}
+
+.codeContent :global(.string) {
+  color: #98c379 !important;
+}
+
+.codeContent :global(.comment) {
+  color: #7c7c7c !important;
+  font-style: italic;
+}
+
+.codeContent :global(.literal) {
+  color: #d19a66 !important;
+}
+
+/* Custom syntax highlighting for our basic highlighter - Light theme */
+[data-theme='light'] .codeContent :global(.keyword) {
+  color: #d73a49 !important;
+  font-weight: 500;
+}
+
+[data-theme='light'] .codeContent :global(.string) {
+  color: #22863a !important;
+}
+
+[data-theme='light'] .codeContent :global(.comment) {
+  color: #6a737d !important;
+  font-style: italic;
+}
+
+[data-theme='light'] .codeContent :global(.literal) {
+  color: #e36209 !important;
+}
+
+/* Minimalist footer */
+.gistFooter {
+  background: var(--color-bg);
+  padding: var(--space-md) var(--space-lg);
+  text-align: right;
+  border-top: 1px solid var(--color-border);
+}
+
+.viewOnGitHub {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  font-size: var(--font-size-sm);
+  transition: color var(--transition-base);
+}
+
+.viewOnGitHub:hover {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+/* Enhanced loading state */
 .loading {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: var(--space-4xl);
+  padding: var(--space-5xl);
   text-align: center;
   color: var(--color-text-secondary);
+  background: var(--color-bg);
 }
 
 .loadingSpinner {
-  width: 32px;
-  height: 32px;
-  border: 3px solid var(--color-border);
-  border-top: 3px solid var(--color-primary);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin-bottom: var(--space-md);
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--color-border);
+  border-top: 4px solid var(--color-primary);
+  border-radius: var(--radius-full);
+  animation: spin 1s ease-in-out infinite;
+  margin-bottom: var(--space-lg);
 }
 
 @keyframes spin {
@@ -121,92 +409,288 @@
 
 .loading p {
   margin: 0;
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
 }
 
-/* Error state */
+/* Enhanced error state */
 .error {
   border-color: #ef4444;
   background: #fef2f2;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.1);
 }
 
 [data-theme='dark'] .error {
-  background: #1f1f1f;
+  background: #1f1515;
   border-color: #dc2626;
 }
 
 .errorContent {
-  padding: var(--space-xl);
+  padding: var(--space-4xl);
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+.errorContent::before {
+  content: '⚠️';
+  font-size: var(--font-size-4xl);
 }
 
 .errorContent h4 {
-  margin: 0 0 var(--space-md) 0;
+  margin: 0;
   color: #ef4444;
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+}
+
+[data-theme='dark'] .errorContent h4 {
+  color: #fca5a5;
 }
 
 .errorContent p {
-  margin: 0 0 var(--space-sm) 0;
+  margin: 0;
   color: var(--color-text-secondary);
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-base);
+  max-width: 400px;
 }
 
 .gistInfo {
   background: var(--color-bg-secondary);
-  padding: var(--space-md);
-  border-radius: var(--radius-md);
-  margin: var(--space-md) 0;
-  font-family: var(--font-family-mono);
-  font-size: var(--font-size-xs);
+  padding: var(--space-lg);
+  border-radius: var(--radius-lg);
+  margin: var(--space-lg) 0;
+  font-family:
+    'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New',
+    monospace;
+  font-size: var(--font-size-sm);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
 }
 
 .gistInfo code {
-  background: var(--color-bg-tertiary);
+  background: var(--code-bg);
+  color: var(--code-text);
   padding: var(--space-xs) var(--space-sm);
   border-radius: var(--radius-sm);
-  font-family: var(--font-family-mono);
+  font-family: inherit;
+  border: 1px solid var(--code-border);
 }
 
-.viewOnGitHub {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-xs);
-  color: var(--color-primary);
-  text-decoration: none;
-  font-weight: var(--font-weight-medium);
-  font-size: var(--font-size-sm);
-  transition: var(--transition-base);
-}
-
-.viewOnGitHub:hover {
-  color: var(--color-primary-hover);
-  text-decoration: underline;
-}
-
-/* Responsive design */
+/* Mobile-first responsive design */
 @media (max-width: 768px) {
   .gistContainer {
-    margin: var(--space-xl) -var(--space-md);
-    border-radius: 0;
-    border-left: none;
-    border-right: none;
+    margin: var(--space-xl) 0;
+    border-radius: var(--radius-lg);
+    /* Keep border on mobile for definition */
   }
 
-  .gistContent :global(.gist .blob-code),
-  .gistContent :global(.gist .blob-num) {
-    font-size: var(--font-size-xs) !important;
-    padding: var(--space-xs) !important;
+  .gistHeader {
+    padding: var(--space-md);
+  }
+
+  .gistMeta {
+    height: auto;
+    min-height: 24px;
+    gap: var(--space-sm);
+  }
+
+  .gistTitle {
+    font-size: var(--font-size-sm);
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .gistOwner {
+    height: auto;
+    min-height: 24px;
+    flex-shrink: 0;
+  }
+
+  .fileHeader {
+    padding: var(--space-sm) var(--space-md);
+    height: auto;
+  }
+
+  .fileInfo {
+    gap: var(--space-sm);
+  }
+
+  .copyButton {
+    padding: var(--space-xs);
+    min-width: 32px;
+    height: 32px;
+  }
+
+  .copyText {
+    display: none;
+  }
+
+  .filename {
+    font-size: var(--font-size-xs);
+  }
+
+  .language {
+    font-size: 10px;
+    padding: 2px var(--space-xs);
+  }
+
+  .codeBlock {
+    font-size: var(--font-size-xs);
+  }
+
+  .lineNumbers {
+    padding: var(--space-md) var(--space-xs);
+    min-width: 40px;
+  }
+
+  .lineNumber {
+    font-size: 10px;
+  }
+
+  .codeContent {
+    padding: var(--space-md);
+  }
+
+  .gistFooter {
+    padding: var(--space-md);
+  }
+
+  .viewOnGitHub {
+    font-size: var(--font-size-xs);
+    padding: var(--space-sm) var(--space-md);
   }
 
   .loading,
   .errorContent {
-    padding: var(--space-lg);
+    padding: var(--space-3xl);
+  }
+
+  .loadingSpinner {
+    width: 32px;
+    height: 32px;
+    border-width: 3px;
   }
 
   .gistInfo {
     font-size: var(--font-size-xs);
+    padding: var(--space-md);
+    margin: var(--space-md) 0;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+  .gistContainer {
+    margin: var(--space-lg) 0;
+    border-radius: var(--radius-md);
+  }
+
+  .gistHeader {
     padding: var(--space-sm);
+  }
+
+  .gistTitle {
+    font-size: var(--font-size-sm);
+  }
+
+  .fileHeader {
+    padding: var(--space-xs) var(--space-sm);
+  }
+
+  .codeBlock {
+    font-size: 11px;
+  }
+
+  .lineNumbers {
+    padding: var(--space-sm) 4px;
+    min-width: 30px;
+  }
+
+  .lineNumber {
+    font-size: 9px;
+  }
+
+  .codeContent {
+    padding: var(--space-sm);
+  }
+
+  .avatar {
+    width: 24px;
+    height: 24px;
+  }
+
+  .ownerLink {
+    font-size: var(--font-size-xs);
+    padding: var(--space-xs);
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .gistContainer {
+    border-width: 2px;
+  }
+
+  .fileHeader::before {
+    width: 6px;
+  }
+
+  .viewOnGitHub {
+    border-width: 3px;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .gistContainer,
+  .gistTitle,
+  .ownerLink,
+  .viewOnGitHub,
+  .loadingSpinner {
+    transition: none;
+    animation: none;
+  }
+
+  .gistContainer:hover {
+    transform: none;
+  }
+
+  .viewOnGitHub:hover {
+    transform: none;
+  }
+
+  .loadingSpinner {
+    animation: none;
+    border-top-color: var(--color-primary);
+  }
+}
+
+/* Print styles */
+@media print {
+  .gistContainer {
+    break-inside: avoid;
+    box-shadow: none;
+    border: 1px solid #000;
+  }
+
+  .gistHeader::before,
+  .fileHeader::before {
+    display: none;
+  }
+
+  .viewOnGitHub {
+    display: none;
+  }
+
+  .loading,
+  .errorContent {
+    display: none;
   }
 }

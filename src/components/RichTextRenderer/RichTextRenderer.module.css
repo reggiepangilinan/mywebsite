@@ -334,8 +334,15 @@
 }
 
 /* Embedded GitHub Gists */
+.embeddedGistContainer {
+  margin: var(--space-2xl) 0;
+  /* Ensure it's a block-level container */
+  display: block;
+  width: 100%;
+}
+
 .embeddedGist {
-  margin: var(--space-4xl) 0;
+  margin: 0;
   /* Additional styles are handled by the GitHubGist component */
 }
 

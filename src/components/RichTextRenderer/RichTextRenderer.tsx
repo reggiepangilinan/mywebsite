@@ -11,11 +11,27 @@ interface RichTextRendererProps {
   content: Document
 }
 
-// Helper function to detect and extract GitHub Gist information from URLs
-const parseGitHubGistUrl = (url: string) => {
+// Helper function to detect and extract GitHub Gist information from URLs or script tags
+const parseGitHubGistUrl = (input: string) => {
+  // Handle .js format: https://gist.github.com/username/gistId.js
+  const jsGistRegex =
+    /^https?:\/\/gist\.github\.com\/([^\/]+)\/([a-f0-9]+)\.js(?:\?file=([^&]+))?/i
+  const jsMatch = input.match(jsGistRegex)
+
+  if (jsMatch) {
+    return {
+      username: jsMatch[1],
+      gistId: jsMatch[2],
+      revision: null,
+      file: jsMatch[3] || null,
+      isGist: true as const,
+    }
+  }
+
+  // Handle regular format: https://gist.github.com/username/gistId
   const gistRegex =
     /^https?:\/\/gist\.github\.com\/([^\/]+)\/([a-f0-9]+)(?:\/([a-f0-9]+))?(?:\?file=([^&]+))?/i
-  const match = url.match(gistRegex)
+  const match = input.match(gistRegex)
 
   if (match) {
     return {
@@ -23,6 +39,21 @@ const parseGitHubGistUrl = (url: string) => {
       gistId: match[2],
       revision: match[3] || null,
       file: match[4] || null,
+      isGist: true as const,
+    }
+  }
+
+  // Handle script tag content: <script src="https://gist.github.com/username/gistId.js"></script>
+  const scriptRegex =
+    /<script[^>]+src=["']https?:\/\/gist\.github\.com\/([^\/]+)\/([a-f0-9]+)\.js(?:\?file=([^&"']+))?["'][^>]*><\/script>/i
+  const scriptMatch = input.match(scriptRegex)
+
+  if (scriptMatch) {
+    return {
+      username: scriptMatch[1],
+      gistId: scriptMatch[2],
+      revision: null,
+      file: scriptMatch[3] || null,
       isGist: true as const,
     }
   }
@@ -39,11 +70,61 @@ const parseGitHubGistUrl = (url: string) => {
 // Custom rendering options for rich text content
 const renderOptions = {
   renderNode: {
-    [BLOCKS.PARAGRAPH]: (node: any, children: ReactNode) => (
-      <p className={styles.paragraph} style={{ marginTop: 0 }}>
-        {children}
-      </p>
-    ),
+    [BLOCKS.PARAGRAPH]: (node: any, children: ReactNode) => {
+      // Check if this paragraph contains only a GitHub Gist link that should be embedded
+      if (node.content && node.content.length === 1) {
+        const child = node.content[0]
+
+        // Case 1: Hyperlink with Gist URL
+        if (child.nodeType === 'hyperlink') {
+          const url = child.data.uri
+          const gistInfo = parseGitHubGistUrl(url)
+          const linkText = child.content?.[0]?.value || ''
+          const isGistEmbed =
+            gistInfo.isGist &&
+            (linkText === url || linkText.includes('gist.github.com'))
+
+          if (isGistEmbed && gistInfo.gistId) {
+            // Render as block-level element instead of inside a paragraph
+            return (
+              <div className={styles.embeddedGistContainer}>
+                <GitHubGist
+                  gistId={gistInfo.gistId}
+                  file={gistInfo.file || undefined}
+                  className={styles.embeddedGist}
+                />
+              </div>
+            )
+          }
+        }
+
+        // Case 2: Text content containing script tag or Gist URL
+        if (child.nodeType === 'text') {
+          const textContent = child.value || ''
+          const gistInfo = parseGitHubGistUrl(textContent)
+
+          if (gistInfo.isGist && gistInfo.gistId) {
+            // Render as block-level element instead of inside a paragraph
+            return (
+              <div className={styles.embeddedGistContainer}>
+                <GitHubGist
+                  gistId={gistInfo.gistId}
+                  file={gistInfo.file || undefined}
+                  className={styles.embeddedGist}
+                />
+              </div>
+            )
+          }
+        }
+      }
+
+      // Regular paragraph rendering
+      return (
+        <p className={styles.paragraph} style={{ marginTop: 0 }}>
+          {children}
+        </p>
+      )
+    },
     // Ignore H1 elements - blog post already has an H1 title
     [BLOCKS.HEADING_1]: () => null,
     // Ignore table elements
@@ -266,32 +347,9 @@ const renderOptions = {
     },
     [INLINES.HYPERLINK]: (node: any, children: ReactNode) => {
       const url = node.data.uri
-      const gistInfo = parseGitHubGistUrl(url)
 
-      // If this is a GitHub Gist URL and the link text is just the URL (indicating it should be embedded)
-      const linkText = node.content?.[0]?.value || ''
-      const isGistEmbed =
-        gistInfo.isGist &&
-        (linkText === url || linkText.includes('gist.github.com'))
-
-      if (isGistEmbed && gistInfo.gistId) {
-        logToLocalStorage('richtext-gist', {
-          url,
-          gistId: gistInfo.gistId,
-          file: gistInfo.file,
-          username: gistInfo.username,
-        })
-
-        return (
-          <GitHubGist
-            gistId={gistInfo.gistId}
-            file={gistInfo.file || undefined}
-            className={styles.embeddedGist}
-          />
-        )
-      }
-
-      // Regular hyperlink
+      // All hyperlinks are now handled as regular links
+      // Gist embedding is handled at the paragraph level to avoid invalid HTML structure
       return (
         <a
           href={url}
