@@ -3,11 +3,37 @@ import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import { Document, BLOCKS, MARKS, INLINES } from '@contentful/rich-text-types'
 import { ReactNode } from 'react'
 import DebugImage from '@/components/DebugImage'
+import GitHubGist from '@/components/GitHubGist'
 import styles from './RichTextRenderer.module.css'
 import { logToLocalStorage } from '@/lib/production-logger'
 
 interface RichTextRendererProps {
   content: Document
+}
+
+// Helper function to detect and extract GitHub Gist information from URLs
+const parseGitHubGistUrl = (url: string) => {
+  const gistRegex =
+    /^https?:\/\/gist\.github\.com\/([^\/]+)\/([a-f0-9]+)(?:\/([a-f0-9]+))?(?:\?file=([^&]+))?/i
+  const match = url.match(gistRegex)
+
+  if (match) {
+    return {
+      username: match[1],
+      gistId: match[2],
+      revision: match[3] || null,
+      file: match[4] || null,
+      isGist: true as const,
+    }
+  }
+
+  return {
+    isGist: false as const,
+    gistId: '',
+    username: '',
+    revision: null,
+    file: null,
+  }
 }
 
 // Custom rendering options for rich text content
@@ -238,16 +264,45 @@ const renderOptions = {
         )
       }
     },
-    [INLINES.HYPERLINK]: (node: any, children: ReactNode) => (
-      <a
-        href={node.data.uri}
-        className={styles.link}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {children}
-      </a>
-    ),
+    [INLINES.HYPERLINK]: (node: any, children: ReactNode) => {
+      const url = node.data.uri
+      const gistInfo = parseGitHubGistUrl(url)
+
+      // If this is a GitHub Gist URL and the link text is just the URL (indicating it should be embedded)
+      const linkText = node.content?.[0]?.value || ''
+      const isGistEmbed =
+        gistInfo.isGist &&
+        (linkText === url || linkText.includes('gist.github.com'))
+
+      if (isGistEmbed && gistInfo.gistId) {
+        logToLocalStorage('richtext-gist', {
+          url,
+          gistId: gistInfo.gistId,
+          file: gistInfo.file,
+          username: gistInfo.username,
+        })
+
+        return (
+          <GitHubGist
+            gistId={gistInfo.gistId}
+            file={gistInfo.file || undefined}
+            className={styles.embeddedGist}
+          />
+        )
+      }
+
+      // Regular hyperlink
+      return (
+        <a
+          href={url}
+          className={styles.link}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {children}
+        </a>
+      )
+    },
   },
   renderMark: {
     [MARKS.BOLD]: (text: ReactNode) => (

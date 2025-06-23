@@ -333,6 +333,12 @@
   line-height: 1.4;
 }
 
+/* Embedded GitHub Gists */
+.embeddedGist {
+  margin: var(--space-4xl) 0;
+  /* Additional styles are handled by the GitHubGist component */
+}
+
 /* Mobile responsive */
 @media (max-width: 768px) {
   .heading2 {
