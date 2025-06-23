@@ -322,38 +322,189 @@
 .codeContent :global(.keyword) {
   color: #c678dd !important;
   font-weight: 500;
+  background: none !important;
+  text-shadow: none !important;
 }
 
 .codeContent :global(.string) {
   color: #98c379 !important;
+  background: none !important;
+  text-shadow: none !important;
 }
 
 .codeContent :global(.comment) {
   color: #7c7c7c !important;
   font-style: italic;
+  background: none !important;
+  text-shadow: none !important;
 }
 
 .codeContent :global(.literal) {
   color: #d19a66 !important;
+  background: none !important;
+  text-shadow: none !important;
+}
+
+/* Remove all Prism.js default backgrounds and shadows for dark mode */
+[data-theme='dark'] .codeContent :global(*) {
+  background: none !important;
+  text-shadow: none !important;
+}
+
+[data-theme='dark'] .codeContent :global(.token) {
+  background: none !important;
+  text-shadow: none !important;
+}
+
+[data-theme='dark'] .codeContent :global(.operator) {
+  background: none !important;
+  color: #abb2bf !important;
+  text-shadow: none !important;
+}
+
+[data-theme='dark'] .codeContent :global(.punctuation) {
+  background: none !important;
+  color: #abb2bf !important;
+  text-shadow: none !important;
+}
+
+[data-theme='dark'] .codeContent :global(.number) {
+  background: none !important;
+  color: #d19a66 !important;
+  text-shadow: none !important;
+}
+
+[data-theme='dark'] .codeContent :global(.function) {
+  background: none !important;
+  color: #61dafb !important;
+  text-shadow: none !important;
+}
+
+[data-theme='dark'] .codeContent :global(.class-name) {
+  background: none !important;
+  color: #e5c07b !important;
+  text-shadow: none !important;
+}
+
+[data-theme='dark'] .codeContent :global(.keyword) {
+  color: #c678dd !important;
+  font-weight: 500;
+  background: none !important;
+  text-shadow: none !important;
+}
+
+[data-theme='dark'] .codeContent :global(.string) {
+  color: #98c379 !important;
+  background: none !important;
+  text-shadow: none !important;
+}
+
+[data-theme='dark'] .codeContent :global(.comment) {
+  color: #7c7c7c !important;
+  font-style: italic;
+  background: none !important;
+  text-shadow: none !important;
+}
+
+[data-theme='dark'] .codeContent :global(.literal) {
+  color: #d19a66 !important;
+  background: none !important;
+  text-shadow: none !important;
+}
+
+/* Ensure code block background is properly themed */
+[data-theme='dark'] .codeBlock {
+  background: var(--code-bg) !important;
+}
+
+[data-theme='dark'] .fileContent {
+  background: var(--code-bg) !important;
+}
+
+[data-theme='dark'] .codeContent {
+  background: transparent !important;
+  color: var(--code-text) !important;
 }
 
 /* Custom syntax highlighting for our basic highlighter - Light theme */
+[data-theme='light'] .codeContent :global(*) {
+  background: none !important;
+  text-shadow: none !important;
+}
+
+[data-theme='light'] .codeContent :global(.token) {
+  background: none !important;
+  text-shadow: none !important;
+}
+
+[data-theme='light'] .codeContent :global(.operator) {
+  background: none !important;
+  color: #383a42 !important;
+  text-shadow: none !important;
+}
+
+[data-theme='light'] .codeContent :global(.punctuation) {
+  background: none !important;
+  color: #383a42 !important;
+  text-shadow: none !important;
+}
+
+[data-theme='light'] .codeContent :global(.number) {
+  background: none !important;
+  color: #e36209 !important;
+  text-shadow: none !important;
+}
+
+[data-theme='light'] .codeContent :global(.function) {
+  background: none !important;
+  color: #005cc5 !important;
+  text-shadow: none !important;
+}
+
+[data-theme='light'] .codeContent :global(.class-name) {
+  background: none !important;
+  color: #d73a49 !important;
+  text-shadow: none !important;
+}
+
 [data-theme='light'] .codeContent :global(.keyword) {
   color: #d73a49 !important;
   font-weight: 500;
+  background: none !important;
+  text-shadow: none !important;
 }
 
 [data-theme='light'] .codeContent :global(.string) {
   color: #22863a !important;
+  background: none !important;
+  text-shadow: none !important;
 }
 
 [data-theme='light'] .codeContent :global(.comment) {
   color: #6a737d !important;
   font-style: italic;
+  background: none !important;
+  text-shadow: none !important;
 }
 
 [data-theme='light'] .codeContent :global(.literal) {
   color: #e36209 !important;
+  background: none !important;
+  text-shadow: none !important;
+}
+
+/* Ensure code block background is properly themed for light mode */
+[data-theme='light'] .codeBlock {
+  background: var(--code-bg) !important;
+}
+
+[data-theme='light'] .fileContent {
+  background: var(--code-bg) !important;
+}
+
+[data-theme='light'] .codeContent {
+  background: transparent !important;
+  color: var(--code-text) !important;
 }
 
 /* Minimalist footer */
