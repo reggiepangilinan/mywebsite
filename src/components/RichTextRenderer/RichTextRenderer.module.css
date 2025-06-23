@@ -119,6 +119,36 @@
   list-style-type: circle;
 }
 
+/* Nested ordered list numbering styles */
+.orderedList {
+  list-style-type: decimal; /* 1, 2, 3 */
+}
+
+.listItem .orderedList {
+  list-style-type: lower-alpha; /* a, b, c */
+}
+
+.listItem .listItem .orderedList {
+  list-style-type: lower-roman; /* i, ii, iii */
+}
+
+.listItem .listItem .listItem .orderedList {
+  list-style-type: decimal; /* 1, 2, 3 (back to decimal) */
+}
+
+.listItem .listItem .listItem .listItem .orderedList {
+  list-style-type: lower-alpha; /* a, b, c (back to alpha) */
+}
+
+.listItem .listItem .listItem .listItem .listItem .orderedList {
+  list-style-type: lower-roman; /* i, ii, iii (back to roman) */
+}
+
+/* Deep nesting fallback - cycles through the pattern */
+.listItem .listItem .listItem .listItem .listItem .listItem .orderedList {
+  list-style-type: decimal;
+}
+
 /* Blockquote */
 .blockquote {
   margin: 0 0 var(--space-4xl) 0;
