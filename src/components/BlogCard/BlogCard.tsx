@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { optimizeContentfulImage } from '@/lib/contentful-image-optimizer'
 import { BlogPost } from '@/lib/contentful'
+import { blogConfig } from '@/config/blog'
 import styles from './BlogCard.module.css'
 
 interface BlogCardProps {
@@ -28,6 +29,11 @@ export default function BlogCard({ post }: BlogCardProps) {
       month: 'long',
       day: 'numeric',
     })
+  }
+
+  const truncateText = (text: string, maxLength: number) => {
+    if (text.length <= maxLength) return text
+    return text.slice(0, maxLength).trim() + '...'
   }
 
   const getOptimizedImageUrl = () => {
@@ -77,7 +83,9 @@ export default function BlogCard({ post }: BlogCardProps) {
 
           {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
 
-          <p className={styles.excerpt}>{excerpt}</p>
+          <p className={styles.excerpt}>
+            {truncateText(excerpt, blogConfig.excerptMaxLength)}
+          </p>
 
           {tags && tags.length > 0 && (
             <div className={styles.tags}>

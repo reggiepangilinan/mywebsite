@@ -117,14 +117,12 @@ export default async function BlogPage() {
                           {truncateText(excerpt, blogConfig.excerptMaxLength)}
                         </p>
 
-                        {excerpt.length > blogConfig.excerptMaxLength && (
-                          <Link
-                            href={joinUrl('/blog', slug)}
-                            className={styles.readMore}
-                          >
-                            Read more
-                          </Link>
-                        )}
+                        <Link
+                          href={joinUrl('/blog', slug)}
+                          className={styles.readMore}
+                        >
+                          Read more
+                        </Link>
 
                         {tags && tags.length > 0 && (
                           <div className={styles.postTags}>
