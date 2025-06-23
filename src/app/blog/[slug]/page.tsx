@@ -207,21 +207,21 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             )}
           </header>
 
-          <Suspense
-            fallback={
-              <div className={styles.featuredImageContainer}>
-                <div
-                  className={styles.contentSkeleton}
-                  style={{
-                    width: '100%',
-                    height: '400px',
-                    borderRadius: 'var(--radius-xl)',
-                  }}
-                ></div>
-              </div>
-            }
-          >
-            {hasFeaturedImage ? (
+          {hasFeaturedImage && (
+            <Suspense
+              fallback={
+                <div className={styles.featuredImageContainer}>
+                  <div
+                    className={styles.contentSkeleton}
+                    style={{
+                      width: '100%',
+                      height: `${Math.min(height, 600)}px`, // Use actual image height, capped at 600px
+                      borderRadius: 'var(--radius-xl)',
+                    }}
+                  ></div>
+                </div>
+              }
+            >
               <BlogPostImage
                 src={imageUrl}
                 alt={imageAlt}
@@ -229,15 +229,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 height={height}
                 caption={imageCaption}
               />
-            ) : (
-              <div className={styles.featuredImagePlaceholder}>
-                <div className={styles.placeholderContent}>
-                  <div className={styles.placeholderIcon}>📝</div>
-                  <span className={styles.placeholderText}>Blog Post</span>
-                </div>
-              </div>
-            )}
-          </Suspense>
+            </Suspense>
+          )}
 
           <div
             className={`${styles.content} ${styles.progressiveContent} ${styles.visible}`}
