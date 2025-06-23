@@ -86,8 +86,11 @@
   line-height: 1.6;
 }
 
+/* Base unordered list styles */
 .unorderedList {
-  list-style-type: disc;
+  list-style-type: disc; /* • */
+  padding-left: var(--space-xl);
+  margin: var(--space-md) 0;
 }
 
 .orderedList {
@@ -117,6 +120,50 @@
 
 .listItem .unorderedList {
   list-style-type: circle;
+}
+
+/* Enhanced multi-level unordered list styles */
+/* Level 1: disc (•) - default */
+
+/* Level 2: circle (○) */
+.listItem > .unorderedList {
+  list-style-type: circle !important;
+}
+
+/* Level 3: square (■) */
+.listItem > .listItem > .unorderedList,
+.listItem .listItem > .unorderedList {
+  list-style-type: square !important;
+}
+
+/* Level 4: back to disc (•) */
+.listItem > .listItem > .listItem > .unorderedList,
+.listItem .listItem .listItem > .unorderedList {
+  list-style-type: disc !important;
+}
+
+/* Level 5: back to circle (○) */
+.listItem > .listItem > .listItem > .listItem > .unorderedList,
+.listItem .listItem .listItem .listItem > .unorderedList {
+  list-style-type: circle !important;
+}
+
+/* Level 6: back to square (■) */
+.listItem > .listItem > .listItem > .listItem > .listItem > .unorderedList,
+.listItem .listItem .listItem .listItem .listItem > .unorderedList {
+  list-style-type: square !important;
+}
+
+/* Deep nesting fallback - continue the cycle */
+.listItem
+  > .listItem
+  > .listItem
+  > .listItem
+  > .listItem
+  > .listItem
+  > .unorderedList,
+.listItem .listItem .listItem .listItem .listItem .listItem > .unorderedList {
+  list-style-type: disc !important;
 }
 
 /* Base ordered list styles */
