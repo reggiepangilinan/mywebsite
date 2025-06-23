@@ -3,12 +3,10 @@ import { SITE_CONFIG } from '@/config/site'
 
 export const metadata: Metadata = {
   title: `Blog - ${SITE_CONFIG.name}`,
-  description:
-    'Technical insights, tutorials, and thoughts on software engineering, leadership, and technology.',
+  description: SITE_CONFIG.blog.description,
   openGraph: {
     title: `Blog - ${SITE_CONFIG.name}`,
-    description:
-      'Technical insights, tutorials, and thoughts on software engineering, leadership, and technology.',
+    description: SITE_CONFIG.blog.description,
     images: [
       {
         url: `${SITE_CONFIG.url}${SITE_CONFIG.images.ogDefault}`,
@@ -21,8 +19,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: `Blog - ${SITE_CONFIG.name}`,
-    description:
-      'Technical insights, tutorials, and thoughts on software engineering, leadership, and technology.',
+    description: SITE_CONFIG.blog.description,
     images: [`${SITE_CONFIG.url}${SITE_CONFIG.images.ogDefault}`],
   },
 }

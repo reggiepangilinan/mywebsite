@@ -4,6 +4,7 @@ import Link from 'next/link'
 import BlogListImage from '@/components/BlogListImage'
 import { blogConfig } from '@/config/blog'
 import { joinUrl } from '@/lib/url-utils'
+import { SITE_CONFIG } from '@/config/site'
 import styles from '../../blog.module.css'
 import PaginationControls from '@/components/PaginationControls'
 import { notFound } from 'next/navigation'
@@ -222,8 +223,8 @@ export async function generateMetadata({
   const pageNumber = parseInt(resolvedParams.page)
 
   return {
-    title: `Blog Posts - Page ${pageNumber} | Reggie Pangilinan`,
-    description: `Browse technical insights, tutorials, and thoughts on software engineering, leadership, and technology. Page ${pageNumber} of blog posts.`,
+    title: `Blog Posts - Page ${pageNumber} | ${SITE_CONFIG.name}`,
+    description: `Browse ${SITE_CONFIG.blog.description.toLowerCase()} Page ${pageNumber} of blog posts.`,
     robots: pageNumber > 3 ? 'noindex, follow' : 'index, follow', // Don't index deep pages
   }
 }

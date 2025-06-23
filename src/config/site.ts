@@ -117,6 +117,9 @@ export const SITE_CONFIG = {
    * Individual blog posts will inherit these settings unless overridden.
    */
   blog: {
+    /** Blog description for meta tags and SEO */
+    description:
+      'Technical insights, tutorials, and thoughts on software engineering, leadership, and technology.',
     /** Default change frequency for blog posts */
     changefreq: 'weekly' as const,
     /** Default priority for blog posts */
