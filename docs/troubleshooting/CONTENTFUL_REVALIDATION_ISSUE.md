@@ -98,8 +98,8 @@ function validateSlug(slug: unknown): string | null {
 
 ### **ISR Settings**
 
-- **Blog Posts**: `revalidate = 3600` (1 hour) ✅
-- **ISR Config**: `BLOG_POST_REVALIDATE: 3600` ✅
+- **Blog Posts**: `revalidate = 86400` (24 hours) ✅
+- **ISR Config**: `BLOG_POST_REVALIDATE: 86400` ✅
 - **Dynamic Params**: `dynamicParams = true` ✅
 - **Dynamic Mode**: `dynamic = 'force-static'` ✅
 
@@ -156,7 +156,7 @@ Expected format:
    - Watch for any error messages in the logs
 
 5. **✅ Verify ISR Configuration**
-   - Ensure blog post pages have `export const revalidate = 3600`
+   - Ensure blog post pages have `export const revalidate = 86400`
    - Check that `generateStaticParams()` is working correctly
    - Confirm `dynamicParams = true` for new posts
 

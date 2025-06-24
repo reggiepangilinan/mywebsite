@@ -372,7 +372,7 @@ Currently implemented for future extensibility:
 // In blog post fetching
 fetch(url, {
   next: {
-    revalidate: 3600,
+    revalidate: 86400,
     tags: ['blog-posts', `blog-post-${slug}`],
   },
 })

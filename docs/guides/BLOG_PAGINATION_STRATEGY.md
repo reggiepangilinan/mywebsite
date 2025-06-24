@@ -106,7 +106,7 @@ export function PaginationControls({ currentPage, totalPages, basePath }) {
 export const dynamic = 'force-dynamic'
 
 // Page 2+: ISR with smart revalidation
-export const revalidate = 3600 // 1 hour
+export const revalidate = 86400 // 24 hours
 
 // Alternative: 6 hours for very old content
 // Page 5+: revalidate = 21600 (6 hours)

@@ -15,7 +15,7 @@ The `logAppEvent` function provides comprehensive operational logging for:
 ### ISR Configuration
 
 - **Blog List** (`/blog`): Dynamic rendering (shows new posts immediately)
-- **Blog Posts** (`/blog/[slug]`): ISR enabled with 3600 seconds (1 hour) revalidation
+- **Blog Posts** (`/blog/[slug]`): ISR enabled with 86400 seconds (24 hours) revalidation - On-demand generation
 - **Development Dashboard** (`/dev-info`): ISR enabled with 60 seconds (1 minute) revalidation
 - **API Status** (`/api/status`): Real-time status endpoint (no caching)
 
@@ -36,7 +36,7 @@ ISR revalidation timing is managed in `src/config/isr.ts`:
 ```
 Route (app)                                 Size  First Load JS  Revalidate  Expire
 ├ ƒ /blog                                1.06 kB         111 kB         (dynamic)
-├ ● /blog/[slug]                         1.23 kB         108 kB          5m      1y
+├ ƒ /blog/[slug]                         1.23 kB         108 kB          (on-demand ISR - 24h)
 ├ ○ /dev-info                             147 B         101 kB          1m      1y
 ├ ƒ /api/status                            147 B         101 kB
 ```

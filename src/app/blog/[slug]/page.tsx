@@ -3,11 +3,7 @@ import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
 import { Suspense } from 'react'
 import { SITE_CONFIG } from '@/config/site'
-import {
-  getBlogPost,
-  getBlogPostForISR,
-  getAllBlogSlugs,
-} from '@/lib/contentful'
+import { getBlogPost, getBlogPostForISR } from '@/lib/contentful'
 import { resolveRichTextAssets } from '@/lib/rich-text-asset-resolver'
 import { generatePageMetadata } from '@/lib/seo'
 import AnimatedSection from '@/components/AnimatedSection'
@@ -19,14 +15,11 @@ import BlogPostImage from './BlogPostImage'
 import styles from './blog-post.module.css'
 
 // Enable ISR with configurable revalidation
-// NOTE: This value must match ISR_CONFIG.BLOG_POST_REVALIDATE (currently 3600)
-export const revalidate = 3600 // 1 hour - update ISR_CONFIG.BLOG_POST_REVALIDATE when changing
+// NOTE: This value must match ISR_CONFIG.BLOG_POST_REVALIDATE (currently 86400)
+export const revalidate = 86400 // 24 hours - update ISR_CONFIG.BLOG_POST_REVALIDATE when changing
 
 // Allow new blog posts to be generated dynamically
 export const dynamicParams = true
-
-// Ensure this page uses ISR, not static generation
-export const dynamic = 'force-static'
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -34,24 +27,8 @@ interface BlogPostPageProps {
   }>
 }
 
-export async function generateStaticParams() {
-  try {
-    const slugs = await getAllBlogSlugs()
-
-    // If no slugs, return empty array to allow dynamic generation
-    if (slugs.length === 0) {
-      return []
-    }
-
-    return slugs.map((slug) => ({
-      slug,
-    }))
-  } catch (error) {
-    console.error('Error generating static params:', error)
-    // Return empty array to allow dynamic generation
-    return []
-  }
-}
+// Remove generateStaticParams to enable full on-demand rendering
+// Blog posts will be rendered only when requested, not at build time
 
 export async function generateMetadata({
   params,

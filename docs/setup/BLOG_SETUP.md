@@ -8,7 +8,7 @@ This document outlines the blog implementation using Contentful CMS with dynamic
 
 - **Contentful Integration**: CMS for blog post management
 - **Dynamic Blog List**: Shows new posts immediately (no ISR delay)
-- **ISR for Posts**: Individual posts revalidate every 1 hour (3600s) for cost optimization
+- **ISR for Posts**: Individual posts revalidate every 24 hours (86400s) + on-demand generation for cost optimization
 - **TypeScript Support**: Full type safety for blog posts
 - **Responsive Design**: Mobile-first approach with CSS Modules
 - **SEO Optimized**: Meta tags, Open Graph, Twitter Cards
@@ -106,7 +106,7 @@ CONTENTFUL_ACCESS_TOKEN=your_delivery_api_token_here
 ### **Revalidation Settings:**
 
 - **Blog List**: Dynamic (no ISR - shows new posts immediately)
-- **Blog Posts**: Revalidates every 1 hour (3600 seconds) for cost optimization
+- **Blog Posts**: Revalidates every 24 hours (86400 seconds) + on-demand generation for cost optimization
 - **Static Generation**: Pre-generates all blog post pages at build time
 - **Centralized Config**: Timing managed in `src/config/isr.ts`
 
