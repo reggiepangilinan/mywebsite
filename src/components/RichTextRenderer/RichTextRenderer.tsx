@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import { Document, BLOCKS, MARKS, INLINES } from '@contentful/rich-text-types'
-import { ReactNode } from 'react'
+import React, { ReactNode } from 'react'
 import DebugImage from '@/components/DebugImage'
 import GitHubGist from '@/components/GitHubGist'
 import styles from './RichTextRenderer.module.css'
@@ -375,6 +375,27 @@ const renderOptions = {
     [MARKS.CODE]: (text: ReactNode) => (
       <code className={styles.inlineCode}>{text}</code>
     ),
+  },
+  renderText: (text: string) => {
+    // Preserve line breaks by converting them to <br> tags
+    // Split on both \n and \r\n to handle different line endings
+    const lines = text.split(/\r?\n/)
+
+    if (lines.length === 1) {
+      // No line breaks, return as-is
+      return text
+    }
+
+    // Convert line breaks to <br> elements, preserving empty lines
+    return lines.reduce(
+      (acc, line, index) => {
+        if (index === 0) {
+          return [line]
+        }
+        return [...acc, <br key={`br-${index}`} />, line]
+      },
+      [] as (string | React.ReactElement)[]
+    )
   },
 }
 

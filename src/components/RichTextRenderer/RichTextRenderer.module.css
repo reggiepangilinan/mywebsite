@@ -346,6 +346,32 @@
   /* Additional styles are handled by the GitHubGist component */
 }
 
+/* Enhanced text formatting for preserved line breaks */
+.richTextContent br {
+  line-height: 1.6;
+}
+
+/* Ensure proper spacing for paragraphs with line breaks */
+.paragraph br + br {
+  /* Add some spacing between consecutive line breaks (empty lines) */
+  margin-bottom: 0.5em;
+  display: block;
+  content: '';
+}
+
+/* Preserve whitespace for pre-formatted text if needed */
+.preserveWhitespace {
+  white-space: pre-wrap;
+  font-family:
+    'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New',
+    monospace;
+  background: var(--code-bg);
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--code-border);
+  color: var(--code-text);
+}
+
 /* Mobile responsive */
 @media (max-width: 768px) {
   .heading2 {
